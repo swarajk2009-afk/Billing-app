@@ -23,13 +23,14 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Prepare www folder
+      - name: Verify www/index.html
         run: |
           mkdir -p www
           if [ -f "index.html" ] && [ ! -f "www/index.html" ]; then
             cp index.html www/index.html
           fi
-          ls -la www/
+          head -n 10 www/index.html
+          wc -c www/index.html
 
       - name: Initialize Capacitor & Add Android
         run: |
@@ -38,9 +39,37 @@ jobs:
           npx cap init "Tailor Billing App" "com.tailorbilling.app" --web-dir www
           npx cap add android
 
-      - name: Configure Storage Permissions & TailorBilling Folder
+      - name: Configure Capacitor, Permissions & TailorBilling Folder
         run: |
-          sed -i 's/<application/<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" \/>\n    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" \/>\n    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" \/>\n    <application/' android/app/src/main/AndroidManifest.xml
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.tailorbilling.app",
+            "appName": "Tailor Billing App",
+            "webDir": "www",
+            "bundledWebRuntime": false,
+            "server": {
+              "androidScheme": "https",
+              "cleartext": true,
+              "allowNavigation": ["*"]
+            },
+            "android": {
+              "allowMixedContent": true,
+              "webContentsDebuggingEnabled": true
+            }
+          }
+          EOF
+
+          sed -i 's/<application/<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" \/>\n    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" \/>\n    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" \/>\n    <application android:usesCleartextTraffic="true"/' android/app/src/main/AndroidManifest.xml
+
+          mkdir -p android/app/src/main/res/xml
+          cat << 'EOF' > android/app/src/main/res/xml/file_paths.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <paths xmlns:android="http://schemas.android.com/apk/res/android">
+              <external-path name="my_images" path="." />
+              <cache-path name="my_cache_images" path="." />
+              <files-path name="my_files" path="." />
+          </paths>
+          EOF
 
           mkdir -p android/app/src/main/java/com/tailorbilling/app
           cat << 'EOF' > android/app/src/main/java/com/tailorbilling/app/MainActivity.java
@@ -55,15 +84,17 @@ jobs:
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
-                  File picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                  File appFolder = new File(picturesDir, "TailorBilling");
+                  File docsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                  File appFolder = new File(docsDir, "TailorBilling");
                   if (!appFolder.exists()) {
                       appFolder.mkdirs();
                   }
               }
           }
           EOF
+
           npx cap sync android
+          head -n 10 android/app/src/main/assets/public/index.html
 
       - name: Build Debug APK
         run: |
