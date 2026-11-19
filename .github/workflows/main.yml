@@ -23,19 +23,36 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Prepare www folder
+      - name: Verify www/index.html exists
         run: |
           mkdir -p www
           if [ -f "index.html" ] && [ ! -f "www/index.html" ]; then
             cp index.html www/index.html
           fi
-          ls -la www/
+          if [ ! -s "www/index.html" ]; then
+            echo "ERROR: www/index.html is missing or empty!"
+            exit 1
+          fi
+          ls -lh www/index.html
 
-      - name: Initialize Capacitor & Add Android
+      - name: Initialize Capacitor & Configure WebView
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/filesystem @capacitor/share
-          npx cap init "Tailor Billing App" "com.tailorbilling.app" --web-dir www
+          cat << 'EOF' > capacitor.config.json
+          {
+            "appId": "com.tailorbilling.app",
+            "appName": "Tailor Billing App",
+            "webDir": "www",
+            "server": {
+              "androidScheme": "http",
+              "allowNavigation": ["*"]
+            },
+            "android": {
+              "allowMixedContent": true
+            }
+          }
+          EOF
           npx cap add android
 
       - name: Configure Storage Permissions, FileProvider & TailorBilling Folder
@@ -73,7 +90,9 @@ jobs:
               }
           }
           EOF
+          npx cap copy android
           npx cap sync android
+          ls -lh android/app/src/main/assets/public/index.html
 
       - name: Build Debug APK
         run: |
