@@ -38,9 +38,19 @@ jobs:
           npx cap init "Tailor Billing App" "com.tailorbilling.app" --web-dir www
           npx cap add android
 
-      - name: Configure Storage Permissions & TailorBilling Folder
+      - name: Configure Storage Permissions, FileProvider & TailorBilling Folder
         run: |
           sed -i 's/<application/<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" \/>\n    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" \/>\n    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" \/>\n    <application/' android/app/src/main/AndroidManifest.xml
+
+          mkdir -p android/app/src/main/res/xml
+          cat << 'EOF' > android/app/src/main/res/xml/file_paths.xml
+          <?xml version="1.0" encoding="utf-8"?>
+          <paths xmlns:android="http://schemas.android.com/apk/res/android">
+              <external-path name="my_images" path="." />
+              <cache-path name="my_cache_images" path="." />
+              <files-path name="my_files" path="." />
+          </paths>
+          EOF
 
           mkdir -p android/app/src/main/java/com/tailorbilling/app
           cat << 'EOF' > android/app/src/main/java/com/tailorbilling/app/MainActivity.java
@@ -55,8 +65,8 @@ jobs:
               @Override
               protected void onCreate(Bundle savedInstanceState) {
                   super.onCreate(savedInstanceState);
-                  File picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-                  File appFolder = new File(picturesDir, "TailorBilling");
+                  File docsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                  File appFolder = new File(docsDir, "TailorBilling");
                   if (!appFolder.exists()) {
                       appFolder.mkdirs();
                   }
