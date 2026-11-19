@@ -1216,7 +1216,7 @@
       clearTimeout(showToast._timer);
       showToast._timer = setTimeout(function () {
         t.classList.add('hidden');
-      }, 2800);
+      }, 3400);
     }
 
     function compressImageFile(file, callback) {
@@ -1910,12 +1910,44 @@
         state.shop.upiId ? 'UPI ID: ' + state.shop.upiId : '',
         'Thank you!',
       ].filter(Boolean).join('\n');
+
       var digits = String(b.customerPhone || '').replace(/\D/g, '');
       var phone = digits.length === 10 ? '91' + digits : digits;
-      var url = phone
+      var waUrl = phone
         ? 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg)
         : 'https://wa.me/?text=' + encodeURIComponent(msg);
-      window.open(url, '_blank', 'noopener,noreferrer');
+
+      var cap = window.Capacitor;
+      var Share = cap && cap.Plugins ? cap.Plugins.Share : null;
+
+      if (cap && cap.isNativePlatform && cap.isNativePlatform()) {
+        if (phone) {
+          window.location.href = 'whatsapp://send?phone=' + phone + '&text=' + encodeURIComponent(msg);
+          setTimeout(function () {
+            if (document.hasFocus()) {
+              window.location.href = waUrl;
+            }
+          }, 900);
+          return;
+        }
+        if (Share) {
+          Share.share({
+            title: state.shop.name + ' - Order Ready (' + b.billNo + ')',
+            text: msg,
+            dialogTitle: 'Send Order Ready via WhatsApp',
+          }).catch(function () {
+            window.location.href = waUrl;
+          });
+          return;
+        }
+        window.location.href = waUrl;
+        return;
+      }
+
+      var win = window.open(waUrl, '_blank', 'noopener,noreferrer');
+      if (!win) {
+        window.location.href = waUrl;
+      }
     });
     document.getElementById('billNoInput').addEventListener('input', function (e) {
       state.currentBill.billNo = e.target.value;
@@ -2376,12 +2408,33 @@
     document.getElementById('downloadHtmlBillBtn').addEventListener('click', function () {
       var isAdmin = state.activeTab === 'admin';
       var html = isAdmin ? buildAdminSummaryHtmlDocument() : buildPrintableHtmlDocument();
+      var fileName = isAdmin
+        ? 'bills_summary_' + todayISO() + '.html'
+        : (state.currentBill.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_') + '.html';
+
+      var cap = window.Capacitor;
+      var Filesystem = cap && cap.Plugins ? cap.Plugins.Filesystem : null;
+      if (cap && cap.isNativePlatform && cap.isNativePlatform() && Filesystem) {
+        Filesystem.writeFile({
+          path: 'TailorBilling/' + fileName,
+          data: html,
+          directory: 'DOCUMENTS',
+          encoding: 'utf8',
+          recursive: true,
+        })
+          .then(function () {
+            showToast('Saved to Documents/TailorBilling/' + fileName);
+          })
+          .catch(function (err) {
+            showToast('Save failed: ' + (err && err.message ? err.message : 'Storage error'));
+          });
+        return;
+      }
+
       var blob = new Blob([html], { type: 'text/html' });
       var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
-      a.download = isAdmin
-        ? 'bills_summary_' + todayISO() + '.html'
-        : (state.currentBill.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_') + '.html';
+      a.download = fileName;
       a.click();
       URL.revokeObjectURL(a.href);
       showToast(isAdmin ? 'Printable summary HTML downloaded' : 'Printable HTML bill downloaded');
@@ -2744,6 +2797,7 @@
           link.click();
           document.body.removeChild(link);
           setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+          showToast('Downloaded ' + filename);
         }, 'image/png');
       } else {
         var link = document.createElement('a');
@@ -2752,6 +2806,7 @@
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
+        showToast('Downloaded ' + filename);
       }
     }
 
@@ -3101,11 +3156,33 @@
       showToast('Payment QR removed');
     });
     document.getElementById('exportBackupBtn').addEventListener('click', function () {
-      var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      var jsonStr = JSON.stringify(state, null, 2);
+      var fileName = 'tailor_billing_backup_' + todayISO() + '.json';
+
+      var cap = window.Capacitor;
+      var Filesystem = cap && cap.Plugins ? cap.Plugins.Filesystem : null;
+      if (cap && cap.isNativePlatform && cap.isNativePlatform() && Filesystem) {
+        Filesystem.writeFile({
+          path: 'TailorBilling/' + fileName,
+          data: jsonStr,
+          directory: 'DOCUMENTS',
+          encoding: 'utf8',
+          recursive: true,
+        })
+          .then(function () {
+            showToast('Backup saved to Documents/TailorBilling/' + fileName);
+          })
+          .catch(function (err) {
+            showToast('Backup failed: ' + (err && err.message ? err.message : 'Storage error'));
+          });
+        return;
+      }
+
+      var blob = new Blob([jsonStr], { type: 'application/json' });
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url;
-      a.download = 'tailor_billing_backup_' + todayISO() + '.json';
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -3237,16 +3314,37 @@
       ].join(',');
 
       var csvContent = '\uFEFF' + [headers.map(csvCell).join(',')].concat(dataRows, [totalRow]).join('\r\n');
+      var fileName = 'saved_bills_' + todayISO() + '.csv';
+
+      var cap = window.Capacitor;
+      var Filesystem = cap && cap.Plugins ? cap.Plugins.Filesystem : null;
+      if (cap && cap.isNativePlatform && cap.isNativePlatform() && Filesystem) {
+        Filesystem.writeFile({
+          path: 'TailorBilling/' + fileName,
+          data: csvContent,
+          directory: 'DOCUMENTS',
+          encoding: 'utf8',
+          recursive: true,
+        })
+          .then(function () {
+            showToast('Saved ' + bills.length + ' bill(s) to Documents/TailorBilling/' + fileName);
+          })
+          .catch(function (err) {
+            showToast('Excel export failed: ' + (err && err.message ? err.message : 'Storage error'));
+          });
+        return;
+      }
+
       var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
       var url = URL.createObjectURL(blob);
       var a = document.createElement('a');
       a.href = url;
-      a.download = 'saved_bills_' + todayISO() + '.csv';
+      a.download = fileName;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
-      showToast('Exported ' + bills.length + ' bill(s) to Excel CSV');
+      showToast('Exported ' + bills.length + ' bill(s) to Downloads/' + fileName);
     });
 
     // Admin: Saved Bills actions
@@ -3292,4 +3390,5 @@
     }
   </script>
 </body>
+</html>
 </html>
