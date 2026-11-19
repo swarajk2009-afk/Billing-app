@@ -1899,6 +1899,30 @@
       document.getElementById('savedBillSearchInput').value = q;
       switchTab('admin');
     });
+    function copyTextToClipboard(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text).catch(function () {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          try { document.execCommand('copy'); } catch (e) {}
+          document.body.removeChild(ta);
+        });
+      }
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(ta);
+      return Promise.resolve();
+    }
+
     document.getElementById('sendReadyWaBtn').addEventListener('click', function () {
       var b = state.currentBill;
       var isPaid = b.paymentStatus === 'paid';
@@ -1913,40 +1937,52 @@
 
       var digits = String(b.customerPhone || '').replace(/\D/g, '');
       var phone = digits.length === 10 ? '91' + digits : digits;
-      var waUrl = phone
+      var waWebUrl = phone
         ? 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg)
         : 'https://wa.me/?text=' + encodeURIComponent(msg);
 
       var cap = window.Capacitor;
-      var Share = cap && cap.Plugins ? cap.Plugins.Share : null;
+      var Plugins = cap && cap.Plugins ? cap.Plugins : {};
+      var Share = Plugins.Share;
+
+      copyTextToClipboard(msg);
 
       if (cap && cap.isNativePlatform && cap.isNativePlatform()) {
-        if (phone) {
-          window.location.href = 'whatsapp://send?phone=' + phone + '&text=' + encodeURIComponent(msg);
-          setTimeout(function () {
-            if (document.hasFocus()) {
-              window.location.href = waUrl;
-            }
-          }, 900);
-          return;
-        }
         if (Share) {
           Share.share({
             title: state.shop.name + ' - Order Ready (' + b.billNo + ')',
             text: msg,
-            dialogTitle: 'Send Order Ready via WhatsApp',
-          }).catch(function () {
-            window.location.href = waUrl;
-          });
+            dialogTitle: phone ? 'Send Order Ready to ' + phone : 'Send Order Ready via WhatsApp',
+          })
+            .then(function () {
+              showToast('Order Ready message shared!');
+            })
+            .catch(function (err) {
+              if (err && String(err.message || '').toLowerCase().indexOf('cancel') !== -1) return;
+              var a = document.createElement('a');
+              a.href = waWebUrl;
+              a.target = '_blank';
+              a.rel = 'noopener noreferrer';
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            });
           return;
         }
-        window.location.href = waUrl;
+
+        var a = document.createElement('a');
+        a.href = waWebUrl;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
         return;
       }
 
-      var win = window.open(waUrl, '_blank', 'noopener,noreferrer');
+      var win = window.open(waWebUrl, '_blank', 'noopener,noreferrer');
       if (!win) {
-        window.location.href = waUrl;
+        window.location.href = waWebUrl;
       }
     });
     document.getElementById('billNoInput').addEventListener('input', function (e) {
@@ -3390,5 +3426,4 @@
     }
   </script>
 </body>
-</html>
 </html>
