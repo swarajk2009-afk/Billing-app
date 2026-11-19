@@ -29,8 +29,8 @@ jobs:
           if [ -f "index.html" ] && [ ! -f "www/index.html" ]; then
             cp index.html www/index.html
           fi
-          if [ -f "logo.png" ] && [ ! -f "logo.png" ]; then
-            cp logo.png logo.png
+          if [ -f "logo.png" ] && [ ! -f "www/logo.png" ]; then
+            cp logo.png www/logo.png
           fi
           ls -la www/ 
 
