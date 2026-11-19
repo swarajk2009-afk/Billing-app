@@ -23,24 +23,30 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Verify www/index.html
+      - name: Verify www/index.html & Prepare Icon Asset
         run: |
-          mkdir -p www
+          mkdir -p www assets
           if [ -f "index.html" ] && [ ! -f "www/index.html" ]; then
             cp index.html www/index.html
           fi
-          head -n 10 www/index.html
-          wc -c www/index.html
+          if [ -f "logo.png" ] && [ ! -f "logo.png" ]; then
+            cp logo.png logo.png
+          fi
+          ls -la www/ 
 
       - name: Initialize Capacitor & Add Android
         run: |
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/filesystem @capacitor/share
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/filesystem @capacitor/share @capacitor/assets
           npx cap init "Tailor Billing App" "com.tailorbilling.app" --web-dir www
           npx cap add android
 
-      - name: Configure Capacitor, Permissions & TailorBilling Folder
+      - name: Generate App Icon & Configure Android Settings
         run: |
+          if [ -f "logo.png" ]; then
+            npx capacitor-assets generate --android --iconBackgroundColor '#7c2d12' --iconBackgroundColorDark '#5c1f0a'
+          fi
+
           cat << 'EOF' > capacitor.config.json
           {
             "appId": "com.tailorbilling.app",
@@ -94,7 +100,6 @@ jobs:
           EOF
 
           npx cap sync android
-          head -n 10 android/app/src/main/assets/public/index.html
 
       - name: Build Debug APK
         run: |
