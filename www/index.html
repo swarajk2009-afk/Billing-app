@@ -2,15 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tailor Billing App</title>
-  <style>
-    :root {
-      --bg: #f5f3ef;<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Tailor Billing App</title>
   <style>
     :root {
@@ -29,7 +21,7 @@
       --emerald: #047857;
       --emerald-soft: #ecfdf5;
       --danger: #dc2626;
-      --danger-soft: #fef2f2; 
+      --danger-soft: #fef2f2;
     }
 
     * { box-sizing: border-box; }
@@ -48,7 +40,7 @@
       padding: 12px;
     }
 
-    /* Header with Transparent Embroidery Watermark Design */
+    /* Header */
     .topbar {
       position: relative;
       overflow: hidden;
@@ -92,8 +84,6 @@
     }
     .topbar .btn-glass {
       background: rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.34);
       color: #ffffff;
       border-radius: 11px;
@@ -108,8 +98,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
+      background: #ffffff;
       padding: 6px;
       border-radius: 16px;
       border: 1px solid rgba(15, 23, 42, 0.08);
@@ -139,7 +128,7 @@
 
     .hidden { display: none !important; }
 
-    /* Modern Cards */
+    /* Cards */
     .card {
       background: var(--card);
       border: 1px solid rgba(15, 23, 42, 0.07);
@@ -158,6 +147,18 @@
       padding-bottom: 8px;
       border-bottom: 1px solid #f1f5f9;
     }
+    .collapsible-header {
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+    .collapsible-header.open {
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f1f5f9;
+    }
     .card-title {
       margin: 0;
       font-size: 1.08rem;
@@ -171,7 +172,7 @@
       color: var(--muted);
     }
 
-    /* Form Grid & Modern Inputs */
+    /* Form Grid & Inputs */
     .form-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -210,7 +211,7 @@
       box-shadow: 0 0 0 3.5px var(--brand-tint);
     }
 
-    /* Modern Buttons */
+    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -261,68 +262,45 @@
     }
     .btn-danger-soft:hover { background: #fee2e2; }
     .btn-sm { padding: 7px 11px; font-size: 0.78rem; border-radius: 9px; }
-    .btn-icon-size {
-      padding: 4px 8px !important;
-      font-size: 0.85rem !important;
-      line-height: 1 !important;
-      min-width: 34px;
-      height: 32px;
-      border-radius: 9px;
-      border: 1.5px solid var(--brand);
-      color: #ffffff;
-      background: var(--brand);
-      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14);
+
+    /* Theme-colored Size Chart Icon Button per Row */
+    .size-icon-btn {
       position: relative;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
+      width: 34px;
+      height: 34px;
+      padding: 0;
+      border-radius: 9px;
+      border: 1.5px solid var(--brand);
+      background: var(--brand);
+      color: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.14);
+      transition: transform 0.12s ease, background 0.15s ease;
     }
-    .btn-icon-size:hover {
+    .size-icon-btn:hover {
       background: var(--brand-dark);
-      border-color: var(--brand-dark);
       transform: translateY(-1px);
     }
-    .btn-icon-size svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-    .size-badge-mini {
+    .size-icon-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      min-width: 17px;
+      height: 17px;
+      padding: 0 4px;
+      border-radius: 999px;
       background: #ffffff;
       color: var(--brand);
-      border-radius: 999px;
-      padding: 1px 5px;
+      border: 1.5px solid var(--brand);
       font-size: 0.65rem;
-      font-weight: 800;
-      line-height: 1.1;
-    }
-
-    /* Collapsible Admin Sections */
-    .collapsible-header {
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.15s ease;
-    }
-    .collapsible-header:hover {
-      background: var(--brand-soft);
-      border-radius: 10px;
-    }
-    .collapse-chevron {
+      font-weight: 900;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      color: var(--brand);
-      background: var(--brand-soft);
-      border: 1px solid var(--brand-border);
-      padding: 5px 10px;
-      border-radius: 999px;
+      justify-content: center;
+      line-height: 1;
     }
 
     /* Billing Table */
@@ -335,7 +313,7 @@
     table.bill-table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 800px;
+      min-width: 620px;
     }
     .bill-table th {
       background: var(--brand-soft);
@@ -377,9 +355,6 @@
     }
 
     /* Image Capture Cell */
-    .img-cell {
-      width: 112px;
-    }
     .img-capture-box {
       display: flex;
       align-items: center;
@@ -387,8 +362,8 @@
     }
     .thumb-wrap {
       position: relative;
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 8px;
       overflow: hidden;
       border: 1px solid #cbd5e1;
@@ -517,7 +492,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* Admin Column Manager */
+    /* Admin Column & Option Manager */
     .col-list {
       display: flex;
       flex-direction: column;
@@ -622,7 +597,6 @@
       }
       .btn { min-height: 42px; }
       .btn-sm { min-height: 36px; }
-      .btn-icon-size { min-height: 32px !important; height: 32px !important; min-width: 34px !important; padding: 4px 7px !important; }
 
       /* Transform wide table into clean mobile cards */
       .table-wrap { border: 0; background: transparent; overflow-x: visible; }
@@ -668,10 +642,6 @@
         align-items: flex-end;
         justify-content: center;
       }
-      .bill-table td.img-cell {
-        grid-column: 1 / -1;
-        width: 100%;
-      }
       .bill-table td.col-item {
         grid-column: 1 / -1;
       }
@@ -715,14 +685,14 @@
   </style>
 </head>
 <body>
-  <div id="appShell" class="container">
+  <div class="container">
     <!-- Shop Header -->
     <header class="topbar">
       <div>
         <h1 id="headerShopName">Tailor Billing App</h1>
         <p id="headerShopSub">Custom Embroidery, Maggam, Pico &amp; Falls, Tassels &amp; Tailoring</p>
       </div>
-      <div class="no-print" style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
+      <div class="no-print" style="display:flex; gap:8px; flex-wrap:wrap;">
         <button id="newBillBtn" type="button" class="btn btn-glass">+ New Bill</button>
         <button id="saveBillBtn" type="button" class="btn btn-glass">💾 Save Bill</button>
         <button id="printBillBtn" type="button" class="btn btn-glass">🖨️ Print / PDF</button>
@@ -779,7 +749,7 @@
         <div class="card-header" style="margin-bottom:8px; padding-bottom:6px;">
           <div>
             <h2 class="card-title" style="font-size:0.92rem;">Billing Items</h2>
-            <p class="card-sub" style="font-size:0.75rem;">Capture photo from device camera or gallery, and add as many rows as needed</p>
+            <p class="card-sub" style="font-size:0.75rem;">Capture photo, enter item size chart using the ruler icon, and enter charges</p>
           </div>
         </div>
 
@@ -789,7 +759,7 @@
             <tbody id="billingTableBody"></tbody>
           </table>
         </div>
-        <div class="no-print" style="margin-top:8px; display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
+        <div class="no-print" style="margin-top:8px; display:flex; justify-content:flex-start;">
           <button id="addRowBtn" type="button" class="btn btn-primary btn-sm" style="padding:5px 11px; font-size:0.76rem;">+ Add Row</button>
         </div>
 
@@ -908,17 +878,17 @@
         </div>
       </div>
 
-      <!-- Column Manager -->
+      <!-- Collapsible Column Manager -->
       <div class="card">
-        <div id="toggleBillingColsHeader" class="card-header collapsible-header" style="margin-bottom:0; border-bottom:0; padding:6px 8px;">
+        <div id="toggleColumnsHeader" class="card-header collapsible-header" role="button" tabindex="0">
           <div>
             <h2 class="card-title">Manage Billing Columns</h2>
-            <p class="card-sub">Add new charge columns (e.g., Lining, Maggam Work, Rolling) or rename/remove existing columns</p>
+            <p class="card-sub">Tap to expand and add, rename, or remove charge columns</p>
           </div>
-          <span id="billingColsToggleBadge" class="collapse-chevron">▼ Open</span>
+          <span id="toggleColumnsArrow" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:4px 10px; border-radius:999px;">▼ Open</span>
         </div>
 
-        <div id="billingColsBody" class="hidden" style="margin-top:12px; padding-top:12px; border-top:1px solid #f1f5f9;">
+        <div id="columnsManagerBody" class="hidden">
           <form id="addColumnForm" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
             <input id="newColumnName" type="text" placeholder="New Column Name (e.g., Maggam Work)" style="flex:1 1 220px;" required />
             <button type="submit" class="btn btn-primary">+ Add Column</button>
@@ -928,17 +898,17 @@
         </div>
       </div>
 
-      <!-- Size Chart Dropdown Options Manager -->
+      <!-- Collapsible Size Chart Options Manager -->
       <div class="card">
-        <div id="toggleSizeOptionsHeader" class="card-header collapsible-header" style="margin-bottom:0; border-bottom:0; padding:6px 8px;">
+        <div id="toggleSizeOptionsHeader" class="card-header collapsible-header" role="button" tabindex="0">
           <div>
             <h2 class="card-title">Manage Size Chart Options</h2>
-            <p class="card-sub">Configure dropdown measurement options shown in the Billing Page Size Chart popup (e.g., Blouse Length, Chest, Waist, Sleeve)</p>
+            <p class="card-sub">Tap to expand and configure measurement dropdown options</p>
           </div>
-          <span id="sizeOptionsToggleBadge" class="collapse-chevron">▼ Open</span>
+          <span id="toggleSizeOptionsArrow" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:4px 10px; border-radius:999px;">▼ Open</span>
         </div>
 
-        <div id="sizeOptionsBody" class="hidden" style="margin-top:12px; padding-top:12px; border-top:1px solid #f1f5f9;">
+        <div id="sizeOptionsManagerBody" class="hidden">
           <form id="addSizeOptionForm" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
             <input id="newSizeOptionName" type="text" placeholder="New Measurement Option (e.g., Front Neck Depth)" style="flex:1 1 220px;" required />
             <button type="submit" class="btn btn-primary">+ Add Option</button>
@@ -992,20 +962,15 @@
     </section>
   </div>
 
-  <!-- Size Chart / Measurements Popup Modal -->
+  <!-- Per-Item Size Chart / Measurements Popup Modal -->
   <div id="sizeChartModal" class="modal-backdrop hidden no-print">
     <div class="modal-card" style="max-width:560px; max-height:90vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">
         <div>
           <strong id="sizeChartModalTitle" style="font-size:1.05rem; color:var(--brand);">📏 Item Size Chart</strong>
-          <div id="sizeChartModalSub" style="font-size:0.76rem; color:#64748b;">Select measurement type from dropdown and enter size</div>
+          <div style="font-size:0.76rem; color:#64748b;">Select measurement type from dropdown and enter size for this item</div>
         </div>
         <button id="closeSizeChartModalBtn" type="button" class="btn btn-outline btn-sm">Close</button>
-      </div>
-
-      <div style="margin-bottom:10px;">
-        <label class="field-label" for="sizeChartItemLabelInput">Garment / Item Label (Optional)</label>
-        <input id="sizeChartItemLabelInput" type="text" placeholder="e.g., Bridal Maggam Blouse / Lehenga" />
       </div>
 
       <div id="sizeChartRowsList" style="margin-bottom:10px;"></div>
@@ -1015,7 +980,7 @@
       </div>
 
       <div style="margin-bottom:14px;">
-        <label class="field-label" for="sizeChartNotesInput">Stitching / Fitting Notes (Optional)</label>
+        <label class="field-label" for="sizeChartNotesInput">Stitching / Fitting Notes for this Item (Optional)</label>
         <textarea id="sizeChartNotesInput" rows="2" placeholder="e.g., Princess cut, back open, 10 inch back neck depth, padded..."></textarea>
       </div>
 
@@ -1025,7 +990,7 @@
     </div>
   </div>
 
-  <!-- Print / Download Bill Modal (works even when iframe blocks window.print) -->
+  <!-- Print / Download Bill Modal -->
   <div id="printModal" class="modal-backdrop hidden no-print">
     <div class="modal-card" style="max-width:860px; max-height:90vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
@@ -1038,7 +1003,6 @@
         <button id="downloadPngBillBtn" type="button" class="btn btn-primary">🖼️ Download Bill Image (PNG)</button>
         <button id="downloadHtmlBillBtn" type="button" class="btn btn-outline">📄 Download Printable HTML</button>
       </div>
-      <p style="font-size:0.75rem; color:#64748b; margin:10px 0 0;">Note: Preview windows sometimes block browser printing—use <strong>🖼️ Download Bill Image (PNG)</strong> or <strong>📄 Download Printable HTML</strong> anytime.</p>
     </div>
   </div>
 
@@ -1053,7 +1017,7 @@
     </div>
   </div>
 
-  <!-- WhatsApp Fallback Modal -->
+  <!-- WhatsApp Share Modal -->
   <div id="waModal" class="modal-backdrop hidden no-print">
     <div class="modal-card" style="max-width:540px; max-height:90vh; overflow-y:auto;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
@@ -1061,7 +1025,7 @@
         <button id="closeWaModalBtn" type="button" class="btn btn-outline btn-sm">Close</button>
       </div>
       <img id="waBillPngPreview" src="" alt="Bill PNG Preview" style="width:100%; border:1px solid #cbd5e1; border-radius:10px; margin-bottom:6px; background:#fff;" />
-      <p style="margin:0 0 10px; font-size:0.74rem; color:#64748b;">Tip: On Android, tap <strong>Download PNG</strong> below (or long-press the image above → <em>Download / Share image</em>), then attach in WhatsApp.</p>
+      <p style="margin:0 0 10px; font-size:0.74rem; color:#64748b;">Bill image is saved to your <strong>TailorBilling</strong> folder. Tap <strong>Share PNG to WhatsApp</strong> below to attach it directly.</p>
       <textarea id="waModalText" readonly rows="5" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:10px; font-size:0.82rem; margin-bottom:10px;"></textarea>
       <div style="display:flex; gap:8px; flex-wrap:wrap;">
         <button id="waShareNativeBtn" type="button" class="btn btn-emerald" style="flex:1 1 180px;">📤 Share PNG to WhatsApp</button>
@@ -1071,16 +1035,15 @@
         <a id="waModalLink" href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">💬 Open WhatsApp Chat</a>
         <button id="copyWaModalBtn" type="button" class="btn btn-dark">📋 Copy Text</button>
       </div>
-      <p style="font-size:0.75rem; color:#64748b; margin:8px 0 0;">On mobile, tap <strong>💬 Send Bill on WhatsApp</strong> to share the PNG directly via your phone's share sheet, or download the PNG above and attach it in WhatsApp.</p>
     </div>
   </div>
 
   <div id="toast" class="toast hidden"></div>
 
   <script>
-    const STORAGE_KEY = 'embroidery_stitching_billing_v1';
+    var STORAGE_KEY = 'embroidery_stitching_billing_v1';
 
-    const DEFAULT_COLUMNS = [
+    var DEFAULT_COLUMNS = [
       { id: 'cloth', name: 'Cloth Amount' },
       { id: 'pico', name: 'Pico & Falls' },
       { id: 'design', name: 'Design' },
@@ -1088,7 +1051,7 @@
       { id: 'stitching', name: 'Stitching' },
     ];
 
-    const DEFAULT_SIZE_OPTIONS = [
+    var DEFAULT_SIZE_OPTIONS = [
       { id: 'sz_length', name: 'Blouse Length' },
       { id: 'sz_chest', name: 'Chest / Bust' },
       { id: 'sz_waist', name: 'Waist' },
@@ -1101,8 +1064,10 @@
       { id: 'sz_apex', name: 'Apex / Dot Point' },
     ];
 
+    var activeSizeChartRowId = null;
+
     function todayISO() {
-      const d = new Date();
+      var d = new Date();
       return d.toISOString().slice(0, 10);
     }
 
@@ -1116,7 +1081,6 @@
 
     function createDefaultSizeChart() {
       return {
-        itemLabel: '',
         notes: '',
         rows: [
           createEmptySizeRow('sz_length'),
@@ -1132,9 +1096,30 @@
         id: 'r_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
         image: '',
         itemName: '',
+        qty: 1,
         amounts: {},
         sizeChart: createDefaultSizeChart(),
       };
+    }
+
+    function ensureRowSizeChart(row, sizeOptions) {
+      if (!row || typeof row !== 'object') return;
+      if (!row.sizeChart || typeof row.sizeChart !== 'object') {
+        row.sizeChart = createDefaultSizeChart();
+      }
+      if (!Array.isArray(row.sizeChart.rows)) {
+        row.sizeChart.rows = [createEmptySizeRow(sizeOptions && sizeOptions[0] ? sizeOptions[0].id : '')];
+      }
+      if (!row.amounts || typeof row.amounts !== 'object') {
+        row.amounts = {};
+      }
+    }
+
+    function getRowSizeCount(row) {
+      if (!row || !row.sizeChart || !Array.isArray(row.sizeChart.rows)) return 0;
+      return row.sizeChart.rows.filter(function (r) {
+        return r.optionId && String(r.value || '').trim() !== '';
+      }).length;
     }
 
     function createDefaultState() {
@@ -1148,12 +1133,6 @@
           upiId: '',
           qrImage: '',
         },
-        presets: [
-          { id: 'pr_1', name: 'Pico & Falls', colId: 'pico_falls', amount: 60 },
-          { id: 'pr_2', name: 'Plain Blouse Stitching', colId: 'stitching', amount: 400 },
-          { id: 'pr_3', name: 'Lining Blouse Stitching', colId: 'stitching', amount: 550 },
-          { id: 'pr_4', name: 'Tassels / Kuchu', colId: 'tassels', amount: 250 },
-        ],
         columns: JSON.parse(JSON.stringify(DEFAULT_COLUMNS)),
         sizeOptions: JSON.parse(JSON.stringify(DEFAULT_SIZE_OPTIONS)),
         nextBillSeq: 101,
@@ -1174,47 +1153,39 @@
       };
     }
 
-    function ensureRowSizeChart(row, sizeOptions) {
-      if (!row.sizeChart || typeof row.sizeChart !== 'object') {
-        row.sizeChart = createDefaultSizeChart();
-      }
-      if (!Array.isArray(row.sizeChart.rows)) {
-        row.sizeChart.rows = [createEmptySizeRow(sizeOptions[0] ? sizeOptions[0].id : '')];
-      }
-    }
-
-    function ensureBillRowSizeCharts(bill, sizeOptions) {
-      if (!bill || !Array.isArray(bill.rows)) return;
-      bill.rows.forEach((r) => ensureRowSizeChart(r, sizeOptions));
-    }
-
     function loadState() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        var raw = localStorage.getItem(STORAGE_KEY);
         if (!raw) return createDefaultState();
-        const parsed = JSON.parse(raw);
-        if (!parsed.columns || !parsed.columns.length) {
+        var parsed = JSON.parse(raw);
+        if (!parsed || typeof parsed !== 'object') return createDefaultState();
+        if (!Array.isArray(parsed.columns) || !parsed.columns.length) {
           parsed.columns = JSON.parse(JSON.stringify(DEFAULT_COLUMNS));
         }
         if (!Array.isArray(parsed.sizeOptions) || !parsed.sizeOptions.length) {
           parsed.sizeOptions = JSON.parse(JSON.stringify(DEFAULT_SIZE_OPTIONS));
         }
-        if (!parsed.currentBill) parsed.currentBill = createDefaultState().currentBill;
+        if (!parsed.currentBill || typeof parsed.currentBill !== 'object') {
+          parsed.currentBill = createDefaultState().currentBill;
+        }
         if (!Array.isArray(parsed.currentBill.rows) || !parsed.currentBill.rows.length) {
           parsed.currentBill.rows = [createEmptyRow()];
         }
-        ensureBillRowSizeCharts(parsed.currentBill, parsed.sizeOptions);
+        parsed.currentBill.rows.forEach(function (r) {
+          ensureRowSizeChart(r, parsed.sizeOptions);
+        });
         if (!Array.isArray(parsed.savedBills)) parsed.savedBills = [];
-        if (!Array.isArray(parsed.presets)) parsed.presets = createDefaultState().presets;
-        if (!parsed.shop) parsed.shop = createDefaultState().shop;
+        if (!parsed.shop || typeof parsed.shop !== 'object') {
+          parsed.shop = createDefaultState().shop;
+        }
+        if (!parsed.activeTab) parsed.activeTab = 'billing';
         return parsed;
       } catch (e) {
         return createDefaultState();
       }
     }
 
-    let state = loadState();
-    let activeSizeChartRowId = null;
+    var state = loadState();
 
     function saveState() {
       try {
@@ -1225,7 +1196,7 @@
     }
 
     function formatINR(n) {
-      const num = Number(n) || 0;
+      var num = Number(n) || 0;
       return '₹' + num.toLocaleString('en-IN');
     }
 
@@ -1238,22 +1209,24 @@
     }
 
     function showToast(msg) {
-      const t = document.getElementById('toast');
+      var t = document.getElementById('toast');
+      if (!t) return;
       t.textContent = msg;
       t.classList.remove('hidden');
       clearTimeout(showToast._timer);
-      showToast._timer = setTimeout(() => t.classList.add('hidden'), 2600);
+      showToast._timer = setTimeout(function () {
+        t.classList.add('hidden');
+      }, 2800);
     }
 
-    // Compress captured/uploaded image so localStorage stays fast & light
     function compressImageFile(file, callback) {
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        const img = new Image();
-        img.onload = () => {
-          const maxDim = 360;
-          let w = img.width;
-          let h = img.height;
+      var reader = new FileReader();
+      reader.onload = function (ev) {
+        var img = new Image();
+        img.onload = function () {
+          var maxDim = 360;
+          var w = img.width;
+          var h = img.height;
           if (w > maxDim || h > maxDim) {
             if (w >= h) {
               h = Math.round((h * maxDim) / w);
@@ -1263,10 +1236,10 @@
               h = maxDim;
             }
           }
-          const canvas = document.createElement('canvas');
+          var canvas = document.createElement('canvas');
           canvas.width = w;
           canvas.height = h;
-          const ctx = canvas.getContext('2d');
+          var ctx = canvas.getContext('2d');
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, w, h);
           ctx.drawImage(img, 0, 0, w, h);
@@ -1278,30 +1251,35 @@
     }
 
     function getRowTotal(row) {
-      const unitSum = state.columns.reduce((sum, col) => sum + (Number(row.amounts[col.id]) || 0), 0);
-      const qty = Math.max(1, Number(row.qty) || 1);
+      var amounts = row && row.amounts ? row.amounts : {};
+      var unitSum = state.columns.reduce(function (sum, col) {
+        return sum + (Number(amounts[col.id]) || 0);
+      }, 0);
+      var qty = Math.max(1, Number(row && row.qty) || 1);
       return unitSum * qty;
     }
 
     function getSubtotal() {
-      return state.currentBill.rows.reduce((sum, r) => sum + getRowTotal(r), 0);
+      return state.currentBill.rows.reduce(function (sum, r) {
+        return sum + getRowTotal(r);
+      }, 0);
     }
 
     function getGrandTotal() {
-      const sub = getSubtotal();
-      const disc = Math.max(0, Number(state.currentBill.discount) || 0);
+      var sub = getSubtotal();
+      var disc = Math.max(0, Number(state.currentBill.discount) || 0);
       return Math.max(0, sub - disc);
     }
 
     function getBalanceDue(bill) {
-      const target = bill || state.currentBill;
-      const grand = bill ? Number(bill.grandTotal || 0) : getGrandTotal();
-      const adv = Math.max(0, Number(target.advancePaid) || 0);
-      const fin = Math.max(0, Number(target.finalPaid) || 0);
+      var target = bill || state.currentBill;
+      var grand = bill ? Number(bill.grandTotal || 0) : getGrandTotal();
+      var adv = Math.max(0, Number(target.advancePaid) || 0);
+      var fin = Math.max(0, Number(target.finalPaid) || 0);
       return Math.max(0, grand - adv - fin);
     }
 
-    const THEME_PRESETS = [
+    var THEME_PRESETS = [
       { name: 'Maroon', hex: '#7c2d12' },
       { name: 'Royal Indigo', hex: '#3730a3' },
       { name: 'Emerald', hex: '#065f46' },
@@ -1312,30 +1290,30 @@
     ];
 
     function hexToRgb(hex) {
-      const clean = String(hex || '#7c2d12').replace('#', '');
-      const full = clean.length === 3 ? clean.split('').map((c) => c + c).join('') : clean;
-      const num = parseInt(full, 16) || 0;
+      var clean = String(hex || '#7c2d12').replace('#', '');
+      var full = clean.length === 3 ? clean.split('').map(function (c) { return c + c; }).join('') : clean;
+      var num = parseInt(full, 16) || 0;
       return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
     }
 
     function mixWithWhite(rgb, amount) {
-      const r = Math.round(rgb.r + (255 - rgb.r) * amount);
-      const g = Math.round(rgb.g + (255 - rgb.g) * amount);
-      const b = Math.round(rgb.b + (255 - rgb.b) * amount);
-      return `rgb(${r}, ${g}, ${b})`;
+      var r = Math.round(rgb.r + (255 - rgb.r) * amount);
+      var g = Math.round(rgb.g + (255 - rgb.g) * amount);
+      var b = Math.round(rgb.b + (255 - rgb.b) * amount);
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     }
 
     function darkenRgb(rgb, factor) {
-      const r = Math.max(0, Math.round(rgb.r * factor));
-      const g = Math.max(0, Math.round(rgb.g * factor));
-      const b = Math.max(0, Math.round(rgb.b * factor));
-      return `rgb(${r}, ${g}, ${b})`;
+      var r = Math.max(0, Math.round(rgb.r * factor));
+      var g = Math.max(0, Math.round(rgb.g * factor));
+      var b = Math.max(0, Math.round(rgb.b * factor));
+      return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     }
 
     function applyThemeColor(hex) {
-      const color = hex || '#7c2d12';
-      const rgb = hexToRgb(color);
-      const root = document.documentElement.style;
+      var color = hex || '#7c2d12';
+      var rgb = hexToRgb(color);
+      var root = document.documentElement.style;
       root.setProperty('--brand', color);
       root.setProperty('--brand-dark', darkenRgb(rgb, 0.72));
       root.setProperty('--brand-soft', mixWithWhite(rgb, 0.93));
@@ -1357,7 +1335,7 @@
       document.getElementById('headerShopName').textContent = state.shop.name || 'Tailor Billing App';
       document.getElementById('headerShopSub').textContent = [state.shop.tagline, state.shop.phone ? '📞 ' + state.shop.phone : ''].filter(Boolean).join('  •  ');
 
-      const isBilling = state.activeTab === 'billing';
+      var isBilling = state.activeTab !== 'admin';
       document.getElementById('billingView').classList.toggle('hidden', !isBilling);
       document.getElementById('adminView').classList.toggle('hidden', isBilling);
       document.getElementById('tabBillingBtn').classList.toggle('active', isBilling);
@@ -1365,20 +1343,20 @@
     }
 
     function updateCustomerHistoryBanner() {
-      const banner = document.getElementById('customerHistoryBanner');
-      const textEl = document.getElementById('customerHistoryText');
-      const b = state.currentBill;
-      const phone = String(b.customerPhone || '').replace(/\D/g, '');
-      const name = String(b.customerName || '').trim().toLowerCase();
+      var banner = document.getElementById('customerHistoryBanner');
+      var textEl = document.getElementById('customerHistoryText');
+      var b = state.currentBill;
+      var phone = String(b.customerPhone || '').replace(/\D/g, '');
+      var name = String(b.customerName || '').trim().toLowerCase();
       if (!phone && name.length < 2) {
         banner.classList.add('hidden');
         return;
       }
-      const matches = state.savedBills.filter((sb) => {
+      var matches = state.savedBills.filter(function (sb) {
         if (b.id && sb.id === b.id) return false;
-        const sbPhone = String(sb.customerPhone || '').replace(/\D/g, '');
-        const sbName = String(sb.customerName || '').trim().toLowerCase();
-        if (phone.length >= 6 && sbPhone && sbPhone.includes(phone)) return true;
+        var sbPhone = String(sb.customerPhone || '').replace(/\D/g, '');
+        var sbName = String(sb.customerName || '').trim().toLowerCase();
+        if (phone.length >= 6 && sbPhone && sbPhone.indexOf(phone) !== -1) return true;
         if (name.length >= 2 && sbName && sbName === name) return true;
         return false;
       });
@@ -1386,61 +1364,45 @@
         banner.classList.add('hidden');
         return;
       }
-      const unpaidBal = matches.reduce((sum, sb) => sum + (sb.paymentStatus === 'paid' ? 0 : getBalanceDue(sb)), 0);
-      textEl.textContent = `Returning Customer: ${matches.length} past bill(s)${unpaidBal > 0 ? ' • Previous Unpaid Balance: ' + formatINR(unpaidBal) : ' • All past bills paid'}`;
+      var unpaidBal = matches.reduce(function (sum, sb) {
+        return sum + (sb.paymentStatus === 'paid' ? 0 : getBalanceDue(sb));
+      }, 0);
+      textEl.textContent = 'Returning Customer: ' + matches.length + ' past bill(s)' + (unpaidBal > 0 ? ' • Previous Unpaid Balance: ' + formatINR(unpaidBal) : ' • All past bills paid');
       banner.classList.remove('hidden');
     }
 
-    function getRowSizeCount(row) {
-      ensureRowSizeChart(row, state.sizeOptions);
-      return row.sizeChart.rows.filter(
-        (r) => r.optionId && String(r.value || '').trim() !== ''
-      ).length;
-    }
-
-    function updateRowSizeBadge(rowId) {
-      const row = state.currentBill.rows.find((r) => r.id === rowId);
-      if (!row) return;
-      const badge = document.querySelector(`[data-row-size-badge="${rowId}"]`);
-      if (!badge) return;
-      const count = getRowSizeCount(row);
-      badge.textContent = String(count);
-      badge.classList.toggle('hidden', count === 0);
-    }
-
     function renderBillMeta() {
-      const b = state.currentBill;
-      ensureBillRowSizeCharts(b, state.sizeOptions);
+      var b = state.currentBill;
       document.getElementById('custNameInput').value = b.customerName || '';
       document.getElementById('custPhoneInput').value = b.customerPhone || '';
       document.getElementById('billNoInput').value = b.billNo || '';
       document.getElementById('billDateInput').value = b.date || todayISO();
       document.getElementById('billDeliveryDateInput').value = b.deliveryDate || '';
       updateCustomerHistoryBanner();
-      document.getElementById('billNoBadge').textContent = `Bill #${b.billNo || 'INV'}`;
+      document.getElementById('billNoBadge').textContent = 'Bill #' + (b.billNo || 'INV');
       document.getElementById('discountInput').value = b.discount ? b.discount : '';
       document.getElementById('advancePaidInput').value = b.advancePaid ? b.advancePaid : '';
       document.getElementById('finalPaidInput').value = b.finalPaid ? b.finalPaid : '';
-      const isExisting = Boolean(b.id && state.savedBills.some((sb) => sb.id === b.id));
-      const label = isExisting ? '💾 Update Bill' : '💾 Save Bill';
+      var isExisting = Boolean(b.id && state.savedBills.some(function (sb) { return sb.id === b.id; }));
+      var label = isExisting ? '💾 Update Bill' : '💾 Save Bill';
       document.getElementById('saveBillBtn').textContent = label;
       document.getElementById('saveBillBottomBtn').textContent = label;
     }
 
     function renderTotals() {
-      const sub = getSubtotal();
-      const grand = getGrandTotal();
-      const bal = getBalanceDue();
-      const isPaid = state.currentBill.paymentStatus === 'paid';
+      var sub = getSubtotal();
+      var grand = getGrandTotal();
+      var bal = getBalanceDue();
+      var isPaid = state.currentBill.paymentStatus === 'paid';
       document.getElementById('rowCountLabel').textContent = String(state.currentBill.rows.length);
       document.getElementById('subtotalDisplay').textContent = formatINR(sub);
       document.getElementById('grandTotalDisplay').textContent = formatINR(grand);
-      const balEl = document.getElementById('balanceDueDisplay');
+      var balEl = document.getElementById('balanceDueDisplay');
       balEl.textContent = formatINR(isPaid ? 0 : bal);
       balEl.style.color = isPaid || bal === 0 ? '#047857' : '#dc2626';
 
-      const unpaidBtn = document.getElementById('statusUnpaidBtn');
-      const paidBtn = document.getElementById('statusPaidBtn');
+      var unpaidBtn = document.getElementById('statusUnpaidBtn');
+      var paidBtn = document.getElementById('statusPaidBtn');
       unpaidBtn.style.background = !isPaid ? '#dc2626' : '#fef2f2';
       unpaidBtn.style.color = !isPaid ? '#ffffff' : '#dc2626';
       paidBtn.style.background = isPaid ? '#047857' : '#ecfdf5';
@@ -1448,186 +1410,187 @@
     }
 
     function renderBillingGrid() {
-      const thead = document.getElementById('billingTableHead');
-      const tbody = document.getElementById('billingTableBody');
+      var thead = document.getElementById('billingTableHead');
+      var tbody = document.getElementById('billingTableBody');
 
-      const colHeaders = state.columns
-        .map((c) => `<th class="num-col">${escapeHtml(c.name)} (₹)</th>`)
+      var colHeaders = state.columns
+        .map(function (c) {
+          return '<th class="num-col">' + escapeHtml(c.name) + ' (₹)</th>';
+        })
         .join('');
 
-      thead.innerHTML = `
-        <tr>
-          <th style="width:28px;">#</th>
-          <th style="min-width:165px;">Item &amp; Photo</th>
-          <th style="width:46px; text-align:center;" title="Size Chart">Size</th>
-          <th style="width:52px; text-align:center;">Qty</th>
-          ${colHeaders}
-          <th class="num-col">Row Total</th>
-          <th class="no-print" style="width:46px; text-align:center;">Del</th>
-        </tr>
-      `;
+      thead.innerHTML =
+        '<tr>' +
+          '<th style="width:28px;">#</th>' +
+          '<th style="min-width:165px;">Item &amp; Photo</th>' +
+          '<th class="no-print" style="width:44px; text-align:center;">Size</th>' +
+          '<th style="width:52px; text-align:center;">Qty</th>' +
+          colHeaders +
+          '<th class="num-col">Row Total</th>' +
+          '<th class="no-print" style="width:46px; text-align:center;">Del</th>' +
+        '</tr>';
 
       tbody.innerHTML = state.currentBill.rows
-        .map((row, idx) => {
+        .map(function (row, idx) {
           ensureRowSizeChart(row, state.sizeOptions);
-          const filledSizeCount = row.sizeChart.rows.filter(
-            (sr) => sr.optionId && String(sr.value || '').trim() !== ''
-          ).length;
+          var szCount = getRowSizeCount(row);
 
-          const amountCells = state.columns
-            .map((col) => {
-              const val = row.amounts[col.id];
-              return `
-                <td class="num-col" data-label="${escapeHtml(col.name)} (₹)">
-                  <input type="number" inputmode="numeric" min="0" step="1" class="num-input row-amt-input"
-                    data-row-id="${row.id}" data-col-id="${col.id}"
-                    value="${val !== undefined && val !== '' ? val : ''}" placeholder="0" />
-                </td>
-              `;
+          var amountCells = state.columns
+            .map(function (col) {
+              var val = row.amounts[col.id];
+              return (
+                '<td class="num-col" data-label="' + escapeHtml(col.name) + ' (₹)">' +
+                  '<input type="number" inputmode="numeric" min="0" step="1" class="num-input row-amt-input" ' +
+                    'data-row-id="' + row.id + '" data-col-id="' + col.id + '" ' +
+                    'value="' + (val !== undefined && val !== '' ? val : '') + '" placeholder="0" />' +
+                '</td>'
+              );
             })
             .join('');
 
-          const imgHtml = row.image
-            ? `
-              <div class="img-capture-box">
-                <div class="thumb-wrap" data-preview-row="${row.id}" title="Tap to view photo">
-                  <img src="${row.image}" alt="Item" />
-                </div>
-                <button type="button" class="img-remove-btn no-print" data-clear-img="${row.id}" title="Remove photo">&times;</button>
-              </div>
-            `
-            : `
-              <label class="capture-label no-print">
-                📷 Capture
-                <input type="file" accept="image/*" capture="environment" class="hidden row-img-input" data-row-id="${row.id}" />
-              </label>
-            `;
+          var imgHtml = row.image
+            ? '<div class="img-capture-box">' +
+                '<div class="thumb-wrap" data-preview-row="' + row.id + '" title="Tap to view photo">' +
+                  '<img src="' + row.image + '" alt="Item" />' +
+                '</div>' +
+                '<button type="button" class="img-remove-btn no-print" data-clear-img="' + row.id + '" title="Remove photo">&times;</button>' +
+              '</div>'
+            : '<label class="capture-label no-print">' +
+                '📷 Capture' +
+                '<input type="file" accept="image/*" capture="environment" class="hidden row-img-input" data-row-id="' + row.id + '" />' +
+              '</label>';
 
-          return `
-            <tr>
-              <td class="col-idx" style="font-weight:700; color:#64748b;">${idx + 1}</td>
-              <td class="col-item" data-label="Item &amp; Photo">
-                <div style="display:flex; align-items:center; gap:6px; flex-wrap:nowrap;">
-                  <div style="flex:0 0 auto;">${imgHtml}</div>
-                  <input type="text" class="item-input row-name-input" data-row-id="${row.id}"
-                    value="${escapeHtml(row.itemName)}" placeholder="e.g., Red Saree / Blouse" style="flex:1 1 105px; min-width:95px;" />
-                </div>
-              </td>
-              <td class="col-size no-print" data-label="Size" style="text-align:center;">
-                <button type="button" class="btn btn-icon-size open-row-size-btn" data-row-id="${row.id}" title="Open Size Chart">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>
-                  <span class="size-badge-mini ${filledSizeCount === 0 ? 'hidden' : ''}" data-row-size-badge="${row.id}">${filledSizeCount}</span>
-                </button>
-              </td>
-              <td class="col-qty" data-label="Qty">
-                <select class="row-qty-select" data-row-id="${row.id}" style="width:52px; min-width:50px; text-align:center; padding:6px 3px; font-size:0.83rem;">
-                  ${Array.from({ length: 100 }, (_, n) => {
-                    const q = n + 1;
-                    const sel = (Number(row.qty) || 1) === q ? 'selected' : '';
-                    return `<option value="${q}" ${sel}>${q}</option>`;
-                  }).join('')}
-                </select>
-              </td>
-              ${amountCells}
-              <td class="row-total-cell" data-label="Row Total" data-row-total="${row.id}">${formatINR(getRowTotal(row))}</td>
-              <td class="col-action no-print" style="text-align:center;">
-                <button type="button" class="btn btn-danger-soft remove-row-btn" data-row-id="${row.id}">🗑️ Remove</button>
-              </td>
-            </tr>
-          `;
+          var qtyOpts = '';
+          for (var n = 1; n <= 100; n++) {
+            var sel = (Number(row.qty) || 1) === n ? 'selected' : '';
+            qtyOpts += '<option value="' + n + '" ' + sel + '>' + n + '</option>';
+          }
+
+          var badgeHtml = szCount > 0
+            ? '<span class="size-icon-badge" data-row-size-badge="' + row.id + '">' + szCount + '</span>'
+            : '<span class="size-icon-badge hidden" data-row-size-badge="' + row.id + '">0</span>';
+
+          return (
+            '<tr>' +
+              '<td class="col-idx" style="font-weight:700; color:#64748b;">' + (idx + 1) + '</td>' +
+              '<td class="col-item" data-label="Item &amp; Photo">' +
+                '<div style="display:flex; align-items:center; gap:6px; flex-wrap:nowrap;">' +
+                  '<div style="flex:0 0 auto;">' + imgHtml + '</div>' +
+                  '<input type="text" class="item-input row-name-input" data-row-id="' + row.id + '" ' +
+                    'value="' + escapeHtml(row.itemName) + '" placeholder="e.g., Red Saree / Blouse" style="flex:1 1 105px; min-width:95px;" />' +
+                '</div>' +
+              '</td>' +
+              '<td class="no-print" data-label="Size Chart" style="text-align:center;">' +
+                '<button type="button" class="size-icon-btn open-row-size-btn" data-row-id="' + row.id + '" title="Open Size Chart for Item #' + (idx + 1) + '">' +
+                  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">' +
+                    '<path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/>' +
+                    '<path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/>' +
+                  '</svg>' +
+                  badgeHtml +
+                '</button>' +
+              '</td>' +
+              '<td class="col-qty" data-label="Qty">' +
+                '<select class="row-qty-select" data-row-id="' + row.id + '" style="width:52px; min-width:50px; text-align:center; padding:6px 3px; font-size:0.83rem;">' +
+                  qtyOpts +
+                '</select>' +
+              '</td>' +
+              amountCells +
+              '<td class="row-total-cell" data-label="Row Total" data-row-total="' + row.id + '">' + formatINR(getRowTotal(row)) + '</td>' +
+              '<td class="col-action no-print" style="text-align:center;">' +
+                '<button type="button" class="btn btn-danger-soft remove-row-btn" data-row-id="' + row.id + '">🗑️ Remove</button>' +
+              '</td>' +
+            '</tr>'
+          );
         })
         .join('');
 
       renderTotals();
     }
 
-    function getActiveSizeChartRow() {
-      if (!activeSizeChartRowId) return null;
-      return state.currentBill.rows.find((r) => r.id === activeSizeChartRowId) || null;
+    function updateRowSizeBadge(row) {
+      var badge = document.querySelector('[data-row-size-badge="' + row.id + '"]');
+      if (!badge) return;
+      var count = getRowSizeCount(row);
+      badge.textContent = String(count);
+      badge.classList.toggle('hidden', count === 0);
     }
 
-    function renderSizeChartModal() {
-      const targetRow = getActiveSizeChartRow();
-      if (!targetRow) return;
-      const rowIdx = state.currentBill.rows.findIndex((r) => r.id === targetRow.id);
-      ensureRowSizeChart(targetRow, state.sizeOptions);
-      const sc = targetRow.sizeChart;
+    function renderSizeChartModal(rowId) {
+      var idx = state.currentBill.rows.findIndex(function (r) { return r.id === rowId; });
+      var row = state.currentBill.rows[idx];
+      if (!row) return;
+      activeSizeChartRowId = rowId;
+      ensureRowSizeChart(row, state.sizeOptions);
 
-      if (!sc.itemLabel && targetRow.itemName) {
-        sc.itemLabel = targetRow.itemName;
+      var label = row.itemName ? row.itemName + ' (Item #' + (idx + 1) + ')' : 'Item #' + (idx + 1);
+      document.getElementById('sizeChartModalTitle').textContent = '📏 Size Chart — ' + label;
+      document.getElementById('sizeChartNotesInput').value = row.sizeChart.notes || '';
+
+      var listEl = document.getElementById('sizeChartRowsList');
+      if (!row.sizeChart.rows.length) {
+        row.sizeChart.rows.push(createEmptySizeRow(state.sizeOptions[0] ? state.sizeOptions[0].id : ''));
       }
 
-      const displayItemName = targetRow.itemName || sc.itemLabel || `Item #${rowIdx + 1}`;
-      document.getElementById('sizeChartModalTitle').textContent = `📏 Size Chart — ${displayItemName}`;
-      document.getElementById('sizeChartModalSub').textContent = `Row #${rowIdx + 1} • Select measurement type from dropdown and enter size`;
+      listEl.innerHTML = row.sizeChart.rows
+        .map(function (sr) {
+          var optionsHtml = ['<option value="">-- Select Measurement --</option>']
+            .concat(
+              state.sizeOptions.map(function (opt) {
+                var sel = sr.optionId === opt.id ? 'selected' : '';
+                return '<option value="' + escapeHtml(opt.id) + '" ' + sel + '>' + escapeHtml(opt.name) + '</option>';
+              })
+            )
+            .join('');
 
-      document.getElementById('sizeChartItemLabelInput').value = sc.itemLabel || '';
-      document.getElementById('sizeChartNotesInput').value = sc.notes || '';
-
-      const listEl = document.getElementById('sizeChartRowsList');
-      if (!sc.rows.length) {
-        sc.rows.push(createEmptySizeRow(state.sizeOptions[0] ? state.sizeOptions[0].id : ''));
-      }
-
-      listEl.innerHTML = sc.rows
-        .map((row) => {
-          const optionsHtml = [
-            `<option value="">-- Select Measurement --</option>`,
-            ...state.sizeOptions.map((opt) => {
-              const sel = row.optionId === opt.id ? 'selected' : '';
-              return `<option value="${escapeHtml(opt.id)}" ${sel}>${escapeHtml(opt.name)}</option>`;
-            }),
-          ].join('');
-
-          return `
-            <div class="size-row">
-              <div>
-                <select class="size-row-option-select" data-size-row-id="${row.id}">
-                  ${optionsHtml}
-                </select>
-              </div>
-              <div>
-                <input type="text" class="size-row-value-input" data-size-row-id="${row.id}"
-                  value="${escapeHtml(row.value)}" placeholder="e.g., 14.5 in / 36" />
-              </div>
-              <div style="text-align:right;">
-                <button type="button" class="btn btn-danger-soft remove-size-row-btn" data-size-row-id="${row.id}" title="Remove row">🗑️</button>
-              </div>
-            </div>
-          `;
+          return (
+            '<div class="size-row">' +
+              '<div>' +
+                '<select class="size-row-option-select" data-size-row-id="' + sr.id + '">' +
+                  optionsHtml +
+                '</select>' +
+              '</div>' +
+              '<div>' +
+                '<input type="text" class="size-row-value-input" data-size-row-id="' + sr.id + '" ' +
+                  'value="' + escapeHtml(sr.value) + '" placeholder="e.g., 14.5 in / 36" />' +
+              '</div>' +
+              '<div style="text-align:right;">' +
+                '<button type="button" class="btn btn-danger-soft remove-size-row-btn" data-size-row-id="' + sr.id + '" title="Remove row">🗑️</button>' +
+              '</div>' +
+            '</div>'
+          );
         })
         .join('');
 
-      updateRowSizeBadge(targetRow.id);
+      updateRowSizeBadge(row);
     }
 
     function getFilteredSavedBills() {
-      const searchQ = (document.getElementById('savedBillSearchInput').value || '').trim().toLowerCase();
-      const statusF = document.getElementById('savedBillStatusFilter').value || 'all';
-      const dateF = document.getElementById('savedBillDateFilter').value || '';
+      var searchQ = (document.getElementById('savedBillSearchInput').value || '').trim().toLowerCase();
+      var statusF = document.getElementById('savedBillStatusFilter').value || 'all';
+      var dateF = document.getElementById('savedBillDateFilter').value || '';
       return state.savedBills
         .slice()
         .reverse()
-        .filter((b) => {
-          const st = b.paymentStatus || 'unpaid';
+        .filter(function (b) {
+          var st = b.paymentStatus || 'unpaid';
           if (statusF !== 'all' && st !== statusF) return false;
           if (dateF && b.date !== dateF) return false;
           if (searchQ) {
-            const hay = `${b.billNo || ''} ${b.customerName || ''} ${b.customerPhone || ''}`.toLowerCase();
-            if (!hay.includes(searchQ)) return false;
+            var hay = ((b.billNo || '') + ' ' + (b.customerName || '') + ' ' + (b.customerPhone || '')).toLowerCase();
+            if (hay.indexOf(searchQ) === -1) return false;
           }
           return true;
         });
     }
 
     function getSavedFilterDescription() {
-      const searchQ = (document.getElementById('savedBillSearchInput').value || '').trim();
-      const statusF = document.getElementById('savedBillStatusFilter').value || 'all';
-      const dateF = document.getElementById('savedBillDateFilter').value || '';
-      const parts = [];
-      parts.push(`Status: ${statusF === 'all' ? 'All' : statusF === 'paid' ? 'Paid Only' : 'Unpaid Only'}`);
-      if (dateF) parts.push(`Date: ${dateF}`);
-      if (searchQ) parts.push(`Search: "${searchQ}"`);
+      var searchQ = (document.getElementById('savedBillSearchInput').value || '').trim();
+      var statusF = document.getElementById('savedBillStatusFilter').value || 'all';
+      var dateF = document.getElementById('savedBillDateFilter').value || '';
+      var parts = [];
+      parts.push('Status: ' + (statusF === 'all' ? 'All' : statusF === 'paid' ? 'Paid Only' : 'Unpaid Only'));
+      if (dateF) parts.push('Date: ' + dateF);
+      if (searchQ) parts.push('Search: "' + searchQ + '"');
       return parts.join(' • ');
     }
 
@@ -1636,8 +1599,8 @@
       document.getElementById('adminShopSub').value = state.shop.tagline || '';
       document.getElementById('adminShopPhone').value = state.shop.phone || '';
       document.getElementById('adminShopUpi').value = state.shop.upiId || '';
-      const qrPrev = document.getElementById('adminQrPreview');
-      const remQrBtn = document.getElementById('removeQrBtn');
+      var qrPrev = document.getElementById('adminQrPreview');
+      var remQrBtn = document.getElementById('removeQrBtn');
       if (state.shop.qrImage) {
         qrPrev.src = state.shop.qrImage;
         qrPrev.classList.remove('hidden');
@@ -1647,129 +1610,129 @@
         qrPrev.classList.add('hidden');
         remQrBtn.classList.add('hidden');
       }
-      const currentTheme = (state.themeColor || '#7c2d12').toLowerCase();
+
+      var currentTheme = (state.themeColor || '#7c2d12').toLowerCase();
       document.getElementById('customThemePicker').value = currentTheme;
-      document.getElementById('themeSwatches').innerHTML = THEME_PRESETS.map((t) => {
-        const active = t.hex.toLowerCase() === currentTheme;
-        return `<button type="button" class="theme-swatch-btn" data-theme-hex="${t.hex}" style="display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border-radius:10px; border:${active ? '2px solid #0f172a' : '1px solid #cbd5e1'}; background:#fff; font-size:0.82rem; font-weight:700; cursor:pointer;">
-          <span style="width:16px; height:16px; border-radius:999px; background:${t.hex}; display:inline-block;"></span>
-          <span>${t.name}</span>
-        </button>`;
+      document.getElementById('themeSwatches').innerHTML = THEME_PRESETS.map(function (t) {
+        var active = t.hex.toLowerCase() === currentTheme;
+        return (
+          '<button type="button" class="theme-swatch-btn" data-theme-hex="' + t.hex + '" style="display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border-radius:10px; border:' + (active ? '2px solid #0f172a' : '1px solid #cbd5e1') + '; background:#fff; font-size:0.82rem; font-weight:700; cursor:pointer;">' +
+            '<span style="width:16px; height:16px; border-radius:999px; background:' + t.hex + '; display:inline-block;"></span>' +
+            '<span>' + t.name + '</span>' +
+          '</button>'
+        );
       }).join('');
 
-      const colList = document.getElementById('adminColumnsList');
+      var colList = document.getElementById('adminColumnsList');
       colList.innerHTML = state.columns
-        .map(
-          (col, idx) => `
-          <div class="col-item">
-            <div class="col-item-left">
-              <span style="font-weight:800; color:#64748b; width:24px;">${idx + 1}.</span>
-              <input type="text" class="admin-col-rename" data-col-id="${col.id}" value="${escapeHtml(col.name)}" />
-            </div>
-            <div class="col-item-actions">
-              <button type="button" class="btn btn-outline btn-sm move-col-btn" data-col-id="${col.id}" data-dir="-1" ${idx === 0 ? 'disabled' : ''}>↑</button>
-              <button type="button" class="btn btn-outline btn-sm move-col-btn" data-col-id="${col.id}" data-dir="1" ${idx === state.columns.length - 1 ? 'disabled' : ''}>↓</button>
-              <button type="button" class="btn btn-danger-soft delete-col-btn" data-col-id="${col.id}">Remove</button>
-            </div>
-          </div>
-        `
-        )
+        .map(function (col, idx) {
+          return (
+            '<div class="col-item">' +
+              '<div class="col-item-left">' +
+                '<span style="font-weight:800; color:#64748b; width:24px;">' + (idx + 1) + '.</span>' +
+                '<input type="text" class="admin-col-rename" data-col-id="' + col.id + '" value="' + escapeHtml(col.name) + '" />' +
+              '</div>' +
+              '<div class="col-item-actions">' +
+                '<button type="button" class="btn btn-outline btn-sm move-col-btn" data-col-id="' + col.id + '" data-dir="-1" ' + (idx === 0 ? 'disabled' : '') + '>↑</button>' +
+                '<button type="button" class="btn btn-outline btn-sm move-col-btn" data-col-id="' + col.id + '" data-dir="1" ' + (idx === state.columns.length - 1 ? 'disabled' : '') + '>↓</button>' +
+                '<button type="button" class="btn btn-danger-soft delete-col-btn" data-col-id="' + col.id + '">Remove</button>' +
+              '</div>' +
+            '</div>'
+          );
+        })
         .join('');
 
-      const sizeOptsList = document.getElementById('adminSizeOptionsList');
+      var sizeOptsList = document.getElementById('adminSizeOptionsList');
       sizeOptsList.innerHTML = state.sizeOptions
-        .map(
-          (opt, idx) => `
-          <div class="col-item">
-            <div class="col-item-left">
-              <span style="font-weight:800; color:#64748b; width:24px;">${idx + 1}.</span>
-              <input type="text" class="admin-size-opt-rename" data-opt-id="${opt.id}" value="${escapeHtml(opt.name)}" />
-            </div>
-            <div class="col-item-actions">
-              <button type="button" class="btn btn-outline btn-sm move-size-opt-btn" data-opt-id="${opt.id}" data-dir="-1" ${idx === 0 ? 'disabled' : ''}>↑</button>
-              <button type="button" class="btn btn-outline btn-sm move-size-opt-btn" data-opt-id="${opt.id}" data-dir="1" ${idx === state.sizeOptions.length - 1 ? 'disabled' : ''}>↓</button>
-              <button type="button" class="btn btn-danger-soft delete-size-opt-btn" data-opt-id="${opt.id}">Remove</button>
-            </div>
-          </div>
-        `
-        )
+        .map(function (opt, idx) {
+          return (
+            '<div class="col-item">' +
+              '<div class="col-item-left">' +
+                '<span style="font-weight:800; color:#64748b; width:24px;">' + (idx + 1) + '.</span>' +
+                '<input type="text" class="admin-size-opt-rename" data-opt-id="' + opt.id + '" value="' + escapeHtml(opt.name) + '" />' +
+              '</div>' +
+              '<div class="col-item-actions">' +
+                '<button type="button" class="btn btn-outline btn-sm move-size-opt-btn" data-opt-id="' + opt.id + '" data-dir="-1" ' + (idx === 0 ? 'disabled' : '') + '>↑</button>' +
+                '<button type="button" class="btn btn-outline btn-sm move-size-opt-btn" data-opt-id="' + opt.id + '" data-dir="1" ' + (idx === state.sizeOptions.length - 1 ? 'disabled' : '') + '>↓</button>' +
+                '<button type="button" class="btn btn-danger-soft delete-size-opt-btn" data-opt-id="' + opt.id + '">Remove</button>' +
+              '</div>' +
+            '</div>'
+          );
+        })
         .join('');
 
-      const filteredBills = getFilteredSavedBills();
+      var filteredBills = getFilteredSavedBills();
+      var totalAmt = filteredBills.reduce(function (sum, b) { return sum + (Number(b.grandTotal) || 0); }, 0);
+      var totalCollected = filteredBills.reduce(function (sum, b) { return sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0); }, 0);
+      var totalPending = filteredBills.reduce(function (sum, b) { return sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)); }, 0);
+      document.getElementById('savedBillsSummary').innerHTML =
+        '<span>Bills: ' + filteredBills.length + '</span>' +
+        '<span>•</span>' +
+        '<span>Total Billed: ' + formatINR(totalAmt) + '</span>' +
+        '<span>•</span>' +
+        '<span style="color:#047857;">Collected: ' + formatINR(totalCollected) + '</span>' +
+        '<span>•</span>' +
+        '<span style="color:#dc2626;">Pending: ' + formatINR(totalPending) + '</span>';
 
-      const totalAmt = filteredBills.reduce((sum, b) => sum + (Number(b.grandTotal) || 0), 0);
-      const totalCollected = filteredBills.reduce((sum, b) => sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0), 0);
-      const totalPending = filteredBills.reduce((sum, b) => sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)), 0);
-      document.getElementById('savedBillsSummary').innerHTML = `
-        <span>Bills: ${filteredBills.length}</span>
-        <span>•</span>
-        <span>Total Billed: ${formatINR(totalAmt)}</span>
-        <span>•</span>
-        <span style="color:#047857;">Collected: ${formatINR(totalCollected)}</span>
-        <span>•</span>
-        <span style="color:#dc2626;">Pending: ${formatINR(totalPending)}</span>
-      `;
-
-      const savedList = document.getElementById('savedBillsList');
+      var savedList = document.getElementById('savedBillsList');
       if (!filteredBills.length) {
         savedList.innerHTML = '<div style="padding:18px; text-align:center; color:#64748b; font-size:0.86rem;">No saved bills match the current filters.</div>';
       } else {
-        const rowsHtml = filteredBills
-          .map((b) => {
-            const isPaid = b.paymentStatus === 'paid';
-            const adv = Number(b.advancePaid) || 0;
-            const fin = Number(b.finalPaid) || 0;
-            const bal = isPaid ? 0 : getBalanceDue(b);
-            return `
-              <tr>
-                <td data-label="Bill No" style="font-weight:800; color:var(--brand); white-space:nowrap;">${escapeHtml(b.billNo)}</td>
-                <td data-label="Date" style="white-space:nowrap; color:#475569;">
-                  <div>${escapeHtml(b.date)}</div>
-                  ${b.deliveryDate ? `<div style="font-size:0.7rem; color:#0369a1; font-weight:700;">Due: ${escapeHtml(b.deliveryDate)}</div>` : ''}
-                </td>
-                <td data-label="Customer">
-                  <div style="font-weight:700; color:#0f172a;">${escapeHtml(b.customerName || 'Walk-in')}</div>
-                  ${b.customerPhone ? `<div style="font-size:0.74rem; color:#64748b;">${escapeHtml(b.customerPhone)}</div>` : ''}
-                </td>
-                <td data-label="Total" class="num-col" style="font-weight:700; white-space:nowrap;">${formatINR(b.grandTotal)}</td>
-                <td data-label="Advance" class="num-col" style="white-space:nowrap; color:#475569;">${formatINR(adv)}</td>
-                <td data-label="Final" class="num-col" style="white-space:nowrap; color:#475569;">${formatINR(fin)}</td>
-                <td data-label="Balance" class="num-col" style="font-weight:800; white-space:nowrap; color:${bal === 0 ? '#047857' : '#dc2626'};">${formatINR(bal)}</td>
-                <td data-label="Status" style="text-align:center;">
-                  <button type="button" class="btn btn-sm toggle-saved-status-btn" data-bill-id="${b.id}" title="Click to toggle Paid / Unpaid"
-                    style="padding:3px 9px; font-size:0.72rem; border-radius:999px; font-weight:800; ${isPaid ? 'background:#dcfce7; color:#166534; border:1px solid #86efac;' : 'background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;'}">
-                    ${isPaid ? 'PAID' : 'UNPAID'}
-                  </button>
-                </td>
-                <td data-label="Actions" style="text-align:center; white-space:nowrap;">
-                  <div style="display:inline-flex; gap:4px;">
-                    <button type="button" class="btn btn-outline btn-sm load-saved-bill-btn" data-bill-id="${b.id}" style="padding:4px 8px; font-size:0.74rem;">📂 Load</button>
-                    <button type="button" class="btn btn-danger-soft btn-sm delete-saved-bill-btn" data-bill-id="${b.id}" style="padding:4px 7px; font-size:0.74rem;">🗑️</button>
-                  </div>
-                </td>
-              </tr>
-            `;
+        var rowsHtml = filteredBills
+          .map(function (b) {
+            var isPaid = b.paymentStatus === 'paid';
+            var adv = Number(b.advancePaid) || 0;
+            var fin = Number(b.finalPaid) || 0;
+            var bal = isPaid ? 0 : getBalanceDue(b);
+            return (
+              '<tr>' +
+                '<td data-label="Bill No" style="font-weight:800; color:var(--brand); white-space:nowrap;">' + escapeHtml(b.billNo) + '</td>' +
+                '<td data-label="Date" style="white-space:nowrap; color:#475569;">' +
+                  '<div>' + escapeHtml(b.date) + '</div>' +
+                  (b.deliveryDate ? '<div style="font-size:0.7rem; color:#0369a1; font-weight:700;">Due: ' + escapeHtml(b.deliveryDate) + '</div>' : '') +
+                '</td>' +
+                '<td data-label="Customer">' +
+                  '<div style="font-weight:700; color:#0f172a;">' + escapeHtml(b.customerName || 'Walk-in') + '</div>' +
+                  (b.customerPhone ? '<div style="font-size:0.74rem; color:#64748b;">' + escapeHtml(b.customerPhone) + '</div>' : '') +
+                '</td>' +
+                '<td data-label="Total" class="num-col" style="font-weight:700; white-space:nowrap;">' + formatINR(b.grandTotal) + '</td>' +
+                '<td data-label="Advance" class="num-col" style="white-space:nowrap; color:#475569;">' + formatINR(adv) + '</td>' +
+                '<td data-label="Final" class="num-col" style="white-space:nowrap; color:#475569;">' + formatINR(fin) + '</td>' +
+                '<td data-label="Balance" class="num-col" style="font-weight:800; white-space:nowrap; color:' + (bal === 0 ? '#047857' : '#dc2626') + ';">' + formatINR(bal) + '</td>' +
+                '<td data-label="Status" style="text-align:center;">' +
+                  '<button type="button" class="btn btn-sm toggle-saved-status-btn" data-bill-id="' + b.id + '" title="Click to toggle Paid / Unpaid" ' +
+                    'style="padding:3px 9px; font-size:0.72rem; border-radius:999px; font-weight:800; ' + (isPaid ? 'background:#dcfce7; color:#166534; border:1px solid #86efac;' : 'background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;') + '">' +
+                    (isPaid ? 'PAID' : 'UNPAID') +
+                  '</button>' +
+                '</td>' +
+                '<td data-label="Actions" style="text-align:center; white-space:nowrap;">' +
+                  '<div style="display:inline-flex; gap:4px;">' +
+                    '<button type="button" class="btn btn-outline btn-sm load-saved-bill-btn" data-bill-id="' + b.id + '" style="padding:4px 8px; font-size:0.74rem;">📂 Load</button>' +
+                    '<button type="button" class="btn btn-danger-soft btn-sm delete-saved-bill-btn" data-bill-id="' + b.id + '" style="padding:4px 7px; font-size:0.74rem;">🗑️</button>' +
+                  '</div>' +
+                '</td>' +
+              '</tr>'
+            );
           })
           .join('');
 
-        savedList.innerHTML = `
-          <table class="bill-table">
-            <thead>
-              <tr>
-                <th>Bill No</th>
-                <th>Date</th>
-                <th>Customer</th>
-                <th class="num-col">Total</th>
-                <th class="num-col">Advance</th>
-                <th class="num-col">Final</th>
-                <th class="num-col">Balance</th>
-                <th style="text-align:center;">Status</th>
-                <th style="text-align:center;">Actions</th>
-              </tr>
-            </thead>
-            <tbody>${rowsHtml}</tbody>
-          </table>
-        `;
+        savedList.innerHTML =
+          '<table class="bill-table">' +
+            '<thead>' +
+              '<tr>' +
+                '<th>Bill No</th>' +
+                '<th>Date</th>' +
+                '<th>Customer</th>' +
+                '<th class="num-col">Total</th>' +
+                '<th class="num-col">Advance</th>' +
+                '<th class="num-col">Final</th>' +
+                '<th class="num-col">Balance</th>' +
+                '<th style="text-align:center;">Status</th>' +
+                '<th style="text-align:center;">Actions</th>' +
+              '</tr>' +
+            '</thead>' +
+            '<tbody>' + rowsHtml + '</tbody>' +
+          '</table>';
       }
     }
 
@@ -1780,15 +1743,36 @@
       renderAdminPage();
     }
 
-    // Tab switching & Theme listeners
-    document.querySelectorAll('.tab-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
         switchTab(btn.dataset.tab);
       });
     });
 
-    document.getElementById('themeSwatches').addEventListener('click', (e) => {
-      const btn = e.target.closest('.theme-swatch-btn');
+    // Collapsible sections on Admin Page
+    function setupCollapsibleSection(headerId, bodyId, arrowId) {
+      var header = document.getElementById(headerId);
+      var body = document.getElementById(bodyId);
+      var arrow = document.getElementById(arrowId);
+      var toggle = function () {
+        var isHidden = body.classList.toggle('hidden');
+        header.classList.toggle('open', !isHidden);
+        arrow.textContent = isHidden ? '▼ Open' : '▲ Close';
+      };
+      header.addEventListener('click', toggle);
+      header.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggle();
+        }
+      });
+    }
+    setupCollapsibleSection('toggleColumnsHeader', 'columnsManagerBody', 'toggleColumnsArrow');
+    setupCollapsibleSection('toggleSizeOptionsHeader', 'sizeOptionsManagerBody', 'toggleSizeOptionsArrow');
+
+    document.getElementById('themeSwatches').addEventListener('click', function (e) {
+      var btn = e.target.closest('.theme-swatch-btn');
       if (!btn) return;
       state.themeColor = btn.dataset.themeHex;
       saveState();
@@ -1796,115 +1780,108 @@
       showToast('Theme colour updated');
     });
 
-    document.getElementById('customThemePicker').addEventListener('input', (e) => {
+    document.getElementById('customThemePicker').addEventListener('input', function (e) {
       state.themeColor = e.target.value;
       saveState();
       applyThemeColor(state.themeColor);
     });
-    document.getElementById('customThemePicker').addEventListener('change', () => {
+    document.getElementById('customThemePicker').addEventListener('change', function () {
       renderAdminPage();
       showToast('Custom theme colour applied');
     });
 
-    // Size Chart Modal Logic (Per-Item Row)
-    function openRowSizeChartModal(rowId) {
-      const targetRow = state.currentBill.rows.find((r) => r.id === rowId);
-      if (!targetRow) return;
-      activeSizeChartRowId = rowId;
-      renderSizeChartModal();
-      document.getElementById('sizeChartModal').classList.remove('hidden');
-    }
-
+    // Per-Item Size Chart Modal Logic
     function closeSizeChartModal() {
-      const closedRowId = activeSizeChartRowId;
       document.getElementById('sizeChartModal').classList.add('hidden');
-      if (closedRowId) updateRowSizeBadge(closedRowId);
+      if (activeSizeChartRowId) {
+        var row = state.currentBill.rows.find(function (r) { return r.id === activeSizeChartRowId; });
+        if (row) updateRowSizeBadge(row);
+      }
       activeSizeChartRowId = null;
     }
 
     document.getElementById('closeSizeChartModalBtn').addEventListener('click', closeSizeChartModal);
-    document.getElementById('doneSizeChartBtn').addEventListener('click', () => {
+    document.getElementById('doneSizeChartBtn').addEventListener('click', function () {
       saveState();
       closeSizeChartModal();
       showToast('Item size chart saved');
     });
 
-    document.getElementById('addSizeChartRowBtn').addEventListener('click', () => {
-      const targetRow = getActiveSizeChartRow();
-      if (!targetRow) return;
-      ensureRowSizeChart(targetRow, state.sizeOptions);
-      targetRow.sizeChart.rows.push(createEmptySizeRow(''));
+    document.getElementById('addSizeChartRowBtn').addEventListener('click', function () {
+      if (!activeSizeChartRowId) return;
+      var row = state.currentBill.rows.find(function (r) { return r.id === activeSizeChartRowId; });
+      if (!row) return;
+      ensureRowSizeChart(row, state.sizeOptions);
+      row.sizeChart.rows.push(createEmptySizeRow(''));
       saveState();
-      renderSizeChartModal();
+      renderSizeChartModal(activeSizeChartRowId);
     });
 
-    document.getElementById('sizeChartItemLabelInput').addEventListener('input', (e) => {
-      const targetRow = getActiveSizeChartRow();
-      if (!targetRow) return;
-      ensureRowSizeChart(targetRow, state.sizeOptions);
-      targetRow.sizeChart.itemLabel = e.target.value;
-      saveState();
-    });
-
-    document.getElementById('sizeChartNotesInput').addEventListener('input', (e) => {
-      const targetRow = getActiveSizeChartRow();
-      if (!targetRow) return;
-      ensureRowSizeChart(targetRow, state.sizeOptions);
-      targetRow.sizeChart.notes = e.target.value;
+    document.getElementById('sizeChartNotesInput').addEventListener('input', function (e) {
+      if (!activeSizeChartRowId) return;
+      var row = state.currentBill.rows.find(function (r) { return r.id === activeSizeChartRowId; });
+      if (!row) return;
+      ensureRowSizeChart(row, state.sizeOptions);
+      row.sizeChart.notes = e.target.value;
       saveState();
     });
 
-    const sizeChartRowsEl = document.getElementById('sizeChartRowsList');
-    sizeChartRowsEl.addEventListener('change', (e) => {
-      const sel = e.target.closest('.size-row-option-select');
-      const targetRow = getActiveSizeChartRow();
-      if (!sel || !targetRow) return;
-      const sRow = targetRow.sizeChart.rows.find((r) => r.id === sel.dataset.sizeRowId);
-      if (sRow) {
-        sRow.optionId = sel.value;
+    var sizeChartRowsEl = document.getElementById('sizeChartRowsList');
+    sizeChartRowsEl.addEventListener('change', function (e) {
+      var sel = e.target.closest('.size-row-option-select');
+      if (!sel || !activeSizeChartRowId) return;
+      var row = state.currentBill.rows.find(function (r) { return r.id === activeSizeChartRowId; });
+      if (!row) return;
+      var sr = row.sizeChart.rows.find(function (r) { return r.id === sel.dataset.sizeRowId; });
+      if (sr) {
+        sr.optionId = sel.value;
         saveState();
-        updateRowSizeBadge(targetRow.id);
+        updateRowSizeBadge(row);
       }
     });
 
-    sizeChartRowsEl.addEventListener('input', (e) => {
-      const inp = e.target.closest('.size-row-value-input');
-      const targetRow = getActiveSizeChartRow();
-      if (!inp || !targetRow) return;
-      const sRow = targetRow.sizeChart.rows.find((r) => r.id === inp.dataset.sizeRowId);
-      if (sRow) {
-        sRow.value = inp.value;
+    sizeChartRowsEl.addEventListener('input', function (e) {
+      var inp = e.target.closest('.size-row-value-input');
+      if (!inp || !activeSizeChartRowId) return;
+      var row = state.currentBill.rows.find(function (r) { return r.id === activeSizeChartRowId; });
+      if (!row) return;
+      var sr = row.sizeChart.rows.find(function (r) { return r.id === inp.dataset.sizeRowId; });
+      if (sr) {
+        sr.value = inp.value;
         saveState();
-        updateRowSizeBadge(targetRow.id);
+        updateRowSizeBadge(row);
       }
     });
 
-    sizeChartRowsEl.addEventListener('click', (e) => {
-      const delBtn = e.target.closest('.remove-size-row-btn');
-      const targetRow = getActiveSizeChartRow();
-      if (!delBtn || !targetRow) return;
-      const sc = targetRow.sizeChart;
+    sizeChartRowsEl.addEventListener('click', function (e) {
+      var delBtn = e.target.closest('.remove-size-row-btn');
+      if (!delBtn || !activeSizeChartRowId) return;
+      var row = state.currentBill.rows.find(function (r) { return r.id === activeSizeChartRowId; });
+      if (!row) return;
+      var sc = row.sizeChart;
       if (sc.rows.length <= 1) {
         sc.rows = [createEmptySizeRow('')];
       } else {
-        sc.rows = sc.rows.filter((r) => r.id !== delBtn.dataset.sizeRowId);
+        sc.rows = sc.rows.filter(function (r) { return r.id !== delBtn.dataset.sizeRowId; });
       }
       saveState();
-      renderSizeChartModal();
+      renderSizeChartModal(activeSizeChartRowId);
     });
 
     // Customer & Bill Meta listeners
-    document.getElementById('custNameInput').addEventListener('input', (e) => {
+    document.getElementById('custNameInput').addEventListener('input', function (e) {
       state.currentBill.customerName = e.target.value;
       saveState();
       updateCustomerHistoryBanner();
     });
-    document.getElementById('custPhoneInput').addEventListener('input', (e) => {
-      const val = e.target.value;
+    document.getElementById('custPhoneInput').addEventListener('input', function (e) {
+      var val = e.target.value;
       state.currentBill.customerPhone = val;
-      const digits = val.replace(/\D/g, '');
+      var digits = val.replace(/\D/g, '');
       if (digits.length >= 6 && !state.currentBill.customerName) {
-        const match = state.savedBills.slice().reverse().find((sb) => String(sb.customerPhone || '').replace(/\D/g, '').includes(digits));
+        var match = state.savedBills.slice().reverse().find(function (sb) {
+          return String(sb.customerPhone || '').replace(/\D/g, '').indexOf(digits) !== -1;
+        });
         if (match && match.customerName) {
           state.currentBill.customerName = match.customerName;
           document.getElementById('custNameInput').value = match.customerName;
@@ -1913,53 +1890,54 @@
       saveState();
       updateCustomerHistoryBanner();
     });
-    document.getElementById('billDeliveryDateInput').addEventListener('change', (e) => {
+    document.getElementById('billDeliveryDateInput').addEventListener('change', function (e) {
       state.currentBill.deliveryDate = e.target.value;
       saveState();
     });
-    document.getElementById('viewCustomerHistoryBtn').addEventListener('click', () => {
-      const q = state.currentBill.customerPhone || state.currentBill.customerName || '';
+    document.getElementById('viewCustomerHistoryBtn').addEventListener('click', function () {
+      var q = state.currentBill.customerPhone || state.currentBill.customerName || '';
       document.getElementById('savedBillSearchInput').value = q;
       switchTab('admin');
     });
-    document.getElementById('sendReadyWaBtn').addEventListener('click', () => {
-      const b = state.currentBill;
-      const isPaid = b.paymentStatus === 'paid';
-      const bal = isPaid ? 0 : getBalanceDue();
-      const msg = [
-        `Hello ${b.customerName || 'Customer'},`,
-        `Your order (*Bill #${b.billNo}*) from *${state.shop.name}* is *READY for pickup*!`,
-        bal > 0 ? `Balance Due: *${formatINR(bal)}*` : 'Payment Status: *PAID*',
-        state.shop.upiId ? `UPI ID: ${state.shop.upiId}` : '',
+    document.getElementById('sendReadyWaBtn').addEventListener('click', function () {
+      var b = state.currentBill;
+      var isPaid = b.paymentStatus === 'paid';
+      var bal = isPaid ? 0 : getBalanceDue();
+      var msg = [
+        'Hello ' + (b.customerName || 'Customer') + ',',
+        'Your order (*Bill #' + b.billNo + '*) from *' + state.shop.name + '* is *READY for pickup*!',
+        bal > 0 ? 'Balance Due: *' + formatINR(bal) + '*' : 'Payment Status: *PAID*',
+        state.shop.upiId ? 'UPI ID: ' + state.shop.upiId : '',
         'Thank you!',
-      ].filter(Boolean).join('\n');
-      const digits = String(b.customerPhone || '').replace(/\D/g, '');
-      const phone = digits.length === 10 ? '91' + digits : digits;
-      const url = phone
-        ? `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
-        : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+      ].filter(Boolean).join('
+');
+      var digits = String(b.customerPhone || '').replace(/\D/g, '');
+      var phone = digits.length === 10 ? '91' + digits : digits;
+      var url = phone
+        ? 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg)
+        : 'https://wa.me/?text=' + encodeURIComponent(msg);
       window.open(url, '_blank', 'noopener,noreferrer');
     });
-    document.getElementById('billNoInput').addEventListener('input', (e) => {
+    document.getElementById('billNoInput').addEventListener('input', function (e) {
       state.currentBill.billNo = e.target.value;
-      document.getElementById('billNoBadge').textContent = `Bill #${e.target.value || 'INV'}`;
+      document.getElementById('billNoBadge').textContent = 'Bill #' + (e.target.value || 'INV');
       saveState();
     });
-    document.getElementById('billDateInput').addEventListener('change', (e) => {
+    document.getElementById('billDateInput').addEventListener('change', function (e) {
       state.currentBill.date = e.target.value;
       saveState();
     });
-    document.getElementById('discountInput').addEventListener('input', (e) => {
+    document.getElementById('discountInput').addEventListener('input', function (e) {
       state.currentBill.discount = Math.max(0, Number(e.target.value) || 0);
       saveState();
       renderTotals();
     });
-    document.getElementById('advancePaidInput').addEventListener('input', (e) => {
+    document.getElementById('advancePaidInput').addEventListener('input', function (e) {
       state.currentBill.advancePaid = Math.max(0, Number(e.target.value) || 0);
       saveState();
       renderTotals();
     });
-    document.getElementById('finalPaidInput').addEventListener('input', (e) => {
+    document.getElementById('finalPaidInput').addEventListener('input', function (e) {
       state.currentBill.finalPaid = Math.max(0, Number(e.target.value) || 0);
       if (getBalanceDue() === 0 && getGrandTotal() > 0) {
         state.currentBill.paymentStatus = 'paid';
@@ -1967,44 +1945,58 @@
       saveState();
       renderTotals();
     });
-    document.getElementById('statusUnpaidBtn').addEventListener('click', () => {
+    document.getElementById('statusUnpaidBtn').addEventListener('click', function () {
       state.currentBill.paymentStatus = 'unpaid';
       saveState();
       renderTotals();
     });
-    document.getElementById('statusPaidBtn').addEventListener('click', () => {
+    document.getElementById('statusPaidBtn').addEventListener('click', function () {
       state.currentBill.paymentStatus = 'paid';
       saveState();
       renderTotals();
     });
 
-    // Add Row buttons
-    function addNewRow() {
+    // Add Row button
+    document.getElementById('addRowBtn').addEventListener('click', function () {
       state.currentBill.rows.push(createEmptyRow());
       saveState();
       renderBillingGrid();
-    }
-    document.getElementById('addRowBtn').addEventListener('click', addNewRow);
-
-    // Billing Grid input & click delegation
-    const billingBody = document.getElementById('billingTableBody');
-
-    billingBody.addEventListener('change', (e) => {
-      const sel = e.target.closest('.row-qty-select');
-      if (!sel) return;
-      const row = state.currentBill.rows.find((r) => r.id === sel.dataset.rowId);
-      if (!row) return;
-      row.qty = Math.max(1, Math.min(100, Number(sel.value) || 1));
-      const rowTotalCell = document.querySelector(`[data-row-total="${row.id}"]`);
-      if (rowTotalCell) rowTotalCell.textContent = formatINR(getRowTotal(row));
-      saveState();
-      renderTotals();
     });
 
-    billingBody.addEventListener('input', (e) => {
-      const nameInput = e.target.closest('.row-name-input');
+    // Billing Grid delegation
+    var billingBody = document.getElementById('billingTableBody');
+
+    billingBody.addEventListener('change', function (e) {
+      var sel = e.target.closest('.row-qty-select');
+      if (sel) {
+        var row = state.currentBill.rows.find(function (r) { return r.id === sel.dataset.rowId; });
+        if (!row) return;
+        row.qty = Math.max(1, Math.min(100, Number(sel.value) || 1));
+        var rowTotalCell = document.querySelector('[data-row-total="' + row.id + '"]');
+        if (rowTotalCell) rowTotalCell.textContent = formatINR(getRowTotal(row));
+        saveState();
+        renderTotals();
+        return;
+      }
+
+      var fileInput = e.target.closest('.row-img-input');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        var rowId = fileInput.dataset.rowId;
+        compressImageFile(fileInput.files[0], function (dataUrl) {
+          var row = state.currentBill.rows.find(function (r) { return r.id === rowId; });
+          if (row) {
+            row.image = dataUrl;
+            saveState();
+            renderBillingGrid();
+          }
+        });
+      }
+    });
+
+    billingBody.addEventListener('input', function (e) {
+      var nameInput = e.target.closest('.row-name-input');
       if (nameInput) {
-        const row = state.currentBill.rows.find((r) => r.id === nameInput.dataset.rowId);
+        var row = state.currentBill.rows.find(function (r) { return r.id === nameInput.dataset.rowId; });
         if (row) {
           row.itemName = nameInput.value;
           saveState();
@@ -2012,55 +2004,42 @@
         return;
       }
 
-      const amtInput = e.target.closest('.row-amt-input');
+      var amtInput = e.target.closest('.row-amt-input');
       if (amtInput) {
-        const row = state.currentBill.rows.find((r) => r.id === amtInput.dataset.rowId);
-        if (row) {
-          row.amounts[amtInput.dataset.colId] = amtInput.value === '' ? '' : Math.max(0, Number(amtInput.value) || 0);
+        var rowAmt = state.currentBill.rows.find(function (r) { return r.id === amtInput.dataset.rowId; });
+        if (rowAmt) {
+          rowAmt.amounts[amtInput.dataset.colId] = amtInput.value === '' ? '' : Math.max(0, Number(amtInput.value) || 0);
           saveState();
-          const totalCell = billingBody.querySelector(`[data-row-total="${row.id}"]`);
-          if (totalCell) totalCell.textContent = formatINR(getRowTotal(row));
+          var totalCell = billingBody.querySelector('[data-row-total="' + rowAmt.id + '"]');
+          if (totalCell) totalCell.textContent = formatINR(getRowTotal(rowAmt));
           renderTotals();
         }
       }
     });
 
-    billingBody.addEventListener('change', (e) => {
-      const fileInput = e.target.closest('.row-img-input');
-      if (!fileInput || !fileInput.files || !fileInput.files[0]) return;
-      const rowId = fileInput.dataset.rowId;
-      compressImageFile(fileInput.files[0], (dataUrl) => {
-        const row = state.currentBill.rows.find((r) => r.id === rowId);
-        if (row) {
-          row.image = dataUrl;
-          saveState();
-          renderBillingGrid();
-        }
-      });
-    });
-
-    billingBody.addEventListener('click', (e) => {
-      const sizeBtn = e.target.closest('.open-row-size-btn');
+    billingBody.addEventListener('click', function (e) {
+      var sizeBtn = e.target.closest('.open-row-size-btn');
       if (sizeBtn) {
-        openRowSizeChartModal(sizeBtn.dataset.rowId);
+        renderSizeChartModal(sizeBtn.dataset.rowId);
+        document.getElementById('sizeChartModal').classList.remove('hidden');
         return;
       }
 
-      const removeBtn = e.target.closest('.remove-row-btn');
+      var removeBtn = e.target.closest('.remove-row-btn');
       if (removeBtn) {
         if (state.currentBill.rows.length <= 1) {
           state.currentBill.rows = [createEmptyRow()];
         } else {
-          state.currentBill.rows = state.currentBill.rows.filter((r) => r.id !== removeBtn.dataset.rowId);
+          state.currentBill.rows = state.currentBill.rows.filter(function (r) { return r.id !== removeBtn.dataset.rowId; });
         }
         saveState();
         renderBillingGrid();
         return;
       }
 
-      const clearImg = e.target.closest('[data-clear-img]');
+      var clearImg = e.target.closest('[data-clear-img]');
       if (clearImg) {
-        const row = state.currentBill.rows.find((r) => r.id === clearImg.dataset.clearImg);
+        var row = state.currentBill.rows.find(function (r) { return r.id === clearImg.dataset.clearImg; });
         if (row) {
           row.image = '';
           saveState();
@@ -2069,77 +2048,80 @@
         return;
       }
 
-      const preview = e.target.closest('[data-preview-row]');
+      var preview = e.target.closest('[data-preview-row]');
       if (preview) {
-        const row = state.currentBill.rows.find((r) => r.id === preview.dataset.previewRow);
-        if (row && row.image) {
-          document.getElementById('imgPreviewTitle').textContent = row.itemName || 'Captured Item Photo';
-          document.getElementById('imgPreviewFull').src = row.image;
+        var rowPrev = state.currentBill.rows.find(function (r) { return r.id === preview.dataset.previewRow; });
+        if (rowPrev && rowPrev.image) {
+          document.getElementById('imgPreviewTitle').textContent = rowPrev.itemName || 'Captured Item Photo';
+          document.getElementById('imgPreviewFull').src = rowPrev.image;
           document.getElementById('imgPreviewModal').classList.remove('hidden');
         }
       }
     });
 
-    document.getElementById('closeImgModalBtn').addEventListener('click', () => {
+    document.getElementById('closeImgModalBtn').addEventListener('click', function () {
       document.getElementById('imgPreviewModal').classList.add('hidden');
     });
 
     // Print / Save / New Bill
     function buildAdminSummaryHtmlDocument() {
-      const bills = getFilteredSavedBills();
-      const totalBilled = bills.reduce((sum, b) => sum + (Number(b.grandTotal) || 0), 0);
-      const totalCollected = bills.reduce((sum, b) => sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0), 0);
-      const totalPending = bills.reduce((sum, b) => sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)), 0);
-      const rowsHtml = bills.length
+      var bills = getFilteredSavedBills();
+      var totalBilled = bills.reduce(function (sum, b) { return sum + (Number(b.grandTotal) || 0); }, 0);
+      var totalCollected = bills.reduce(function (sum, b) { return sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0); }, 0);
+      var totalPending = bills.reduce(function (sum, b) { return sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)); }, 0);
+      var rowsHtml = bills.length
         ? bills
-            .map((b) => {
-              const isPaid = b.paymentStatus === 'paid';
-              const adv = Number(b.advancePaid) || 0;
-              const fin = Number(b.finalPaid) || 0;
-              const bal = isPaid ? 0 : getBalanceDue(b);
-              return `<tr>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0; font-weight:700;">${escapeHtml(b.billNo)}</td>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0;">${escapeHtml(b.date)}</td>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0;">${escapeHtml(b.customerName || 'Walk-in')}${b.customerPhone ? '<br><small style="color:#64748b;">' + escapeHtml(b.customerPhone) + '</small>' : ''}</td>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">${formatINR(b.grandTotal)}</td>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">${formatINR(adv)}</td>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">${formatINR(fin)}</td>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:700; color:${bal === 0 ? '#047857' : '#dc2626'};">${formatINR(bal)}</td>
-                <td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:center; font-weight:700; color:${isPaid ? '#047857' : '#dc2626'};">${isPaid ? 'PAID' : 'UNPAID'}</td>
-              </tr>`;
+            .map(function (b) {
+              var isPaid = b.paymentStatus === 'paid';
+              var adv = Number(b.advancePaid) || 0;
+              var fin = Number(b.finalPaid) || 0;
+              var bal = isPaid ? 0 : getBalanceDue(b);
+              return (
+                '<tr>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0; font-weight:700;">' + escapeHtml(b.billNo) + '</td>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0;">' + escapeHtml(b.date) + '</td>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0;">' + escapeHtml(b.customerName || 'Walk-in') + (b.customerPhone ? '<br><small style="color:#64748b;">' + escapeHtml(b.customerPhone) + '</small>' : '') + '</td>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">' + formatINR(b.grandTotal) + '</td>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">' + formatINR(adv) + '</td>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right;">' + formatINR(fin) + '</td>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:700; color:' + (bal === 0 ? '#047857' : '#dc2626') + ';">' + formatINR(bal) + '</td>' +
+                  '<td style="padding:8px; border-bottom:1px solid #e2e8f0; text-align:center; font-weight:700; color:' + (isPaid ? '#047857' : '#dc2626') + ';">' + (isPaid ? 'PAID' : 'UNPAID') + '</td>' +
+                '</tr>'
+              );
             })
             .join('')
         : '<tr><td colspan="8" style="padding:14px; text-align:center; color:#64748b;">No saved bills match the selected filters.</td></tr>';
 
-      return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Bills Summary - ${escapeHtml(state.shop.name)}</title>
-        <style>body{font-family:Arial,sans-serif;padding:24px;color:#1e293b;}table{width:100%;border-collapse:collapse;margin:16px 0;}th{background:#fff7ed;color:${escapeHtml(state.themeColor || '#7c2d12')};font-size:12px;text-align:left;padding:8px;border-bottom:2px solid #fdba74;} .summary{display:flex;gap:18px;flex-wrap:wrap;background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;padding:10px 14px;font-weight:700;margin-top:10px;}</style>
-        </head><body>
-        <h2 style="margin:0;color:${escapeHtml(state.themeColor || '#7c2d12')};">${escapeHtml(state.shop.name)} — Saved Bills Summary</h2>
-        <p style="margin:4px 0 8px;color:#64748b;font-size:13px;">Filters: ${escapeHtml(getSavedFilterDescription())}</p>
-        <div class="summary">
-          <span>Bills: ${bills.length}</span>
-          <span>Total Billed: ${formatINR(totalBilled)}</span>
-          <span style="color:#047857;">Collected: ${formatINR(totalCollected)}</span>
-          <span style="color:#dc2626;">Pending: ${formatINR(totalPending)}</span>
-        </div>
-        <table><thead><tr><th>Bill No</th><th>Date</th><th>Customer</th><th style="text-align:right;">Total</th><th style="text-align:right;">Advance</th><th style="text-align:right;">Final</th><th style="text-align:right;">Balance</th><th style="text-align:center;">Status</th></tr></thead><tbody>${rowsHtml}</tbody></table>
-        <script>window.onload = function(){ try{ window.print(); }catch(e){} };<\/script>
-        </body></html>`;
+      return (
+        '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Bills Summary - ' + escapeHtml(state.shop.name) + '</title>' +
+        '<style>body{font-family:Arial,sans-serif;padding:24px;color:#1e293b;}table{width:100%;border-collapse:collapse;margin:16px 0;}th{background:#fff7ed;color:' + escapeHtml(state.themeColor || '#7c2d12') + ';font-size:12px;text-align:left;padding:8px;border-bottom:2px solid #fdba74;} .summary{display:flex;gap:18px;flex-wrap:wrap;background:#fff7ed;border:1.5px solid #fdba74;border-radius:10px;padding:10px 14px;font-weight:700;margin-top:10px;}</style>' +
+        '</head><body>' +
+        '<h2 style="margin:0;color:' + escapeHtml(state.themeColor || '#7c2d12') + ';">' + escapeHtml(state.shop.name) + ' — Saved Bills Summary</h2>' +
+        '<p style="margin:4px 0 8px;color:#64748b;font-size:13px;">Filters: ' + escapeHtml(getSavedFilterDescription()) + '</p>' +
+        '<div class="summary">' +
+          '<span>Bills: ' + bills.length + '</span>' +
+          '<span>Total Billed: ' + formatINR(totalBilled) + '</span>' +
+          '<span style="color:#047857;">Collected: ' + formatINR(totalCollected) + '</span>' +
+          '<span style="color:#dc2626;">Pending: ' + formatINR(totalPending) + '</span>' +
+        '</div>' +
+        '<table><thead><tr><th>Bill No</th><th>Date</th><th>Customer</th><th style="text-align:right;">Total</th><th style="text-align:right;">Advance</th><th style="text-align:right;">Final</th><th style="text-align:right;">Balance</th><th style="text-align:center;">Status</th></tr></thead><tbody>' + rowsHtml + '</tbody></table>' +
+        '</body></html>'
+      );
     }
 
     function generateAdminSummaryPngCanvas() {
-      const bills = getFilteredSavedBills();
-      const totalBilled = bills.reduce((sum, b) => sum + (Number(b.grandTotal) || 0), 0);
-      const totalCollected = bills.reduce((sum, b) => sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0), 0);
-      const totalPending = bills.reduce((sum, b) => sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)), 0);
+      var bills = getFilteredSavedBills();
+      var totalBilled = bills.reduce(function (sum, b) { return sum + (Number(b.grandTotal) || 0); }, 0);
+      var totalCollected = bills.reduce(function (sum, b) { return sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0); }, 0);
+      var totalPending = bills.reduce(function (sum, b) { return sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)); }, 0);
 
-      const pad = 24;
-      const canvasW = 920;
-      const rowH = 34;
-      const canvas = document.createElement('canvas');
+      var pad = 24;
+      var canvasW = 920;
+      var rowH = 34;
+      var canvas = document.createElement('canvas');
       canvas.width = canvasW;
       canvas.height = 240 + Math.max(1, bills.length) * rowH;
-      const ctx = canvas.getContext('2d');
+      var ctx = canvas.getContext('2d');
 
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -2148,17 +2130,17 @@
       ctx.fillRect(0, 0, canvas.width, 78);
       ctx.fillStyle = '#ffffff';
       ctx.font = 'bold 22px sans-serif';
-      ctx.fillText(`${state.shop.name || 'Embroidery & Stitching'} — Saved Bills Summary`, pad, 34);
+      ctx.fillText((state.shop.name || 'Tailor Billing App') + ' — Saved Bills Summary', pad, 34);
       ctx.font = '13px sans-serif';
       ctx.fillStyle = '#fed7aa';
       ctx.fillText(getSavedFilterDescription(), pad, 58);
 
-      let y = 104;
+      var y = 104;
       ctx.fillStyle = '#fff7ed';
       ctx.fillRect(pad, y - 18, canvasW - pad * 2, 32);
       ctx.fillStyle = '#1e293b';
       ctx.font = 'bold 14px sans-serif';
-      ctx.fillText(`Bills: ${bills.length}   |   Total Billed: ${formatINR(totalBilled)}   |   Collected: ${formatINR(totalCollected)}   |   Pending: ${formatINR(totalPending)}`, pad + 10, y + 3);
+      ctx.fillText('Bills: ' + bills.length + '   |   Total Billed: ' + formatINR(totalBilled) + '   |   Collected: ' + formatINR(totalCollected) + '   |   Pending: ' + formatINR(totalPending), pad + 10, y + 3);
 
       y += 34;
       ctx.fillStyle = state.themeColor || '#7c2d12';
@@ -2187,11 +2169,11 @@
         ctx.font = '14px sans-serif';
         ctx.fillText('No saved bills match the selected filters.', pad, y);
       } else {
-        bills.forEach((b) => {
-          const isPaid = b.paymentStatus === 'paid';
-          const adv = Number(b.advancePaid) || 0;
-          const fin = Number(b.finalPaid) || 0;
-          const bal = isPaid ? 0 : getBalanceDue(b);
+        bills.forEach(function (b) {
+          var isPaid = b.paymentStatus === 'paid';
+          var adv = Number(b.advancePaid) || 0;
+          var fin = Number(b.finalPaid) || 0;
+          var bal = isPaid ? 0 : getBalanceDue(b);
           ctx.fillStyle = '#1e293b';
           ctx.font = 'bold 13px sans-serif';
           ctx.fillText(String(b.billNo || '').slice(0, 12), pad, y);
@@ -2215,89 +2197,95 @@
     }
 
     function buildPrintableHtmlDocument() {
-      const b = state.currentBill;
-      const colsHtml = state.columns.map((c) => `<th style="text-align:right; padding:8px; border-bottom:2px solid #cbd5e1;">${escapeHtml(c.name)} (₹)</th>`).join('');
-      const rowsHtml = b.rows.map((r, i) => {
-        const rt = getRowTotal(r);
+      var b = state.currentBill;
+      var colsHtml = state.columns.map(function (c) {
+        return '<th style="text-align:right; padding:8px; border-bottom:2px solid #cbd5e1;">' + escapeHtml(c.name) + ' (₹)</th>';
+      }).join('');
+      var rowsHtml = b.rows.map(function (r, i) {
+        var rt = getRowTotal(r);
         if (!r.itemName && rt === 0 && !r.image) return '';
-        const imgCell = r.image ? `<img src="${r.image}" style="width:44px; height:44px; object-fit:cover; border-radius:6px;" />` : '—';
-        const amtCells = state.columns.map((c) => `<td style="text-align:right; padding:8px; border-bottom:1px solid #e2e8f0;">${formatINR(r.amounts[c.id] || 0)}</td>`).join('');
-        const q = Math.max(1, Number(r.qty) || 1);
-        return `<tr><td style="padding:8px; border-bottom:1px solid #e2e8f0;">${i + 1}</td><td style="padding:8px; border-bottom:1px solid #e2e8f0;">${imgCell}</td><td style="padding:8px; border-bottom:1px solid #e2e8f0;">${escapeHtml(r.itemName || 'Item')}${q > 1 ? ' (×' + q + ')' : ''}</td>${amtCells}<td style="text-align:right; padding:8px; border-bottom:1px solid #e2e8f0; font-weight:700;">${formatINR(rt)}</td></tr>`;
+        var imgCell = r.image ? '<img src="' + r.image + '" style="width:44px; height:44px; object-fit:cover; border-radius:6px;" />' : '—';
+        var amtCells = state.columns.map(function (c) {
+          return '<td style="text-align:right; padding:8px; border-bottom:1px solid #e2e8f0;">' + formatINR(r.amounts[c.id] || 0) + '</td>';
+        }).join('');
+        var q = Math.max(1, Number(r.qty) || 1);
+        return '<tr><td style="padding:8px; border-bottom:1px solid #e2e8f0;">' + (i + 1) + '</td><td style="padding:8px; border-bottom:1px solid #e2e8f0;">' + imgCell + '</td><td style="padding:8px; border-bottom:1px solid #e2e8f0;">' + escapeHtml(r.itemName || 'Item') + (q > 1 ? ' (×' + q + ')' : '') + '</td>' + amtCells + '<td style="text-align:right; padding:8px; border-bottom:1px solid #e2e8f0; font-weight:700;">' + formatINR(rt) + '</td></tr>';
       }).join('');
 
-      return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${escapeHtml(b.billNo)} - ${escapeHtml(state.shop.name)}</title>
-        <style>body{font-family:Arial,sans-serif;padding:24px;color:#1e293b;}table{width:100%;border-collapse:collapse;margin:16px 0;}th{background:#fff7ed;color:#7c2d12;font-size:12px;text-align:left;padding:8px;border-bottom:2px solid #fdba74;} .box{max-width:320px;margin-left:auto;background:#fff7ed;border:2px solid #f97316;border-radius:10px;padding:12px;}</style>
-        </head><body>
-        <h2 style="margin:0;color:#7c2d12;">${escapeHtml(state.shop.name)}</h2>
-        <p style="margin:2px 0 12px;color:#64748b;font-size:13px;">${escapeHtml(state.shop.tagline)} ${state.shop.phone ? '• ' + escapeHtml(state.shop.phone) : ''}</p>
-        <p style="font-size:14px;"><strong>Bill No:</strong> ${escapeHtml(b.billNo)} &nbsp;|&nbsp; <strong>Date:</strong> ${escapeHtml(b.date)} &nbsp;|&nbsp; <strong>Customer:</strong> ${escapeHtml(b.customerName || 'Walk-in')} ${b.customerPhone ? '(' + escapeHtml(b.customerPhone) + ')' : ''}</p>
-        <table><thead><tr><th>#</th><th>Photo</th><th>Item</th>${colsHtml}<th style="text-align:right;">Row Total</th></tr></thead><tbody>${rowsHtml || '<tr><td colspan="10" style="padding:12px;text-align:center;color:#64748b;">No items entered</td></tr>'}</tbody></table>
-        <div class="box">
-          <div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span>Subtotal:</span><strong>${formatINR(getSubtotal())}</strong></div>
-          <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Discount:</span><strong>− ${formatINR(b.discount || 0)}</strong></div>
-          <div style="display:flex;justify-content:space-between;border-top:1px dashed #fb923c;padding-top:8px;font-size:18px;color:#7c2d12;"><strong>Grand Total:</strong><strong>${formatINR(getGrandTotal())}</strong></div>
-        </div>
-        <script>window.onload = function(){ try{ window.print(); }catch(e){} };<\/script>
-        </body></html>`;
+      return (
+        '<!DOCTYPE html><html><head><meta charset="UTF-8"><title>' + escapeHtml(b.billNo) + ' - ' + escapeHtml(state.shop.name) + '</title>' +
+        '<style>body{font-family:Arial,sans-serif;padding:24px;color:#1e293b;}table{width:100%;border-collapse:collapse;margin:16px 0;}th{background:#fff7ed;color:#7c2d12;font-size:12px;text-align:left;padding:8px;border-bottom:2px solid #fdba74;} .box{max-width:320px;margin-left:auto;background:#fff7ed;border:2px solid #f97316;border-radius:10px;padding:12px;}</style>' +
+        '</head><body>' +
+        '<h2 style="margin:0;color:#7c2d12;">' + escapeHtml(state.shop.name) + '</h2>' +
+        '<p style="margin:2px 0 12px;color:#64748b;font-size:13px;">' + escapeHtml(state.shop.tagline) + ' ' + (state.shop.phone ? '• ' + escapeHtml(state.shop.phone) : '') + '</p>' +
+        '<p style="font-size:14px;"><strong>Bill No:</strong> ' + escapeHtml(b.billNo) + ' &nbsp;|&nbsp; <strong>Date:</strong> ' + escapeHtml(b.date) + ' &nbsp;|&nbsp; <strong>Customer:</strong> ' + escapeHtml(b.customerName || 'Walk-in') + ' ' + (b.customerPhone ? '(' + escapeHtml(b.customerPhone) + ')' : '') + '</p>' +
+        '<table><thead><tr><th>#</th><th>Photo</th><th>Item</th>' + colsHtml + '<th style="text-align:right;">Row Total</th></tr></thead><tbody>' + (rowsHtml || '<tr><td colspan="10" style="padding:12px;text-align:center;color:#64748b;">No items entered</td></tr>') + '</tbody></table>' +
+        '<div class="box">' +
+          '<div style="display:flex;justify-content:space-between;margin-bottom:6px;"><span>Subtotal:</span><strong>' + formatINR(getSubtotal()) + '</strong></div>' +
+          '<div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span>Discount:</span><strong>− ' + formatINR(b.discount || 0) + '</strong></div>' +
+          '<div style="display:flex;justify-content:space-between;border-top:1px dashed #fb923c;padding-top:8px;font-size:18px;color:#7c2d12;"><strong>Grand Total:</strong><strong>' + formatINR(getGrandTotal()) + '</strong></div>' +
+        '</div>' +
+        '</body></html>'
+      );
     }
 
     function openAdminSummaryPrintModal() {
-      const bills = getFilteredSavedBills();
-      const totalBilled = bills.reduce((sum, b) => sum + (Number(b.grandTotal) || 0), 0);
-      const totalCollected = bills.reduce((sum, b) => sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0), 0);
-      const totalPending = bills.reduce((sum, b) => sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)), 0);
+      var bills = getFilteredSavedBills();
+      var totalBilled = bills.reduce(function (sum, b) { return sum + (Number(b.grandTotal) || 0); }, 0);
+      var totalCollected = bills.reduce(function (sum, b) { return sum + (Number(b.advancePaid) || 0) + (Number(b.finalPaid) || 0); }, 0);
+      var totalPending = bills.reduce(function (sum, b) { return sum + (b.paymentStatus === 'paid' ? 0 : getBalanceDue(b)); }, 0);
 
-      const rowsHtml = bills.length
+      var rowsHtml = bills.length
         ? bills
-            .map((b) => {
-              const isPaid = b.paymentStatus === 'paid';
-              const adv = Number(b.advancePaid) || 0;
-              const fin = Number(b.finalPaid) || 0;
-              const bal = isPaid ? 0 : getBalanceDue(b);
-              return `<tr>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; font-weight:700;">${escapeHtml(b.billNo)}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0;">${escapeHtml(b.date)}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0;">${escapeHtml(b.customerName || 'Walk-in')}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right;">${formatINR(b.grandTotal)}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right;">${formatINR(adv)}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right;">${formatINR(fin)}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:700; color:${bal === 0 ? '#047857' : '#dc2626'};">${formatINR(bal)}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:center; font-weight:800; color:${isPaid ? '#047857' : '#dc2626'};">${isPaid ? 'PAID' : 'UNPAID'}</td>
-              </tr>`;
+            .map(function (b) {
+              var isPaid = b.paymentStatus === 'paid';
+              var adv = Number(b.advancePaid) || 0;
+              var fin = Number(b.finalPaid) || 0;
+              var bal = isPaid ? 0 : getBalanceDue(b);
+              return (
+                '<tr>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; font-weight:700;">' + escapeHtml(b.billNo) + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0;">' + escapeHtml(b.date) + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0;">' + escapeHtml(b.customerName || 'Walk-in') + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right;">' + formatINR(b.grandTotal) + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right;">' + formatINR(adv) + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right;">' + formatINR(fin) + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:right; font-weight:700; color:' + (bal === 0 ? '#047857' : '#dc2626') + ';">' + formatINR(bal) + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; text-align:center; font-weight:800; color:' + (isPaid ? '#047857' : '#dc2626') + ';">' + (isPaid ? 'PAID' : 'UNPAID') + '</td>' +
+                '</tr>'
+              );
             })
             .join('')
         : '<tr><td colspan="8" style="padding:12px; text-align:center; color:#64748b;">No saved bills match the current filters.</td></tr>';
 
-      document.getElementById('printPreviewBody').innerHTML = `
-        <div style="border-bottom:2px solid var(--brand); padding-bottom:8px; margin-bottom:10px;">
-          <strong style="font-size:1.05rem; color:var(--brand);">${escapeHtml(state.shop.name)} — Saved Bills Summary</strong>
-          <div style="font-size:0.78rem; color:#64748b; margin-top:2px;">${escapeHtml(getSavedFilterDescription())}</div>
-        </div>
-        <div style="display:flex; flex-wrap:wrap; gap:10px; padding:8px 10px; background:var(--brand-soft); border:1px solid var(--brand-border); border-radius:8px; margin-bottom:10px; font-size:0.78rem; font-weight:700;">
-          <span>Bills: ${bills.length}</span>
-          <span>Total Billed: ${formatINR(totalBilled)}</span>
-          <span style="color:#047857;">Collected: ${formatINR(totalCollected)}</span>
-          <span style="color:#dc2626;">Pending: ${formatINR(totalPending)}</span>
-        </div>
-        <div style="overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse; font-size:0.76rem;">
-            <thead>
-              <tr>
-                <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Bill No</th>
-                <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Date</th>
-                <th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Customer</th>
-                <th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Total</th>
-                <th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Advance</th>
-                <th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Final</th>
-                <th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Balance</th>
-                <th style="text-align:center; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Status</th>
-              </tr>
-            </thead>
-            <tbody>${rowsHtml}</tbody>
-          </table>
-        </div>
-      `;
+      document.getElementById('printPreviewBody').innerHTML =
+        '<div style="border-bottom:2px solid var(--brand); padding-bottom:8px; margin-bottom:10px;">' +
+          '<strong style="font-size:1.05rem; color:var(--brand);">' + escapeHtml(state.shop.name) + ' — Saved Bills Summary</strong>' +
+          '<div style="font-size:0.78rem; color:#64748b; margin-top:2px;">' + escapeHtml(getSavedFilterDescription()) + '</div>' +
+        '</div>' +
+        '<div style="display:flex; flex-wrap:wrap; gap:10px; padding:8px 10px; background:var(--brand-soft); border:1px solid var(--brand-border); border-radius:8px; margin-bottom:10px; font-size:0.78rem; font-weight:700;">' +
+          '<span>Bills: ' + bills.length + '</span>' +
+          '<span>Total Billed: ' + formatINR(totalBilled) + '</span>' +
+          '<span style="color:#047857;">Collected: ' + formatINR(totalCollected) + '</span>' +
+          '<span style="color:#dc2626;">Pending: ' + formatINR(totalPending) + '</span>' +
+        '</div>' +
+        '<div style="overflow-x:auto;">' +
+          '<table style="width:100%; border-collapse:collapse; font-size:0.76rem;">' +
+            '<thead>' +
+              '<tr>' +
+                '<th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Bill No</th>' +
+                '<th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Date</th>' +
+                '<th style="text-align:left; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Customer</th>' +
+                '<th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Total</th>' +
+                '<th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Advance</th>' +
+                '<th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Final</th>' +
+                '<th style="text-align:right; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Balance</th>' +
+                '<th style="text-align:center; padding:6px 8px; border-bottom:2px solid var(--brand-border); background:var(--brand-soft); color:var(--brand);">Status</th>' +
+              '</tr>' +
+            '</thead>' +
+            '<tbody>' + rowsHtml + '</tbody>' +
+          '</table>' +
+        '</div>';
       document.getElementById('printModal').classList.remove('hidden');
       try {
         window.print();
@@ -2309,61 +2297,66 @@
         openAdminSummaryPrintModal();
         return;
       }
-      const b = state.currentBill;
-      const colsHtml = state.columns
-        .map((c) => `<th style="text-align:right; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12; font-size:0.72rem; white-space:nowrap;">${escapeHtml(c.name)}</th>`)
+      var b = state.currentBill;
+      var colsHtml = state.columns
+        .map(function (c) {
+          return '<th style="text-align:right; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12; font-size:0.72rem; white-space:nowrap;">' + escapeHtml(c.name) + '</th>';
+        })
         .join('');
 
-      const activeRows = b.rows.filter((r) => r.itemName || getRowTotal(r) > 0 || r.image);
-      const rowsHtml = activeRows.length
+      var activeRows = b.rows.filter(function (r) { return r.itemName || getRowTotal(r) > 0 || r.image; });
+      var rowsHtml = activeRows.length
         ? activeRows
-            .map((r, i) => {
-              const rt = getRowTotal(r);
-              const imgCell = r.image
-                ? `<img src="${r.image}" style="width:36px; height:36px; object-fit:cover; border-radius:6px; border:1px solid #cbd5e1;" />`
+            .map(function (r, i) {
+              var rt = getRowTotal(r);
+              var imgCell = r.image
+                ? '<img src="' + r.image + '" style="width:36px; height:36px; object-fit:cover; border-radius:6px; border:1px solid #cbd5e1;" />'
                 : '—';
-              const amtCells = state.columns
-                .map((c) => `<td style="text-align:right; padding:6px 8px; border-bottom:1px solid #e2e8f0; white-space:nowrap;">${formatINR(r.amounts[c.id] || 0)}</td>`)
+              var amtCells = state.columns
+                .map(function (c) {
+                  return '<td style="text-align:right; padding:6px 8px; border-bottom:1px solid #e2e8f0; white-space:nowrap;">' + formatINR(r.amounts[c.id] || 0) + '</td>';
+                })
                 .join('');
-              const q = Math.max(1, Number(r.qty) || 1);
-              return `<tr>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; color:#64748b;">${i + 1}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0;">${imgCell}</td>
-                <td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; font-weight:600;">${escapeHtml(r.itemName || 'Item')}${q > 1 ? ' <span style="color:#64748b;font-weight:700;">(×' + q + ')</span>' : ''}</td>
-                ${amtCells}
-                <td style="text-align:right; padding:6px 8px; border-bottom:1px solid #e2e8f0; font-weight:800; white-space:nowrap;">${formatINR(rt)}</td>
-              </tr>`;
+              var q = Math.max(1, Number(r.qty) || 1);
+              return (
+                '<tr>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; color:#64748b;">' + (i + 1) + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0;">' + imgCell + '</td>' +
+                  '<td style="padding:6px 8px; border-bottom:1px solid #e2e8f0; font-weight:600;">' + escapeHtml(r.itemName || 'Item') + (q > 1 ? ' <span style="color:#64748b;font-weight:700;">(×' + q + ')</span>' : '') + '</td>' +
+                  amtCells +
+                  '<td style="text-align:right; padding:6px 8px; border-bottom:1px solid #e2e8f0; font-weight:800; white-space:nowrap;">' + formatINR(rt) + '</td>' +
+                '</tr>'
+              );
             })
             .join('')
-        : `<tr><td colspan="${state.columns.length + 4}" style="padding:12px; text-align:center; color:#64748b;">No item amounts entered yet.</td></tr>`;
+        : '<tr><td colspan="' + (state.columns.length + 4) + '" style="padding:12px; text-align:center; color:#64748b;">No item amounts entered yet.</td></tr>';
 
-      document.getElementById('printPreviewBody').innerHTML = `
-        <div style="border-bottom:2px solid #7c2d12; padding-bottom:8px; margin-bottom:10px;">
-          <strong style="font-size:1.05rem; color:#7c2d12;">${escapeHtml(state.shop.name)}</strong>
-          <div style="font-size:0.78rem; color:#64748b; margin-top:2px;">
-            Bill #${escapeHtml(b.billNo)} • ${escapeHtml(b.date)} • ${escapeHtml(b.customerName || 'Walk-in Customer')} ${b.customerPhone ? '(' + escapeHtml(b.customerPhone) + ')' : ''}
-          </div>
-        </div>
-        <div style="overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse; font-size:0.78rem;">
-            <thead>
-              <tr>
-                <th style="text-align:left; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">#</th>
-                <th style="text-align:left; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">Photo</th>
-                <th style="text-align:left; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">Item</th>
-                ${colsHtml}
-                <th style="text-align:right; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">Total</th>
-              </tr>
-            </thead>
-            <tbody>${rowsHtml}</tbody>
-          </table>
-        </div>
-        <div style="margin-top:12px; max-width:300px; margin-left:auto; background:#fff7ed; border:1.5px solid #f97316; border-radius:8px; padding:8px 12px;">
-          <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span>Subtotal</span><strong>${formatINR(getSubtotal())}</strong></div>
-          <div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>Discount</span><strong>− ${formatINR(b.discount || 0)}</strong></div>
-          <div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; color:#7c2d12; margin-top:4px; border-top:1px dashed #fdba74; padding-top:5px;"><span>Grand Total</span><span>${formatINR(getGrandTotal())}</span></div>
-        </div>
-      `;
+      document.getElementById('printPreviewBody').innerHTML =
+        '<div style="border-bottom:2px solid #7c2d12; padding-bottom:8px; margin-bottom:10px;">' +
+          '<strong style="font-size:1.05rem; color:#7c2d12;">' + escapeHtml(state.shop.name) + '</strong>' +
+          '<div style="font-size:0.78rem; color:#64748b; margin-top:2px;">' +
+            'Bill #' + escapeHtml(b.billNo) + ' • ' + escapeHtml(b.date) + ' • ' + escapeHtml(b.customerName || 'Walk-in Customer') + ' ' + (b.customerPhone ? '(' + escapeHtml(b.customerPhone) + ')' : '') +
+          '</div>' +
+        '</div>' +
+        '<div style="overflow-x:auto;">' +
+          '<table style="width:100%; border-collapse:collapse; font-size:0.78rem;">' +
+            '<thead>' +
+              '<tr>' +
+                '<th style="text-align:left; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">#</th>' +
+                '<th style="text-align:left; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">Photo</th>' +
+                '<th style="text-align:left; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">Item</th>' +
+                colsHtml +
+                '<th style="text-align:right; padding:6px 8px; border-bottom:2px solid #fdba74; background:#fff7ed; color:#7c2d12;">Total</th>' +
+              '</tr>' +
+            '</thead>' +
+            '<tbody>' + rowsHtml + '</tbody>' +
+          '</table>' +
+        '</div>' +
+        '<div style="margin-top:12px; max-width:300px; margin-left:auto; background:#fff7ed; border:1.5px solid #f97316; border-radius:8px; padding:8px 12px;">' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span>Subtotal</span><strong>' + formatINR(getSubtotal()) + '</strong></div>' +
+          '<div style="display:flex; justify-content:space-between; margin-bottom:4px;"><span>Discount</span><strong>− ' + formatINR(b.discount || 0) + '</strong></div>' +
+          '<div style="display:flex; justify-content:space-between; font-weight:800; font-size:1.05rem; color:#7c2d12; margin-top:4px; border-top:1px dashed #fdba74; padding-top:5px;"><span>Grand Total</span><span>' + formatINR(getGrandTotal()) + '</span></div>' +
+        '</div>';
       document.getElementById('printModal').classList.remove('hidden');
       try {
         window.print();
@@ -2371,48 +2364,50 @@
     }
 
     document.getElementById('printBillBtn').addEventListener('click', openPrintModal);
-    document.getElementById('closePrintModalBtn').addEventListener('click', () => {
+    document.getElementById('closePrintModalBtn').addEventListener('click', function () {
       document.getElementById('printModal').classList.add('hidden');
     });
-    document.getElementById('tryBrowserPrintBtn').addEventListener('click', () => {
+    document.getElementById('tryBrowserPrintBtn').addEventListener('click', function () {
       try {
         window.print();
       } catch (e) {
-        showToast('Browser print blocked in preview — use Download Bill Image or HTML');
+        showToast('Browser print blocked — use Download Bill Image or HTML');
       }
     });
-    document.getElementById('downloadHtmlBillBtn').addEventListener('click', () => {
-      const isAdmin = state.activeTab === 'admin';
-      const html = isAdmin ? buildAdminSummaryHtmlDocument() : buildPrintableHtmlDocument();
-      const blob = new Blob([html], { type: 'text/html' });
-      const a = document.createElement('a');
+    document.getElementById('downloadHtmlBillBtn').addEventListener('click', function () {
+      var isAdmin = state.activeTab === 'admin';
+      var html = isAdmin ? buildAdminSummaryHtmlDocument() : buildPrintableHtmlDocument();
+      var blob = new Blob([html], { type: 'text/html' });
+      var a = document.createElement('a');
       a.href = URL.createObjectURL(blob);
       a.download = isAdmin
-        ? `bills_summary_${todayISO()}.html`
-        : `${(state.currentBill.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_')}.html`;
+        ? 'bills_summary_' + todayISO() + '.html'
+        : (state.currentBill.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_') + '.html';
       a.click();
       URL.revokeObjectURL(a.href);
       showToast(isAdmin ? 'Printable summary HTML downloaded' : 'Printable HTML bill downloaded');
     });
-    document.getElementById('downloadPngBillBtn').addEventListener('click', async () => {
+    document.getElementById('downloadPngBillBtn').addEventListener('click', function () {
       if (state.activeTab === 'admin') {
-        downloadCanvasAsPng(generateAdminSummaryPngCanvas(), `bills_summary_${todayISO()}.png`);
+        downloadCanvasAsPng(generateAdminSummaryPngCanvas(), 'bills_summary_' + todayISO() + '.png');
         showToast('Summary image (PNG) downloaded');
       } else {
-        const b = state.currentBill;
-        const fileName = `${(b.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
-        downloadCanvasAsPng(await generateBillPngCanvas(), fileName);
-        showToast('Bill image (PNG) downloaded');
+        var b = state.currentBill;
+        var fileName = (b.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_') + '.png';
+        generateBillPngCanvas().then(function (canvas) {
+          downloadCanvasAsPng(canvas, fileName);
+          showToast('Bill image (PNG) downloaded');
+        });
       }
     });
 
     function saveCurrentBill(silent) {
-      const snap = JSON.parse(JSON.stringify(state.currentBill));
+      var snap = JSON.parse(JSON.stringify(state.currentBill));
       snap.subtotal = getSubtotal();
       snap.grandTotal = getGrandTotal();
 
-      const existingIdx = snap.id
-        ? state.savedBills.findIndex((b) => b.id === snap.id)
+      var existingIdx = snap.id
+        ? state.savedBills.findIndex(function (b) { return b.id === snap.id; })
         : -1;
 
       if (existingIdx >= 0) {
@@ -2420,7 +2415,7 @@
         saveState();
         renderBillMeta();
         renderAdminPage();
-        if (!silent) showToast(`Updated ${snap.billNo} (${formatINR(snap.grandTotal)})`);
+        if (!silent) showToast('Updated ' + snap.billNo + ' (' + formatINR(snap.grandTotal) + ')');
       } else {
         snap.id = 'bill_' + Date.now();
         state.currentBill.id = snap.id;
@@ -2428,14 +2423,14 @@
         saveState();
         renderBillMeta();
         renderAdminPage();
-        if (!silent) showToast(`Saved ${snap.billNo} (${formatINR(snap.grandTotal)})`);
+        if (!silent) showToast('Saved ' + snap.billNo + ' (' + formatINR(snap.grandTotal) + ')');
       }
     }
 
-    document.getElementById('saveBillBtn').addEventListener('click', () => saveCurrentBill(false));
-    document.getElementById('saveBillBottomBtn').addEventListener('click', () => saveCurrentBill(false));
+    document.getElementById('saveBillBtn').addEventListener('click', function () { saveCurrentBill(false); });
+    document.getElementById('saveBillBottomBtn').addEventListener('click', function () { saveCurrentBill(false); });
 
-    document.getElementById('newBillBtn').addEventListener('click', () => {
+    document.getElementById('newBillBtn').addEventListener('click', function () {
       state.nextBillSeq += 1;
       state.currentBill = {
         billNo: 'INV-' + state.nextBillSeq,
@@ -2452,284 +2447,279 @@
       state.activeTab = 'billing';
       saveState();
       renderAll();
-      showToast(`Started ${state.currentBill.billNo}`);
+      showToast('Started ' + state.currentBill.billNo);
     });
 
     function loadImageForCanvas(src) {
-      return new Promise((resolve) => {
+      return new Promise(function (resolve) {
         if (!src) return resolve(null);
-        const img = new Image();
-        img.onload = () => resolve(img);
-        img.onerror = () => resolve(null);
+        var img = new Image();
+        img.onload = function () { resolve(img); };
+        img.onerror = function () { resolve(null); };
         img.src = src;
       });
     }
 
-    async function generateBillPngCanvas() {
-      const b = state.currentBill;
-      const activeRows = b.rows.filter((r) => r.itemName || getRowTotal(r) > 0 || r.image);
-      const [loadedImgs, qrImg] = await Promise.all([
-        Promise.all(activeRows.map((r) => loadImageForCanvas(r.image))),
-        loadImageForCanvas(state.shop.qrImage || ''),
-      ]);
-
-      const scale = 2; // Crisp 2x retina PNG
-      const pad = 28;
-      const idxW = 34;
-      const itemW = 210;
-      const qtyW = 54;
-      const colW = 104;
-      const totalW = 112;
-      const canvasW = Math.max(820, pad * 2 + idxW + itemW + qtyW + state.columns.length * colW + totalW);
-
-      const hasAnyImg = loadedImgs.some(Boolean);
-      const rowH = hasAnyImg ? 52 : 40;
-      const headerH = 92;
-      const tableHeadH = 36;
-      const footerH = 165;
-      const canvasH = headerH + 20 + tableHeadH + Math.max(1, activeRows.length) * rowH + 24 + footerH;
-
-      const canvas = document.createElement('canvas');
-      canvas.width = canvasW * scale;
-      canvas.height = canvasH * scale;
-      const ctx = canvas.getContext('2d');
-      ctx.scale(scale, scale);
-
-      // White background
-      ctx.fillStyle = '#ffffff';
-      ctx.fillRect(0, 0, canvasW, canvasH);
-
-      // Brand header
-      const brand = state.themeColor || '#7c2d12';
-      ctx.fillStyle = brand;
-      ctx.fillRect(0, 0, canvasW, headerH);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 24px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText(state.shop.name || 'Tailor Billing App', pad, 36);
-
-      ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillStyle = 'rgba(255,255,255,0.88)';
-      const shopSub = [state.shop.tagline, state.shop.phone ? 'Ph: ' + state.shop.phone : ''].filter(Boolean).join('  •  ');
-      if (shopSub) ctx.fillText(shopSub, pad, 56);
-
-      ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillStyle = '#ffffff';
-      ctx.fillText(`Bill #${b.billNo}   |   Date: ${b.date}   |   Customer: ${b.customerName || 'Walk-in'}${b.customerPhone ? ' (' + b.customerPhone + ')' : ''}`, pad, 78);
-
-      // Table header
-      let y = headerH + 20;
-      ctx.fillStyle = '#fff7ed';
-      ctx.fillRect(pad, y, canvasW - pad * 2, tableHeadH);
-      ctx.fillStyle = brand;
-      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.textAlign = 'left';
-      ctx.fillText('#', pad + 8, y + 22);
-      ctx.fillText('ITEM', pad + idxW, y + 22);
-
-      const qtyX = pad + idxW + itemW + qtyW / 2;
-      ctx.textAlign = 'center';
-      ctx.fillText('QTY', qtyX, y + 22);
-
-      const colsStartX = pad + idxW + itemW + qtyW;
-      ctx.textAlign = 'right';
-      state.columns.forEach((c, ci) => {
-        ctx.fillText(c.name.slice(0, 13).toUpperCase(), colsStartX + (ci + 1) * colW - 8, y + 22);
-      });
-      ctx.fillText('TOTAL', canvasW - pad - 8, y + 22);
-      ctx.textAlign = 'left';
-
-      y += tableHeadH;
-      ctx.strokeStyle = '#fdba74';
-      ctx.lineWidth = 1.5;
+    function drawRoundedRect(ctx, x, y, w, h, r) {
       ctx.beginPath();
-      ctx.moveTo(pad, y);
-      ctx.lineTo(canvasW - pad, y);
-      ctx.stroke();
-
-      // Rows
-      if (!activeRows.length) {
-        ctx.fillStyle = '#64748b';
-        ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-        ctx.fillText('No items entered', pad + 8, y + 26);
-        y += rowH;
-      } else {
-        activeRows.forEach((r, idx) => {
-          const rt = getRowTotal(r);
-          const q = Math.max(1, Number(r.qty) || 1);
-          const midY = y + rowH / 2 + 5;
-
-          // Zebra tint
-          if (idx % 2 === 1) {
-            ctx.fillStyle = '#f8fafc';
-            ctx.fillRect(pad, y, canvasW - pad * 2, rowH);
-          }
-
-          ctx.fillStyle = '#64748b';
-          ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-          ctx.textAlign = 'left';
-          ctx.fillText(String(idx + 1), pad + 8, midY);
-
-          let textX = pad + idxW;
-          const img = loadedImgs[idx];
-          if (img) {
-            const thumb = 38;
-            const imgY = y + (rowH - thumb) / 2;
-            ctx.save();
-            ctx.beginPath();
-            ctx.roundRect(textX, imgY, thumb, thumb, 6);
-            ctx.clip();
-            ctx.drawImage(img, textX, imgY, thumb, thumb);
-            ctx.restore();
-            textX += thumb + 10;
-          }
-
-          ctx.fillStyle = '#0f172a';
-          ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-          ctx.fillText((r.itemName || 'Item').slice(0, img ? 20 : 26), textX, midY);
-
-          ctx.textAlign = 'center';
-          ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-          ctx.fillStyle = '#334155';
-          ctx.fillText(String(q), qtyX, midY);
-
-          ctx.textAlign = 'right';
-          ctx.font = '13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-          ctx.fillStyle = '#334155';
-          state.columns.forEach((c, ci) => {
-            ctx.fillText(formatINR(r.amounts[c.id] || 0), colsStartX + (ci + 1) * colW - 8, midY);
-          });
-
-          ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-          ctx.fillStyle = '#0f172a';
-          ctx.fillText(formatINR(rt), canvasW - pad - 8, midY);
-          ctx.textAlign = 'left';
-
-          y += rowH;
-          ctx.strokeStyle = '#e2e8f0';
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(pad, y);
-          ctx.lineTo(canvasW - pad, y);
-          ctx.stroke();
-        });
-      }
-
-      // Footer Summary & Payment Boxes
-      y += 20;
-      const rightBoxW = 340;
-      const rightBoxX = canvasW - pad - rightBoxW;
-      const leftBoxW = rightBoxX - pad - 18;
-      const boxH = 124;
-
-      // Optional Payment QR Box on far left when user uploaded QR scanner in Admin
-      let payBoxX = pad;
-      let payBoxW = leftBoxW;
-      if (qrImg) {
-        const qrBoxW = 122;
-        ctx.fillStyle = '#ffffff';
-        ctx.strokeStyle = '#cbd5e1';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.roundRect(pad, y, qrBoxW, boxH, 10);
-        ctx.fill();
-        ctx.stroke();
-        ctx.drawImage(qrImg, pad + 17, y + 8, 88, 88);
-        ctx.fillStyle = '#0f172a';
-        ctx.font = 'bold 10px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-        ctx.textAlign = 'center';
-        ctx.fillText('SCAN & PAY', pad + qrBoxW / 2, y + 110);
-        ctx.textAlign = 'left';
-        payBoxX = pad + qrBoxW + 12;
-        payBoxW = leftBoxW - qrBoxW - 12;
-      }
-
-      // Left Payment Box
-      ctx.fillStyle = '#f8fafc';
-      ctx.strokeStyle = '#cbd5e1';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.roundRect(payBoxX, y, payBoxW, boxH, 10);
-      ctx.fill();
-      ctx.stroke();
-
-      const adv = Number(b.advancePaid) || 0;
-      const fin = Number(b.finalPaid) || 0;
-      const isPaid = b.paymentStatus === 'paid';
-      const bal = isPaid ? 0 : getBalanceDue();
-
-      ctx.fillStyle = '#475569';
-      ctx.font = 'bold 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText('PAYMENT DETAILS', payBoxX + 14, y + 26);
-      ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText(`Advance Paid: ${formatINR(adv)}`, payBoxX + 14, y + 52);
-      ctx.fillText(`Final Payment: ${formatINR(fin)}`, payBoxX + 14, y + 74);
-      ctx.font = 'bold 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillStyle = isPaid ? '#047857' : '#dc2626';
-      ctx.fillText(`${isPaid ? 'PAID' : 'UNPAID'} • Due: ${formatINR(bal)}`, payBoxX + 14, y + 104);
-
-      // Right Grand Total Box
-      ctx.fillStyle = '#fff7ed';
-      ctx.strokeStyle = '#f97316';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.roundRect(rightBoxX, y, rightBoxW, boxH, 10);
-      ctx.fill();
-      ctx.stroke();
-
-      ctx.fillStyle = '#475569';
-      ctx.font = '14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText('Subtotal:', rightBoxX + 18, y + 30);
-      ctx.textAlign = 'right';
-      ctx.fillText(formatINR(getSubtotal()), rightBoxX + rightBoxW - 18, y + 30);
-      ctx.textAlign = 'left';
-
-      ctx.fillText('Discount:', rightBoxX + 18, y + 56);
-      ctx.textAlign = 'right';
-      ctx.fillText('− ' + formatINR(b.discount || 0), rightBoxX + rightBoxW - 18, y + 56);
-      ctx.textAlign = 'left';
-
-      ctx.strokeStyle = '#fdba74';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(rightBoxX + 18, y + 72);
-      ctx.lineTo(rightBoxX + rightBoxW - 18, y + 72);
-      ctx.stroke();
-
-      ctx.fillStyle = brand;
-      ctx.font = 'bold 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
-      ctx.fillText('Grand Total:', rightBoxX + 18, y + 102);
-      ctx.textAlign = 'right';
-      ctx.fillText(formatINR(getGrandTotal()), rightBoxX + rightBoxW - 18, y + 102);
-      ctx.textAlign = 'left';
-
-      return canvas;
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
     }
 
-    function isAndroidWebView() {
-      const ua = navigator.userAgent || '';
-      return /Android/i.test(ua) && (/\bwv\b/i.test(ua) || /; wv\)/i.test(ua));
+    function generateBillPngCanvas() {
+      var b = state.currentBill;
+      var activeRows = b.rows.filter(function (r) { return r.itemName || getRowTotal(r) > 0 || r.image; });
+      return Promise.all([
+        Promise.all(activeRows.map(function (r) { return loadImageForCanvas(r.image); })),
+        loadImageForCanvas(state.shop.qrImage || ''),
+      ]).then(function (results) {
+        var loadedImgs = results[0];
+        var qrImg = results[1];
+
+        var scale = 2;
+        var pad = 28;
+        var idxW = 34;
+        var itemW = 210;
+        var qtyW = 54;
+        var colW = 104;
+        var totalW = 112;
+        var canvasW = Math.max(820, pad * 2 + idxW + itemW + qtyW + state.columns.length * colW + totalW);
+
+        var hasAnyImg = loadedImgs.some(Boolean);
+        var rowH = hasAnyImg ? 52 : 40;
+        var headerH = 92;
+        var tableHeadH = 36;
+        var footerH = 165;
+        var canvasH = headerH + 20 + tableHeadH + Math.max(1, activeRows.length) * rowH + 24 + footerH;
+
+        var canvas = document.createElement('canvas');
+        canvas.width = canvasW * scale;
+        canvas.height = canvasH * scale;
+        var ctx = canvas.getContext('2d');
+        ctx.scale(scale, scale);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvasW, canvasH);
+
+        var brand = state.themeColor || '#7c2d12';
+        ctx.fillStyle = brand;
+        ctx.fillRect(0, 0, canvasW, headerH);
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 24px sans-serif';
+        ctx.fillText(state.shop.name || 'Tailor Billing App', pad, 36);
+
+        ctx.font = '13px sans-serif';
+        ctx.fillStyle = 'rgba(255,255,255,0.88)';
+        var shopSub = [state.shop.tagline, state.shop.phone ? 'Ph: ' + state.shop.phone : ''].filter(Boolean).join('  •  ');
+        if (shopSub) ctx.fillText(shopSub, pad, 56);
+
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('Bill #' + b.billNo + '   |   Date: ' + b.date + '   |   Customer: ' + (b.customerName || 'Walk-in') + (b.customerPhone ? ' (' + b.customerPhone + ')' : ''), pad, 78);
+
+        var y = headerH + 20;
+        ctx.fillStyle = '#fff7ed';
+        ctx.fillRect(pad, y, canvasW - pad * 2, tableHeadH);
+        ctx.fillStyle = brand;
+        ctx.font = 'bold 12px sans-serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('#', pad + 8, y + 22);
+        ctx.fillText('ITEM', pad + idxW, y + 22);
+
+        var qtyX = pad + idxW + itemW + qtyW / 2;
+        ctx.textAlign = 'center';
+        ctx.fillText('QTY', qtyX, y + 22);
+
+        var colsStartX = pad + idxW + itemW + qtyW;
+        ctx.textAlign = 'right';
+        state.columns.forEach(function (c, ci) {
+          ctx.fillText(c.name.slice(0, 13).toUpperCase(), colsStartX + (ci + 1) * colW - 8, y + 22);
+        });
+        ctx.fillText('TOTAL', canvasW - pad - 8, y + 22);
+        ctx.textAlign = 'left';
+
+        y += tableHeadH;
+        ctx.strokeStyle = '#fdba74';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(pad, y);
+        ctx.lineTo(canvasW - pad, y);
+        ctx.stroke();
+
+        if (!activeRows.length) {
+          ctx.fillStyle = '#64748b';
+          ctx.font = '14px sans-serif';
+          ctx.fillText('No items entered', pad + 8, y + 26);
+          y += rowH;
+        } else {
+          activeRows.forEach(function (r, idx) {
+            var rt = getRowTotal(r);
+            var q = Math.max(1, Number(r.qty) || 1);
+            var midY = y + rowH / 2 + 5;
+
+            if (idx % 2 === 1) {
+              ctx.fillStyle = '#f8fafc';
+              ctx.fillRect(pad, y, canvasW - pad * 2, rowH);
+            }
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = '13px sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(String(idx + 1), pad + 8, midY);
+
+            var textX = pad + idxW;
+            var img = loadedImgs[idx];
+            if (img) {
+              var thumb = 38;
+              var imgY = y + (rowH - thumb) / 2;
+              ctx.save();
+              drawRoundedRect(ctx, textX, imgY, thumb, thumb, 6);
+              ctx.clip();
+              ctx.drawImage(img, textX, imgY, thumb, thumb);
+              ctx.restore();
+              textX += thumb + 10;
+            }
+
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 13px sans-serif';
+            ctx.fillText((r.itemName || 'Item').slice(0, img ? 20 : 26), textX, midY);
+
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 13px sans-serif';
+            ctx.fillStyle = '#334155';
+            ctx.fillText(String(q), qtyX, midY);
+
+            ctx.textAlign = 'right';
+            ctx.font = '13px sans-serif';
+            ctx.fillStyle = '#334155';
+            state.columns.forEach(function (c, ci) {
+              ctx.fillText(formatINR(r.amounts[c.id] || 0), colsStartX + (ci + 1) * colW - 8, midY);
+            });
+
+            ctx.font = 'bold 14px sans-serif';
+            ctx.fillStyle = '#0f172a';
+            ctx.fillText(formatINR(rt), canvasW - pad - 8, midY);
+            ctx.textAlign = 'left';
+
+            y += rowH;
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(pad, y);
+            ctx.lineTo(canvasW - pad, y);
+            ctx.stroke();
+          });
+        }
+
+        y += 20;
+        var rightBoxW = 340;
+        var rightBoxX = canvasW - pad - rightBoxW;
+        var leftBoxW = rightBoxX - pad - 18;
+        var boxH = 124;
+
+        var payBoxX = pad;
+        var payBoxW = leftBoxW;
+        if (qrImg) {
+          var qrBoxW = 122;
+          ctx.fillStyle = '#ffffff';
+          ctx.strokeStyle = '#cbd5e1';
+          ctx.lineWidth = 1.5;
+          drawRoundedRect(ctx, pad, y, qrBoxW, boxH, 10);
+          ctx.fill();
+          ctx.stroke();
+          ctx.drawImage(qrImg, pad + 17, y + 8, 88, 88);
+          ctx.fillStyle = '#0f172a';
+          ctx.font = 'bold 10px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText('SCAN & PAY', pad + qrBoxW / 2, y + 110);
+          ctx.textAlign = 'left';
+          payBoxX = pad + qrBoxW + 12;
+          payBoxW = leftBoxW - qrBoxW - 12;
+        }
+
+        ctx.fillStyle = '#f8fafc';
+        ctx.strokeStyle = '#cbd5e1';
+        ctx.lineWidth = 1.5;
+        drawRoundedRect(ctx, payBoxX, y, payBoxW, boxH, 10);
+        ctx.fill();
+        ctx.stroke();
+
+        var adv = Number(b.advancePaid) || 0;
+        var fin = Number(b.finalPaid) || 0;
+        var isPaid = b.paymentStatus === 'paid';
+        var bal = isPaid ? 0 : getBalanceDue();
+
+        ctx.fillStyle = '#475569';
+        ctx.font = 'bold 13px sans-serif';
+        ctx.fillText('PAYMENT DETAILS', payBoxX + 14, y + 26);
+        ctx.font = '14px sans-serif';
+        ctx.fillText('Advance Paid: ' + formatINR(adv), payBoxX + 14, y + 52);
+        ctx.fillText('Final Payment: ' + formatINR(fin), payBoxX + 14, y + 74);
+        ctx.font = 'bold 15px sans-serif';
+        ctx.fillStyle = isPaid ? '#047857' : '#dc2626';
+        ctx.fillText((isPaid ? 'PAID' : 'UNPAID') + ' • Due: ' + formatINR(bal), payBoxX + 14, y + 104);
+
+        ctx.fillStyle = '#fff7ed';
+        ctx.strokeStyle = '#f97316';
+        ctx.lineWidth = 2;
+        drawRoundedRect(ctx, rightBoxX, y, rightBoxW, boxH, 10);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = '#475569';
+        ctx.font = '14px sans-serif';
+        ctx.fillText('Subtotal:', rightBoxX + 18, y + 30);
+        ctx.textAlign = 'right';
+        ctx.fillText(formatINR(getSubtotal()), rightBoxX + rightBoxW - 18, y + 30);
+        ctx.textAlign = 'left';
+
+        ctx.fillText('Discount:', rightBoxX + 18, y + 56);
+        ctx.textAlign = 'right';
+        ctx.fillText('− ' + formatINR(b.discount || 0), rightBoxX + rightBoxW - 18, y + 56);
+        ctx.textAlign = 'left';
+
+        ctx.strokeStyle = '#fdba74';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(rightBoxX + 18, y + 72);
+        ctx.lineTo(rightBoxX + rightBoxW - 18, y + 72);
+        ctx.stroke();
+
+        ctx.fillStyle = brand;
+        ctx.font = 'bold 20px sans-serif';
+        ctx.fillText('Grand Total:', rightBoxX + 18, y + 102);
+        ctx.textAlign = 'right';
+        ctx.fillText(formatINR(getGrandTotal()), rightBoxX + rightBoxW - 18, y + 102);
+        ctx.textAlign = 'left';
+
+        return canvas;
+      });
     }
 
     function downloadCanvasAsPng(canvas, filename) {
-      if (isAndroidWebView()) {
-        showToast('Use 🖨️ Save as PDF or screenshot the bill preview (WebIntoApp blocks PNG downloads)');
-        return;
-      }
       if (canvas.toBlob) {
-        canvas.toBlob((blob) => {
+        canvas.toBlob(function (blob) {
           if (!blob) return;
-          const url = URL.createObjectURL(blob);
-          const link = document.createElement('a');
+          var url = URL.createObjectURL(blob);
+          var link = document.createElement('a');
           link.download = filename;
           link.href = url;
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
-          setTimeout(() => URL.revokeObjectURL(url), 1500);
+          setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
         }, 'image/png');
       } else {
-        const link = document.createElement('a');
+        var link = document.createElement('a');
         link.download = filename;
         link.href = canvas.toDataURL('image/png');
         document.body.appendChild(link);
@@ -2739,130 +2729,193 @@
     }
 
     function buildWhatsAppPayload() {
-      const b = state.currentBill;
-      const lines = [];
-      lines.push(`*${state.shop.name}*`);
-      lines.push(`Bill: *${b.billNo}* | Date: ${b.date}`);
-      if (b.customerName) lines.push(`Customer: *${b.customerName}*`);
+      var b = state.currentBill;
+      var lines = [];
+      lines.push('*' + state.shop.name + '*');
+      lines.push('Bill: *' + b.billNo + '* | Date: ' + b.date);
+      if (b.customerName) lines.push('Customer: *' + b.customerName + '*');
       lines.push('');
-      b.rows.forEach((r, idx) => {
-        const rt = getRowTotal(r);
+      b.rows.forEach(function (r, idx) {
+        var rt = getRowTotal(r);
         if (r.itemName || rt > 0) {
-          const parts = state.columns
-            .filter((c) => Number(r.amounts[c.id]) > 0)
-            .map((c) => `${c.name}: ${formatINR(r.amounts[c.id])}`);
-          const q = Math.max(1, Number(r.qty) || 1);
-          lines.push(`${idx + 1}. *${r.itemName || 'Item'}*${q > 1 ? ' (Qty: ' + q + ')' : ''} — ${formatINR(rt)}${parts.length ? ' (' + parts.join(', ') + ')' : ''}`);
+          var parts = state.columns
+            .filter(function (c) { return Number(r.amounts[c.id]) > 0; })
+            .map(function (c) { return c.name + ': ' + formatINR(r.amounts[c.id]); });
+          var q = Math.max(1, Number(r.qty) || 1);
+          lines.push((idx + 1) + '. *' + (r.itemName || 'Item') + '*' + (q > 1 ? ' (Qty: ' + q + ')' : '') + ' — ' + formatINR(rt) + (parts.length ? ' (' + parts.join(', ') + ')' : ''));
         }
       });
       lines.push('');
-      lines.push(`Subtotal: ${formatINR(getSubtotal())}`);
-      if (Number(b.discount) > 0) lines.push(`Discount: -${formatINR(b.discount)}`);
-      lines.push(`*Grand Total: ${formatINR(getGrandTotal())}*`);
-      if (Number(b.advancePaid) > 0) lines.push(`Advance Paid: ${formatINR(b.advancePaid)}`);
-      if (Number(b.finalPaid) > 0) lines.push(`Final Payment: ${formatINR(b.finalPaid)}`);
-      const isPaid = b.paymentStatus === 'paid';
-      lines.push(`Status: *${isPaid ? 'PAID' : 'UNPAID'}*${!isPaid ? ' (Balance: ' + formatINR(getBalanceDue()) + ')' : ''}`);
+      lines.push('Subtotal: ' + formatINR(getSubtotal()));
+      if (Number(b.discount) > 0) lines.push('Discount: -' + formatINR(b.discount));
+      lines.push('*Grand Total: ' + formatINR(getGrandTotal()) + '*');
+      if (Number(b.advancePaid) > 0) lines.push('Advance Paid: ' + formatINR(b.advancePaid));
+      if (Number(b.finalPaid) > 0) lines.push('Final Payment: ' + formatINR(b.finalPaid));
+      var isPaid = b.paymentStatus === 'paid';
+      lines.push('Status: *' + (isPaid ? 'PAID' : 'UNPAID') + '*' + (!isPaid ? ' (Balance: ' + formatINR(getBalanceDue()) + ')' : ''));
       lines.push('Thank you!');
 
-      const msg = lines.join('\n');
-      const digits = String(b.customerPhone || '').replace(/\D/g, '');
-      const phone = digits.length === 10 ? '91' + digits : digits;
-      const url = phone
-        ? `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
-        : `https://wa.me/?text=${encodeURIComponent(msg)}`;
-      return { msg, url };
+      var msg = lines.join('
+');
+      var digits = String(b.customerPhone || '').replace(/\D/g, '');
+      var phone = digits.length === 10 ? '91' + digits : digits;
+      var url = phone
+        ? 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg)
+        : 'https://wa.me/?text=' + encodeURIComponent(msg);
+      return { msg: msg, url: url };
     }
 
-    // Share Bill PNG on WhatsApp
-    document.getElementById('shareBillWaBtn').addEventListener('click', async () => {
-      saveCurrentBill(true);
-      const b = state.currentBill;
-      const { msg, url } = buildWhatsAppPayload();
-      const canvas = await generateBillPngCanvas();
-      const fileName = `${(b.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
-      const dataUrl = canvas.toDataURL('image/png');
+    function saveAndShareBillNative(canvas, fileName, msg) {
+      var cap = window.Capacitor;
+      var Plugins = cap && cap.Plugins ? cap.Plugins : {};
+      var Filesystem = Plugins.Filesystem;
+      var Share = Plugins.Share;
 
-      document.getElementById('waBillPngPreview').src = dataUrl;
-      const dlLink = document.getElementById('waDownloadPngAgainBtn');
-      dlLink.href = dataUrl;
-      dlLink.download = fileName;
-      document.getElementById('waModalText').value = msg;
-      document.getElementById('waModalLink').href = url;
+      if (cap && cap.isNativePlatform && cap.isNativePlatform() && Filesystem && Share) {
+        var base64Data = canvas.toDataURL('image/png').split(',')[1];
 
-      try {
-        const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
-        const file = blob ? new File([blob], fileName, { type: 'image/png' }) : null;
-        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({
-            files: [file],
-            title: `${state.shop.name} - ${b.billNo}`,
-            text: msg,
+        return Filesystem.writeFile({
+          path: 'TailorBilling/' + fileName,
+          data: base64Data,
+          directory: 'DOCUMENTS',
+          recursive: true,
+        })
+          .catch(function () {})
+          .then(function () {
+            return Filesystem.writeFile({
+              path: 'TailorBilling/' + fileName,
+              data: base64Data,
+              directory: 'EXTERNAL_STORAGE',
+              recursive: true,
+            }).catch(function () {});
+          })
+          .then(function () {
+            return Filesystem.writeFile({
+              path: fileName,
+              data: base64Data,
+              directory: 'CACHE',
+            });
+          })
+          .then(function (cached) {
+            return Share.share({
+              title: state.shop.name + ' - ' + state.currentBill.billNo,
+              text: msg,
+              url: cached.uri,
+              dialogTitle: 'Send Bill PNG via WhatsApp',
+            });
+          })
+          .then(function () {
+            return true;
           });
-          showToast('Bill PNG shared!');
-          return;
-        }
-      } catch (e) {
-        if (e && e.name === 'AbortError') return;
       }
 
-      downloadCanvasAsPng(canvas, fileName);
-      document.getElementById('waModal').classList.remove('hidden');
-      showToast('Bill PNG downloaded — attach or paste into WhatsApp');
-    });
-
-    document.getElementById('waShareNativeBtn').addEventListener('click', async () => {
-      const b = state.currentBill;
-      const { msg, url } = buildWhatsAppPayload();
-      const canvas = await generateBillPngCanvas();
-      const fileName = `${(b.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_')}.png`;
-      try {
-        const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
-        const file = blob ? new File([blob], fileName, { type: 'image/png' }) : null;
-        if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: `${state.shop.name} - ${b.billNo}`, text: msg });
-          showToast('Bill PNG shared!');
-          return;
+      return new Promise(function (resolve) {
+        try {
+          canvas.toBlob(function (blob) {
+            var file = blob ? new File([blob], fileName, { type: 'image/png' }) : null;
+            if (file && navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({
+                files: [file],
+                title: state.shop.name + ' - ' + state.currentBill.billNo,
+                text: msg,
+              }).then(function () { resolve(true); }).catch(function () { resolve(false); });
+            } else {
+              resolve(false);
+            }
+          }, 'image/png');
+        } catch (e) {
+          resolve(false);
         }
-      } catch (e) {}
-      window.open(url, '_blank', 'noopener,noreferrer');
-      showToast('Direct file share unsupported here — attach downloaded PNG in WhatsApp');
+      });
+    }
+
+    document.getElementById('shareBillWaBtn').addEventListener('click', function () {
+      saveCurrentBill(true);
+      var b = state.currentBill;
+      var payload = buildWhatsAppPayload();
+      var msg = payload.msg;
+      var url = payload.url;
+      generateBillPngCanvas().then(function (canvas) {
+        var fileName = (b.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_') + '.png';
+        var dataUrl = canvas.toDataURL('image/png');
+
+        document.getElementById('waBillPngPreview').src = dataUrl;
+        var dlLink = document.getElementById('waDownloadPngAgainBtn');
+        dlLink.href = dataUrl;
+        dlLink.download = fileName;
+        document.getElementById('waModalText').value = msg;
+        document.getElementById('waModalLink').href = url;
+
+        saveAndShareBillNative(canvas, fileName, msg)
+          .then(function (shared) {
+            if (shared) {
+              showToast('Saved to TailorBilling folder & opened WhatsApp share!');
+              return;
+            }
+            downloadCanvasAsPng(canvas, fileName);
+            document.getElementById('waModal').classList.remove('hidden');
+          })
+          .catch(function (err) {
+            showToast('Share error: ' + (err && err.message ? err.message : 'Unable to attach file'));
+            document.getElementById('waModal').classList.remove('hidden');
+          });
+      });
     });
 
-    document.getElementById('waDownloadPngAgainBtn').addEventListener('click', (e) => {
-      if (isAndroidWebView()) {
-        e.preventDefault();
-        showToast('Use 🖨️ Save as PDF or screenshot the bill preview (WebIntoApp blocks PNG downloads)');
-        return;
-      }
+    document.getElementById('waShareNativeBtn').addEventListener('click', function () {
+      var b = state.currentBill;
+      var payload = buildWhatsAppPayload();
+      generateBillPngCanvas().then(function (canvas) {
+        var fileName = (b.billNo || 'bill').replace(/[^a-zA-Z0-9_-]/g, '_') + '.png';
+        saveAndShareBillNative(canvas, fileName, payload.msg)
+          .then(function (shared) {
+            if (shared) {
+              showToast('Saved to TailorBilling folder & opened WhatsApp share!');
+              return;
+            }
+            window.open(payload.url, '_blank', 'noopener,noreferrer');
+            showToast('Attach downloaded PNG in WhatsApp');
+          })
+          .catch(function () {
+            window.open(payload.url, '_blank', 'noopener,noreferrer');
+          });
+      });
+    });
+
+    document.getElementById('waDownloadPngAgainBtn').addEventListener('click', function () {
       showToast('Downloading Bill PNG...');
     });
 
-    document.getElementById('waPrintPdfBtn').addEventListener('click', () => {
+    document.getElementById('waPrintPdfBtn').addEventListener('click', function () {
       document.getElementById('waModal').classList.add('hidden');
-      setTimeout(() => window.print(), 150);
+      setTimeout(function () { window.print(); }, 150);
     });
-    document.getElementById('closeWaModalBtn').addEventListener('click', () => {
+    document.getElementById('closeWaModalBtn').addEventListener('click', function () {
       document.getElementById('waModal').classList.add('hidden');
     });
-    document.getElementById('waCopyPngBtn').addEventListener('click', async () => {
-      try {
-        const canvas = await generateBillPngCanvas();
-        const blob = await new Promise((res) => canvas.toBlob(res, 'image/png'));
-        if (blob && navigator.clipboard && window.ClipboardItem) {
-          await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-          showToast('Bill PNG copied! Paste directly into WhatsApp');
-          return;
+    document.getElementById('waCopyPngBtn').addEventListener('click', function () {
+      generateBillPngCanvas().then(function (canvas) {
+        try {
+          canvas.toBlob(function (blob) {
+            if (blob && navigator.clipboard && window.ClipboardItem) {
+              navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+                .then(function () { showToast('Bill PNG copied!'); })
+                .catch(function () { showToast('Use Download PNG'); });
+            } else {
+              showToast('Use Download PNG');
+            }
+          }, 'image/png');
+        } catch (e) {
+          showToast('Use Download PNG');
         }
-      } catch (e) {}
-      showToast('Image copy not supported in this browser — use Download PNG');
+      });
     });
 
-    document.getElementById('copyWaModalBtn').addEventListener('click', () => {
-      const el = document.getElementById('waModalText');
-      const txt = el.value;
+    document.getElementById('copyWaModalBtn').addEventListener('click', function () {
+      var el = document.getElementById('waModalText');
+      var txt = el.value;
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(txt).then(() => showToast('Bill text copied!')).catch(() => {
+        navigator.clipboard.writeText(txt).then(function () { showToast('Bill text copied!'); }).catch(function () {
           el.select();
           document.execCommand('copy');
           showToast('Bill text copied!');
@@ -2874,39 +2927,24 @@
       }
     });
 
-    // Admin: Collapsible Sections (Initially Collapsed)
-    function setupCollapsibleSection(headerId, bodyId, badgeId) {
-      const header = document.getElementById(headerId);
-      const body = document.getElementById(bodyId);
-      const badge = document.getElementById(badgeId);
-      if (!header || !body || !badge) return;
-      header.addEventListener('click', () => {
-        const isHidden = body.classList.toggle('hidden');
-        badge.textContent = isHidden ? '▼ Open' : '▲ Close';
-      });
-    }
-    setupCollapsibleSection('toggleBillingColsHeader', 'billingColsBody', 'billingColsToggleBadge');
-    setupCollapsibleSection('toggleSizeOptionsHeader', 'sizeOptionsBody', 'sizeOptionsToggleBadge');
-
-    // Admin: Add Column
-    document.getElementById('addColumnForm').addEventListener('submit', (e) => {
+    // Admin: Add / Rename / Move / Delete Columns
+    document.getElementById('addColumnForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      const input = document.getElementById('newColumnName');
-      const name = input.value.trim();
+      var input = document.getElementById('newColumnName');
+      var name = input.value.trim();
       if (!name) return;
-      state.columns.push({ id: 'col_' + Date.now(), name });
+      state.columns.push({ id: 'col_' + Date.now(), name: name });
       input.value = '';
       saveState();
       renderAll();
-      showToast(`Added column "${name}"`);
+      showToast('Added column "' + name + '"');
     });
 
-    // Admin: Rename / Move / Delete Columns
-    const adminCols = document.getElementById('adminColumnsList');
-    adminCols.addEventListener('change', (e) => {
-      const inp = e.target.closest('.admin-col-rename');
+    var adminCols = document.getElementById('adminColumnsList');
+    adminCols.addEventListener('change', function (e) {
+      var inp = e.target.closest('.admin-col-rename');
       if (!inp) return;
-      const col = state.columns.find((c) => c.id === inp.dataset.colId);
+      var col = state.columns.find(function (c) { return c.id === inp.dataset.colId; });
       if (col) {
         col.name = inp.value.trim() || col.name;
         saveState();
@@ -2915,27 +2953,27 @@
       }
     });
 
-    adminCols.addEventListener('click', (e) => {
-      const moveBtn = e.target.closest('.move-col-btn');
+    adminCols.addEventListener('click', function (e) {
+      var moveBtn = e.target.closest('.move-col-btn');
       if (moveBtn) {
-        const idx = state.columns.findIndex((c) => c.id === moveBtn.dataset.colId);
-        const target = idx + Number(moveBtn.dataset.dir);
+        var idx = state.columns.findIndex(function (c) { return c.id === moveBtn.dataset.colId; });
+        var target = idx + Number(moveBtn.dataset.dir);
         if (idx >= 0 && target >= 0 && target < state.columns.length) {
-          const [item] = state.columns.splice(idx, 1);
-          state.columns.splice(target, 0, item);
+          var moved = state.columns.splice(idx, 1)[0];
+          state.columns.splice(target, 0, moved);
           saveState();
           renderAll();
         }
         return;
       }
 
-      const delBtn = e.target.closest('.delete-col-btn');
+      var delBtn = e.target.closest('.delete-col-btn');
       if (delBtn) {
         if (state.columns.length <= 1) {
           showToast('Keep at least 1 charge column');
           return;
         }
-        state.columns = state.columns.filter((c) => c.id !== delBtn.dataset.colId);
+        state.columns = state.columns.filter(function (c) { return c.id !== delBtn.dataset.colId; });
         saveState();
         renderAll();
         showToast('Column removed');
@@ -2943,23 +2981,23 @@
     });
 
     // Admin: Add / Rename / Move / Delete Size Chart Options
-    document.getElementById('addSizeOptionForm').addEventListener('submit', (e) => {
+    document.getElementById('addSizeOptionForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      const input = document.getElementById('newSizeOptionName');
-      const name = input.value.trim();
+      var input = document.getElementById('newSizeOptionName');
+      var name = input.value.trim();
       if (!name) return;
-      state.sizeOptions.push({ id: 'sz_' + Date.now(), name });
+      state.sizeOptions.push({ id: 'sz_' + Date.now(), name: name });
       input.value = '';
       saveState();
       renderAll();
-      showToast(`Added measurement option "${name}"`);
+      showToast('Added measurement option "' + name + '"');
     });
 
-    const adminSizeOpts = document.getElementById('adminSizeOptionsList');
-    adminSizeOpts.addEventListener('change', (e) => {
-      const inp = e.target.closest('.admin-size-opt-rename');
+    var adminSizeOpts = document.getElementById('adminSizeOptionsList');
+    adminSizeOpts.addEventListener('change', function (e) {
+      var inp = e.target.closest('.admin-size-opt-rename');
       if (!inp) return;
-      const opt = state.sizeOptions.find((o) => o.id === inp.dataset.optId);
+      var opt = state.sizeOptions.find(function (o) { return o.id === inp.dataset.optId; });
       if (opt) {
         opt.name = inp.value.trim() || opt.name;
         saveState();
@@ -2967,27 +3005,27 @@
       }
     });
 
-    adminSizeOpts.addEventListener('click', (e) => {
-      const moveBtn = e.target.closest('.move-size-opt-btn');
+    adminSizeOpts.addEventListener('click', function (e) {
+      var moveBtn = e.target.closest('.move-size-opt-btn');
       if (moveBtn) {
-        const idx = state.sizeOptions.findIndex((o) => o.id === moveBtn.dataset.optId);
-        const target = idx + Number(moveBtn.dataset.dir);
+        var idx = state.sizeOptions.findIndex(function (o) { return o.id === moveBtn.dataset.optId; });
+        var target = idx + Number(moveBtn.dataset.dir);
         if (idx >= 0 && target >= 0 && target < state.sizeOptions.length) {
-          const [item] = state.sizeOptions.splice(idx, 1);
-          state.sizeOptions.splice(target, 0, item);
+          var moved = state.sizeOptions.splice(idx, 1)[0];
+          state.sizeOptions.splice(target, 0, moved);
           saveState();
           renderAdminPage();
         }
         return;
       }
 
-      const delBtn = e.target.closest('.delete-size-opt-btn');
+      var delBtn = e.target.closest('.delete-size-opt-btn');
       if (delBtn) {
         if (state.sizeOptions.length <= 1) {
           showToast('Keep at least 1 measurement option');
           return;
         }
-        state.sizeOptions = state.sizeOptions.filter((o) => o.id !== delBtn.dataset.optId);
+        state.sizeOptions = state.sizeOptions.filter(function (o) { return o.id !== delBtn.dataset.optId; });
         saveState();
         renderAdminPage();
         showToast('Measurement option removed');
@@ -2995,29 +3033,29 @@
     });
 
     // Admin: Shop settings
-    document.getElementById('adminShopName').addEventListener('input', (e) => {
+    document.getElementById('adminShopName').addEventListener('input', function (e) {
       state.shop.name = e.target.value;
       saveState();
       renderHeaderAndTabs();
     });
-    document.getElementById('adminShopSub').addEventListener('input', (e) => {
+    document.getElementById('adminShopSub').addEventListener('input', function (e) {
       state.shop.tagline = e.target.value;
       saveState();
       renderHeaderAndTabs();
     });
-    document.getElementById('adminShopPhone').addEventListener('input', (e) => {
+    document.getElementById('adminShopPhone').addEventListener('input', function (e) {
       state.shop.phone = e.target.value;
       saveState();
       renderHeaderAndTabs();
     });
-    document.getElementById('adminShopUpi').addEventListener('input', (e) => {
+    document.getElementById('adminShopUpi').addEventListener('input', function (e) {
       state.shop.upiId = e.target.value;
       saveState();
     });
-    document.getElementById('adminShopQrInput').addEventListener('change', (e) => {
-      const file = e.target.files && e.target.files[0];
+    document.getElementById('adminShopQrInput').addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0];
       if (!file) return;
-      compressImageFile(file, (dataUrl) => {
+      compressImageFile(file, function (dataUrl) {
         state.shop.qrImage = dataUrl;
         saveState();
         renderAdminPage();
@@ -3025,31 +3063,31 @@
       });
       e.target.value = '';
     });
-    document.getElementById('removeQrBtn').addEventListener('click', () => {
+    document.getElementById('removeQrBtn').addEventListener('click', function () {
       state.shop.qrImage = '';
       saveState();
       renderAdminPage();
       showToast('Payment QR removed');
     });
-    document.getElementById('exportBackupBtn').addEventListener('click', () => {
-      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+    document.getElementById('exportBackupBtn').addEventListener('click', function () {
+      var blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
       a.href = url;
-      a.download = `embroidery_billing_backup_${todayISO()}.json`;
+      a.download = 'tailor_billing_backup_' + todayISO() + '.json';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1500);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
       showToast('Full JSON backup downloaded');
     });
-    document.getElementById('importBackupInput').addEventListener('change', (e) => {
-      const file = e.target.files && e.target.files[0];
+    document.getElementById('importBackupInput').addEventListener('change', function (e) {
+      var file = e.target.files && e.target.files[0];
       if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
+      var reader = new FileReader();
+      reader.onload = function (ev) {
         try {
-          const parsed = JSON.parse(ev.target.result);
+          var parsed = JSON.parse(ev.target.result);
           if (!parsed || !Array.isArray(parsed.columns) || !parsed.currentBill) {
             showToast('Invalid backup file');
             return;
@@ -3058,12 +3096,11 @@
           if (!Array.isArray(state.sizeOptions) || !state.sizeOptions.length) {
             state.sizeOptions = JSON.parse(JSON.stringify(DEFAULT_SIZE_OPTIONS));
           }
-          ensureBillRowSizeCharts(state.currentBill, state.sizeOptions);
+          state.currentBill.rows.forEach(function (r) { ensureRowSizeChart(r, state.sizeOptions); });
           if (!Array.isArray(state.savedBills)) state.savedBills = [];
-          if (!Array.isArray(state.presets)) state.presets = [];
           saveState();
           renderAll();
-          showToast(`Restored ${state.savedBills.length} bill(s) from backup`);
+          showToast('Restored ' + state.savedBills.length + ' bill(s) from backup');
         } catch (err) {
           showToast('Could not read backup JSON');
         }
@@ -3076,7 +3113,7 @@
     document.getElementById('savedBillSearchInput').addEventListener('input', renderAdminPage);
     document.getElementById('savedBillStatusFilter').addEventListener('change', renderAdminPage);
     document.getElementById('savedBillDateFilter').addEventListener('change', renderAdminPage);
-    document.getElementById('clearSavedFiltersBtn').addEventListener('click', () => {
+    document.getElementById('clearSavedFiltersBtn').addEventListener('click', function () {
       document.getElementById('savedBillSearchInput').value = '';
       document.getElementById('savedBillStatusFilter').value = 'all';
       document.getElementById('savedBillDateFilter').value = '';
@@ -3084,18 +3121,18 @@
     });
 
     function csvCell(val) {
-      const str = String(val == null ? '' : val);
+      var str = String(val == null ? '' : val);
       return '"' + str.replace(/"/g, '""') + '"';
     }
 
-    document.getElementById('exportBillsExcelBtn').addEventListener('click', () => {
-      const bills = getFilteredSavedBills();
+    document.getElementById('exportBillsExcelBtn').addEventListener('click', function () {
+      var bills = getFilteredSavedBills();
       if (!bills.length) {
         showToast('No saved bills to export');
         return;
       }
 
-      const headers = [
+      var headers = [
         'Bill No',
         'Date',
         'Customer Name',
@@ -3110,30 +3147,30 @@
         'Status',
       ];
 
-      let totGrand = 0;
-      let totAdv = 0;
-      let totFin = 0;
-      let totBal = 0;
+      var totGrand = 0;
+      var totAdv = 0;
+      var totFin = 0;
+      var totBal = 0;
 
-      const dataRows = bills.map((b) => {
-        const isPaid = b.paymentStatus === 'paid';
-        const sub = Number(b.subtotal) || 0;
-        const disc = Number(b.discount) || 0;
-        const grand = Number(b.grandTotal) || 0;
-        const adv = Number(b.advancePaid) || 0;
-        const fin = Number(b.finalPaid) || 0;
-        const bal = isPaid ? 0 : getBalanceDue(b);
+      var dataRows = bills.map(function (b) {
+        var isPaid = b.paymentStatus === 'paid';
+        var sub = Number(b.subtotal) || 0;
+        var disc = Number(b.discount) || 0;
+        var grand = Number(b.grandTotal) || 0;
+        var adv = Number(b.advancePaid) || 0;
+        var fin = Number(b.finalPaid) || 0;
+        var bal = isPaid ? 0 : getBalanceDue(b);
 
         totGrand += grand;
         totAdv += adv;
         totFin += fin;
         totBal += bal;
 
-        const itemsText = (b.rows || [])
-          .filter((r) => r.itemName || getRowTotal(r) > 0)
-          .map((r) => {
-            const q = Math.max(1, Number(r.qty) || 1);
-            return `${r.itemName || 'Item'}${q > 1 ? ' x' + q : ''}`;
+        var itemsText = (b.rows || [])
+          .filter(function (r) { return r.itemName || getRowTotal(r) > 0; })
+          .map(function (r) {
+            var q = Math.max(1, Number(r.qty) || 1);
+            return (r.itemName || 'Item') + (q > 1 ? ' x' + q : '');
           })
           .join('; ');
 
@@ -3153,9 +3190,9 @@
         ].join(',');
       });
 
-      const totalRow = [
+      var totalRow = [
         csvCell('TOTAL'),
-        csvCell(`${bills.length} Bills`),
+        csvCell(bills.length + ' Bills'),
         csvCell(''),
         csvCell(''),
         csvCell(''),
@@ -3168,242 +3205,61 @@
         csvCell(''),
       ].join(',');
 
-      const csvContent = '\uFEFF' + [headers.map(csvCell).join(','), ...dataRows, totalRow].join('\r\n');
-      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      var csvContent = '﻿' + [headers.map(csvCell).join(',')].concat(dataRows, [totalRow]).join('
+');
+      var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
       a.href = url;
-      a.download = `saved_bills_${todayISO()}.csv`;
+      a.download = 'saved_bills_' + todayISO() + '.csv';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      setTimeout(() => URL.revokeObjectURL(url), 1500);
-      showToast(`Exported ${bills.length} bill(s) to Excel CSV`);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
+      showToast('Exported ' + bills.length + ' bill(s) to Excel CSV');
     });
 
     // Admin: Saved Bills actions
-    document.getElementById('savedBillsList').addEventListener('click', (e) => {
-      const toggleBtn = e.target.closest('.toggle-saved-status-btn');
+    document.getElementById('savedBillsList').addEventListener('click', function (e) {
+      var toggleBtn = e.target.closest('.toggle-saved-status-btn');
       if (toggleBtn) {
-        const found = state.savedBills.find((b) => b.id === toggleBtn.dataset.billId);
+        var found = state.savedBills.find(function (b) { return b.id === toggleBtn.dataset.billId; });
         if (found) {
           found.paymentStatus = found.paymentStatus === 'paid' ? 'unpaid' : 'paid';
           saveState();
           renderAdminPage();
-          showToast(`${found.billNo} marked ${found.paymentStatus.toUpperCase()}`);
+          showToast(found.billNo + ' marked ' + found.paymentStatus.toUpperCase());
         }
         return;
       }
-      const loadBtn = e.target.closest('.load-saved-bill-btn');
+      var loadBtn = e.target.closest('.load-saved-bill-btn');
       if (loadBtn) {
-        const found = state.savedBills.find((b) => b.id === loadBtn.dataset.billId);
-        if (found) {
-          state.currentBill = JSON.parse(JSON.stringify(found));
-          ensureBillRowSizeCharts(state.currentBill, state.sizeOptions);
+        var foundLoad = state.savedBills.find(function (b) { return b.id === loadBtn.dataset.billId; });
+        if (foundLoad) {
+          state.currentBill = JSON.parse(JSON.stringify(foundLoad));
+          state.currentBill.rows.forEach(function (r) { ensureRowSizeChart(r, state.sizeOptions); });
           state.activeTab = 'billing';
           saveState();
           renderAll();
-          showToast(`Loaded ${found.billNo}`);
+          showToast('Loaded ' + foundLoad.billNo);
         }
         return;
       }
-      const delBtn = e.target.closest('.delete-saved-bill-btn');
+      var delBtn = e.target.closest('.delete-saved-bill-btn');
       if (delBtn) {
-        state.savedBills = state.savedBills.filter((b) => b.id !== delBtn.dataset.billId);
+        state.savedBills = state.savedBills.filter(function (b) { return b.id !== delBtn.dataset.billId; });
         saveState();
         renderAdminPage();
         showToast('Saved bill deleted');
       }
     });
 
-    renderAll();
+    // Safe initialization across browsers & Android WebView
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', renderAll);
+    } else {
+      renderAll();
+    }
   </script>
 </body>
 </html>
-      --card: #ffffff;
-      --ink: #1e293b;
-      --muted: #64748b;
-      --border: #e2e8f0;
-      --brand: #7c2d12;
-      --brand-dark: #5c1f0a;
-      --brand-soft: #fff7ed;
-      --brand-tint: #ffedd5;
-      --brand-border: #fdba74;
-      --brand-accent: #f97316;
-      --brand-subtext: #fed7aa;
-      --emerald: #047857;
-      --emerald-soft: #ecfdf5;
-      --danger: #dc2626;
-      --danger-soft: #fef2f2;
-    }
-
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .container {
-      max-width: 1220px;
-      margin: 0 auto;
-      padding: 12px;
-    }
-
-    /* Header */
-    .topbar {
-      position: relative;
-      overflow: hidden;
-      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
-      color: #fff;
-      border-radius: 20px;
-      padding: 20px 24px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-      margin-bottom: 18px;
-    }
-    .topbar::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0.16;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120' fill='none'%3E%3Ccircle cx='60' cy='60' r='44' stroke='%23ffffff' stroke-width='1.3' stroke-dasharray='4 4'/%3E%3Ccircle cx='60' cy='60' r='26' stroke='%23ffffff' stroke-width='1.1'/%3E%3Cpath d='M60 12 C68 32, 88 52, 108 60 C88 68, 68 88, 60 108 C52 88, 32 68, 12 60 C32 52, 52 32, 60 12 Z' stroke='%23ffffff' stroke-width='1.2'/%3E%3Cpath d='M26 26 C44 40, 44 80, 26 94 M94 26 C76 40, 76 80, 94 94' stroke='%23ffffff' stroke-width='1' stroke-dasharray='2 3'/%3E%3Ccircle cx='60' cy='60' r='5' fill='%23ffffff'/%3E%3C/svg%3E");
-      background-size: 96px 96px;
-      background-repeat: repeat;
-      pointer-events: none;
-    }
-    .topbar > * {
-      position: relative;
-      z-index: 1;
-    }
-    .topbar h1 {
-      margin: 0;
-      font-size: 1.45rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-    .topbar p {
-      margin: 4px 0 0;
-      font-size: 0.85rem;
-      color: var(--brand-subtext);
-      font-weight: 500;
-    }
-    .topbar .btn-glass {
-      background: rgba(255, 255, 255, 0.16);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.34);
-      color: #ffffff;
-      border-radius: 11px;
-    }
-    .topbar .btn-glass:hover {
-      background: rgba(255, 255, 255, 0.28);
-      transform: translateY(-1px);
-    }
-
-    /* Segmented Tabs */
-    .tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
-      padding: 6px;
-      border-radius: 16px;
-      border: 1px solid rgba(15, 23, 42, 0.08);
-      margin-bottom: 18px;
-      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
-    }
-    .tab-btn {
-      border: 0;
-      background: transparent;
-      padding: 11px 16px;
-      border-radius: 11px;
-      font-size: 0.94rem;
-      font-weight: 700;
-      color: var(--muted);
-      cursor: pointer;
-      transition: all 0.18s ease;
-    }
-    .tab-btn:hover:not(.active) {
-      color: var(--ink);
-      background: rgba(15, 23, 42, 0.04);
-    }
-    .tab-btn.active {
-      background: var(--brand);
-      color: #fff;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.16);
-    }
-
-    .hidden { display: none !important; }
-
-    /* Cards */
-    .card {
-      background: var(--card);
-      border: 1px solid rgba(15, 23, 42, 0.07);
-      border-radius: 18px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03), 0 8px 24px rgba(15, 23, 42, 0.04);
-    }
-    .card-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #f1f5f9;
-    }
-    .collapsible-header {
-      cursor: pointer;
-      user-select: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
-    .collapsible-header.open {
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #f1f5f9;
-    }
-    .card-title {
-      margin: 0;
-      font-size: 1.08rem;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      color: var(--ink);
-    }
-    .card-sub {
-      margin: 2px 0 0;
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    /* Form Grid & Inputs */
-    .form-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
-    }
-    label.field-label {
-      display: block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
-    input[type="text"],
-    input[type="tel"],
-    input[type="date"],
-    input
