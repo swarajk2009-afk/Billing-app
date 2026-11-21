@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Tailor Billing App</title>
   <style>
     :root {
@@ -25,6 +25,10 @@
     }
 
     * { box-sizing: border-box; }
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
     body {
       margin: 0;
       font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -32,12 +36,14 @@
       color: var(--ink);
       line-height: 1.5;
       -webkit-font-smoothing: antialiased;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
     }
 
     .container {
       max-width: 1220px;
       margin: 0 auto;
-      padding: 12px;
+      padding: 14px;
     }
 
     /* Header */
@@ -47,14 +53,14 @@
       background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand) 100%);
       color: #fff;
       border-radius: 20px;
-      padding: 20px 24px;
+      padding: 20px 22px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
       box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.18);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
     }
     .topbar::before {
       content: "";
@@ -70,15 +76,31 @@
       position: relative;
       z-index: 1;
     }
+    .brand-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .shop-logo-img {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      object-fit: cover;
+      background: #ffffff;
+      padding: 2px;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
     .topbar h1 {
       margin: 0;
-      font-size: 1.45rem;
+      font-size: 1.4rem;
       font-weight: 800;
       letter-spacing: -0.02em;
+      line-height: 1.25;
     }
     .topbar p {
       margin: 4px 0 0;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: var(--brand-subtext);
       font-weight: 500;
     }
@@ -86,7 +108,7 @@
       background: rgba(255, 255, 255, 0.16);
       border: 1px solid rgba(255, 255, 255, 0.34);
       color: #ffffff;
-      border-radius: 11px;
+      border-radius: 12px;
     }
     .topbar .btn-glass:hover {
       background: rgba(255, 255, 255, 0.28);
@@ -97,19 +119,19 @@
     .tabs {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 6px;
+      gap: 8px;
       background: #ffffff;
       padding: 6px;
       border-radius: 16px;
       border: 1px solid rgba(15, 23, 42, 0.08);
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
     }
     .tab-btn {
       border: 0;
       background: transparent;
-      padding: 11px 16px;
-      border-radius: 11px;
+      padding: 12px 16px;
+      border-radius: 12px;
       font-size: 0.94rem;
       font-weight: 700;
       color: var(--muted);
@@ -133,8 +155,8 @@
       background: var(--card);
       border: 1px solid rgba(15, 23, 42, 0.07);
       border-radius: 18px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
       box-shadow: 0 1px 3px rgba(15, 23, 42, 0.03), 0 8px 24px rgba(15, 23, 42, 0.04);
     }
     .card-header {
@@ -143,8 +165,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      margin-bottom: 10px;
-      padding-bottom: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #f1f5f9;
     }
     .collapsible-header {
@@ -155,19 +177,19 @@
       border-bottom: 0;
     }
     .collapsible-header.open {
-      margin-bottom: 12px;
-      padding-bottom: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
       border-bottom: 1px solid #f1f5f9;
     }
     .card-title {
       margin: 0;
-      font-size: 1.08rem;
+      font-size: 1.06rem;
       font-weight: 800;
       letter-spacing: -0.01em;
       color: var(--ink);
     }
     .card-sub {
-      margin: 2px 0 0;
+      margin: 4px 0 0;
       font-size: 0.82rem;
       color: var(--muted);
     }
@@ -175,17 +197,17 @@
     /* Form Grid & Inputs */
     .form-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 14px;
     }
     label.field-label {
       display: block;
-      font-size: 0.72rem;
+      font-size: 0.74rem;
       font-weight: 700;
       color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
     }
     input[type="text"],
     input[type="tel"],
@@ -194,10 +216,10 @@
     select,
     textarea {
       width: 100%;
-      padding: 7px 10px;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 9px;
-      font-size: 0.85rem;
+      padding: 10px 12px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 11px;
+      font-size: 0.92rem;
       color: var(--ink);
       background: #f8fafc;
       outline: none;
@@ -216,11 +238,11 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 7px;
       border: 0;
-      border-radius: 11px;
-      padding: 10px 15px;
-      font-size: 0.85rem;
+      border-radius: 12px;
+      padding: 11px 16px;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease;
@@ -250,18 +272,18 @@
     .btn-outline {
       background: #fff;
       color: var(--ink);
-      border: 1.5px solid #e2e8f0;
+      border: 1.5px solid #cbd5e1;
     }
-    .btn-outline:hover { background: #f8fafc; border-color: #cbd5e1; }
+    .btn-outline:hover { background: #f8fafc; border-color: #94a3b8; }
     .btn-danger-soft {
       background: var(--danger-soft);
       color: var(--danger);
       border: 1px solid #fecaca;
-      padding: 7px 11px;
-      font-size: 0.78rem;
+      padding: 8px 12px;
+      font-size: 0.8rem;
     }
     .btn-danger-soft:hover { background: #fee2e2; }
-    .btn-sm { padding: 7px 11px; font-size: 0.78rem; border-radius: 9px; }
+    .btn-sm { padding: 8px 12px; font-size: 0.8rem; border-radius: 10px; }
 
     /* Theme-colored Size Chart Icon Button per Row */
     .size-icon-btn {
@@ -269,10 +291,10 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 34px;
-      height: 34px;
+      width: 40px;
+      height: 40px;
       padding: 0;
-      border-radius: 9px;
+      border-radius: 11px;
       border: 1.5px solid var(--brand);
       background: var(--brand);
       color: #ffffff;
@@ -288,14 +310,14 @@
       position: absolute;
       top: -6px;
       right: -6px;
-      min-width: 17px;
-      height: 17px;
+      min-width: 18px;
+      height: 18px;
       padding: 0 4px;
       border-radius: 999px;
       background: #ffffff;
       color: var(--brand);
       border: 1.5px solid var(--brand);
-      font-size: 0.65rem;
+      font-size: 0.68rem;
       font-weight: 900;
       display: inline-flex;
       align-items: center;
@@ -307,44 +329,44 @@
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--border);
-      border-radius: 12px;
+      border-radius: 14px;
       background: #fff;
     }
     table.bill-table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 620px;
+      min-width: 640px;
     }
     .bill-table th {
       background: var(--brand-soft);
       color: var(--brand);
-      font-size: 0.68rem;
+      font-size: 0.72rem;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.02em;
-      padding: 7px 4px;
+      padding: 10px 8px;
       text-align: left;
       border-bottom: 2px solid var(--brand-border);
       white-space: nowrap;
     }
     .bill-table td {
-      padding: 5px 4px;
+      padding: 8px 6px;
       border-bottom: 1px solid #f1f5f9;
       vertical-align: middle;
     }
     .bill-table tr:hover td { background: #fafafa; }
     .num-col { text-align: right !important; }
     .num-input {
-      width: 66px !important;
+      width: 72px !important;
       text-align: right;
       font-variant-numeric: tabular-nums;
-      padding: 6px 5px !important;
-      font-size: 0.83rem !important;
+      padding: 8px 7px !important;
+      font-size: 0.88rem !important;
     }
     .item-input {
-      min-width: 105px;
-      padding: 6px 8px !important;
-      font-size: 0.84rem !important;
+      min-width: 115px;
+      padding: 8px 10px !important;
+      font-size: 0.88rem !important;
     }
     .row-total-cell {
       font-weight: 800;
@@ -358,15 +380,15 @@
     .img-capture-box {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
     .thumb-wrap {
       position: relative;
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
       overflow: hidden;
-      border: 1px solid #cbd5e1;
+      border: 1.5px solid #cbd5e1;
       background: #f8fafc;
       flex-shrink: 0;
       cursor: pointer;
@@ -380,13 +402,13 @@
     .capture-label {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      padding: 6px 9px;
-      border-radius: 8px;
+      gap: 5px;
+      padding: 9px 12px;
+      border-radius: 10px;
       background: var(--brand-soft);
       color: var(--brand);
-      border: 1px solid var(--brand-border);
-      font-size: 0.75rem;
+      border: 1.5px solid var(--brand-border);
+      font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
       white-space: nowrap;
@@ -396,10 +418,10 @@
       border: 0;
       background: #fee2e2;
       color: #b91c1c;
-      border-radius: 6px;
-      width: 22px;
-      height: 22px;
-      font-size: 0.75rem;
+      border-radius: 8px;
+      width: 26px;
+      height: 26px;
+      font-size: 0.85rem;
       font-weight: 800;
       cursor: pointer;
       display: inline-flex;
@@ -409,18 +431,18 @@
 
     /* Highlighted Grand Total Footer */
     .grand-total-panel {
-      margin-top: 12px;
+      margin-top: 16px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 14px;
       align-items: stretch;
     }
     .bill-actions-left {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: auto;
-      padding-top: 12px;
+      margin-top: 14px;
+      padding-top: 4px;
     }
     .total-highlight-box {
       display: flex;
@@ -428,8 +450,8 @@
       justify-content: space-between;
       background: linear-gradient(135deg, var(--brand-soft) 0%, var(--brand-tint) 100%);
       border: 1.5px solid var(--brand-border);
-      border-radius: 14px;
-      padding: 12px 14px;
+      border-radius: 16px;
+      padding: 16px;
       box-shadow: 0 6px 18px rgba(234, 88, 12, 0.14);
     }
     .payment-highlight-box {
@@ -438,34 +460,34 @@
       justify-content: space-between;
       background: #f8fafc;
       border: 1.5px solid var(--border);
-      border-radius: 14px;
-      padding: 12px 14px;
+      border-radius: 16px;
+      padding: 16px;
     }
     .total-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 6px 0;
-      font-size: 0.92rem;
+      padding: 8px 0;
+      font-size: 0.94rem;
     }
     .total-row.discount-row {
       border-top: 1px dashed var(--brand-border);
       border-bottom: 1px dashed var(--brand-border);
-      padding: 9px 0;
-      margin: 4px 0;
+      padding: 11px 0;
+      margin: 6px 0;
     }
     .discount-input-wrap {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
     }
     .discount-input-wrap span {
       font-weight: 700;
       color: var(--brand);
     }
     .discount-input-wrap input {
-      width: 115px;
+      width: 120px;
       text-align: right;
       font-weight: 700;
       border: 1.5px solid var(--brand-accent);
@@ -476,7 +498,7 @@
       align-items: baseline;
       justify-content: space-between;
       gap: 12px;
-      padding-top: 8px;
+      padding-top: 10px;
     }
     .grand-final-label {
       font-size: 1.05rem;
@@ -486,7 +508,7 @@
       letter-spacing: 0.03em;
     }
     .grand-final-value {
-      font-size: 1.75rem;
+      font-size: 1.8rem;
       font-weight: 900;
       color: var(--brand);
       font-variant-numeric: tabular-nums;
@@ -496,7 +518,7 @@
     .col-list {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
     }
     .col-item {
       display: flex;
@@ -504,9 +526,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      padding: 10px 12px;
+      padding: 12px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       background: #f8fafc;
     }
     .col-item-left {
@@ -518,20 +540,29 @@
     .col-item-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+    }
+
+    /* Admin Filter Bar */
+    .saved-filters-grid {
+      display: grid;
+      grid-template-columns: minmax(140px, 1.8fr) minmax(110px, 0.9fr) minmax(130px, 1fr) auto;
+      gap: 10px;
+      margin-bottom: 14px;
+      align-items: center;
     }
 
     /* Size Chart Modal Rows */
     .size-row {
       display: grid;
       grid-template-columns: 1.3fr 1fr auto;
-      gap: 8px;
+      gap: 10px;
       align-items: center;
-      padding: 8px;
+      padding: 10px;
       border: 1px solid var(--border);
-      border-radius: 10px;
+      border-radius: 12px;
       background: #f8fafc;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
     }
 
     /* Modals */
@@ -547,58 +578,101 @@
     }
     .modal-card {
       background: #fff;
-      border-radius: 16px;
+      border-radius: 18px;
       max-width: 480px;
       width: 100%;
-      padding: 18px;
+      padding: 20px;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     }
     .modal-card img.preview-full {
       width: 100%;
       max-height: 70vh;
       object-fit: contain;
-      border-radius: 10px;
+      border-radius: 12px;
       background: #f1f5f9;
     }
 
     /* Toast */
     .toast {
       position: fixed;
-      bottom: 18px;
-      right: 18px;
+      bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+      left: 16px;
+      right: 16px;
+      max-width: 420px;
+      margin: 0 auto;
+      text-align: center;
       background: #0f172a;
       color: #fff;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-size: 0.85rem;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.88rem;
       font-weight: 600;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
       z-index: 80;
     }
 
-    /* Mobile & Tablet Compatibility */
+    /* Mobile Phone Optimization */
     @media (max-width: 768px) {
-      .container { padding: 10px; }
-      .topbar { padding: 14px; border-radius: 14px; gap: 10px; }
-      .topbar h1 { font-size: 1.12rem; }
-      .topbar p { font-size: 0.78rem; }
-      .topbar > div.no-print { width: 100%; display: grid !important; grid-template-columns: repeat(3, 1fr); gap: 6px !important; }
-      .topbar > div.no-print .btn { padding: 9px 6px; font-size: 0.76rem; }
-      .card { padding: 13px; border-radius: 14px; margin-bottom: 12px; }
-      .tabs { position: sticky; top: 6px; z-index: 30; }
-      .tab-btn { padding: 10px 8px; font-size: 0.88rem; }
+      .container { padding: 12px 12px 24px; }
+      .topbar { padding: 16px; border-radius: 16px; gap: 14px; margin-bottom: 14px; }
+      .shop-logo-img { width: 42px; height: 42px; }
+      .topbar h1 { font-size: 1.18rem; }
+      .topbar p { font-size: 0.8rem; }
+      .topbar > div.no-print {
+        width: 100%;
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px !important;
+      }
+      .topbar > div.no-print .btn {
+        padding: 10px 6px;
+        font-size: 0.78rem;
+        min-height: 42px;
+      }
+
+      .tabs {
+        position: sticky;
+        top: 6px;
+        z-index: 30;
+        gap: 8px;
+        padding: 6px;
+        margin-bottom: 14px;
+      }
+      .tab-btn { padding: 11px 10px; font-size: 0.9rem; }
+
+      .card {
+        padding: 16px;
+        border-radius: 16px;
+        margin-bottom: 16px;
+      }
+      .card-header {
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+      }
+
+      /* Comfortable single-column spacing for customer & bill fields on phone */
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      label.field-label {
+        font-size: 0.75rem;
+        margin-bottom: 7px;
+      }
       input[type="text"],
       input[type="tel"],
       input[type="date"],
       input[type="number"],
-      select {
+      select,
+      textarea {
         font-size: 16px !important;
-        min-height: 42px;
+        min-height: 44px;
+        padding: 10px 12px;
       }
-      .btn { min-height: 42px; }
-      .btn-sm { min-height: 36px; }
+      .btn { min-height: 44px; padding: 11px 14px; }
+      .btn-sm { min-height: 38px; padding: 8px 12px; }
 
-      /* Transform wide table into clean mobile cards */
+      /* Transform billing table into spacious mobile cards */
       .table-wrap { border: 0; background: transparent; overflow-x: visible; }
       table.bill-table,
       .bill-table tbody { display: block; width: 100%; min-width: 0; }
@@ -606,25 +680,25 @@
       .bill-table tr {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 8px;
-        background: #fff;
-        border: 1.5px solid var(--border);
-        border-radius: 14px;
-        padding: 12px;
-        margin-bottom: 12px;
-        box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+        gap: 12px 10px;
+        background: #ffffff;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 16px;
+        padding: 14px;
+        margin-bottom: 16px;
+        box-shadow: 0 3px 10px rgba(15, 23, 42, 0.05);
       }
       .bill-table td {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 6px;
         padding: 0;
         border-bottom: 0;
         text-align: left !important;
       }
       .bill-table td[data-label]::before {
         content: attr(data-label);
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 0.03em;
@@ -634,9 +708,14 @@
         grid-column: 1 / 2;
         flex-direction: row;
         align-items: center;
-        font-size: 0.9rem;
+        font-size: 0.96rem;
+        font-weight: 800;
       }
-      .bill-table td.col-idx::before { content: "Item #"; margin-right: 4px; color: var(--brand); }
+      .bill-table td.col-idx::before {
+        content: "Item #";
+        margin-right: 4px;
+        color: var(--brand);
+      }
       .bill-table td.col-action {
         grid-column: 2 / 3;
         align-items: flex-end;
@@ -645,36 +724,106 @@
       .bill-table td.col-item {
         grid-column: 1 / -1;
       }
-      .item-input, .num-input { width: 100% !important; min-width: 0 !important; text-align: left !important; }
+      .item-photo-name-row {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: stretch !important;
+        gap: 10px !important;
+      }
+      .item-photo-name-row .capture-label {
+        width: 100%;
+        justify-content: center;
+        min-height: 42px;
+      }
+      .bill-table td.col-size {
+        grid-column: 1 / 2;
+      }
+      .bill-table td.col-qty {
+        grid-column: 2 / 3;
+      }
+      .size-icon-btn {
+        width: 100%;
+        height: 44px;
+        gap: 6px;
+      }
+      .row-qty-select {
+        width: 100% !important;
+        min-width: 0 !important;
+      }
+      .item-input, .num-input {
+        width: 100% !important;
+        min-width: 0 !important;
+        text-align: left !important;
+      }
       .bill-table td.row-total-cell {
         grid-column: 1 / -1;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        padding-top: 8px;
+        padding-top: 12px;
         margin-top: 4px;
-        border-top: 1px dashed var(--brand-border);
-        font-size: 1rem;
+        border-top: 1.5px dashed var(--brand-border);
+        font-size: 1.08rem;
         color: var(--brand);
       }
-      .grand-total-panel { grid-template-columns: 1fr; }
-      .bill-actions-left { grid-template-columns: 1fr; }
-      .total-highlight-box { max-width: 100%; width: 100%; }
-      .bill-actions-left { width: 100%; }
-      .bill-actions-left .btn { flex: 1 1 100%; }
-      .size-row { grid-template-columns: 1fr; }
+
+      /* Summary & Payment Cards on Phone */
+      .grand-total-panel {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 18px;
+      }
+      .total-highlight-box,
+      .payment-highlight-box {
+        padding: 16px;
+        gap: 12px;
+      }
+      .total-row {
+        padding: 8px 0;
+      }
+      .discount-input-wrap input {
+        width: 125px;
+      }
+      .bill-actions-left {
+        grid-template-columns: 1fr !important;
+        gap: 10px;
+        margin-top: 14px;
+      }
+      .bill-actions-left .btn {
+        width: 100%;
+      }
+
+      /* Admin Filters & Size Chart Rows on Phone */
+      .saved-filters-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .saved-filters-grid input,
+      .saved-filters-grid select,
+      .saved-filters-grid button {
+        height: 44px !important;
+      }
+      .size-row {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 12px;
+      }
+      .col-item-actions {
+        width: 100%;
+        justify-content: flex-end;
+      }
     }
 
     /* Tablet refinement */
     @media (min-width: 769px) and (max-width: 1024px) {
-      .container { padding: 12px; }
+      .container { padding: 14px; }
       .num-input { width: 82px !important; }
       .item-input { min-width: 130px; }
     }
 
     /* Print Styling */
     @media print {
-      body { background: #fff; }
+      body { background: #fff; padding: 0; }
       .no-print { display: none !important; }
       .card { box-shadow: none; border: 1px solid #cbd5e1; }
       .topbar { background: #fff !important; color: #000 !important; border: 2px solid #000; box-shadow: none; }
@@ -688,9 +837,12 @@
   <div class="container">
     <!-- Shop Header -->
     <header class="topbar">
-      <div>
-        <h1 id="headerShopName">Tailor Billing App</h1>
-        <p id="headerShopSub">Custom Embroidery, Maggam, Pico &amp; Falls, Tassels &amp; Tailoring</p>
+      <div class="brand-title-wrap">
+        <img src="logo.png" alt="Logo" class="shop-logo-img" onerror="this.style.display='none'" />
+        <div>
+          <h1 id="headerShopName">Tailor Billing App</h1>
+          <p id="headerShopSub">Custom Embroidery, Maggam, Pico &amp; Falls, Tassels &amp; Tailoring</p>
+        </div>
       </div>
       <div class="no-print" style="display:flex; gap:8px; flex-wrap:wrap;">
         <button id="newBillBtn" type="button" class="btn btn-glass">+ New Bill</button>
@@ -714,7 +866,7 @@
             <h2 class="card-title">Customer &amp; Invoice Details</h2>
             <p class="card-sub">Fill customer details, capture item photos, and enter charges</p>
           </div>
-          <span id="billNoBadge" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:5px 11px; border-radius:999px;">Bill #INV-101</span>
+          <span id="billNoBadge" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:5px 12px; border-radius:999px;">Bill #INV-101</span>
         </div>
         <div class="form-grid">
           <div>
@@ -738,18 +890,18 @@
             <input id="billDeliveryDateInput" type="date" />
           </div>
         </div>
-        <div id="customerHistoryBanner" class="hidden" style="margin-top:10px; padding:8px 12px; border-radius:10px; background:var(--brand-soft); border:1px solid var(--brand-border); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:8px; font-size:0.8rem;">
+        <div id="customerHistoryBanner" class="hidden" style="margin-top:14px; padding:10px 14px; border-radius:12px; background:var(--brand-soft); border:1px solid var(--brand-border); display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; font-size:0.84rem;">
           <span id="customerHistoryText" style="font-weight:700; color:var(--brand);"></span>
-          <button id="viewCustomerHistoryBtn" type="button" class="btn btn-outline btn-sm" style="padding:4px 9px; font-size:0.74rem;">View Past Bills</button>
+          <button id="viewCustomerHistoryBtn" type="button" class="btn btn-outline btn-sm">View Past Bills</button>
         </div>
       </div>
 
       <!-- Dynamic Billing Grid -->
       <div class="card">
-        <div class="card-header" style="margin-bottom:8px; padding-bottom:6px;">
+        <div class="card-header">
           <div>
-            <h2 class="card-title" style="font-size:0.92rem;">Billing Items</h2>
-            <p class="card-sub" style="font-size:0.75rem;">Capture photo, enter item size chart using the ruler icon, and enter charges</p>
+            <h2 class="card-title">Billing Items</h2>
+            <p class="card-sub">Capture photo, enter item size chart using the ruler icon, and enter charges</p>
           </div>
         </div>
 
@@ -759,8 +911,8 @@
             <tbody id="billingTableBody"></tbody>
           </table>
         </div>
-        <div class="no-print" style="margin-top:8px; display:flex; justify-content:flex-start;">
-          <button id="addRowBtn" type="button" class="btn btn-primary btn-sm" style="padding:5px 11px; font-size:0.76rem;">+ Add Row</button>
+        <div class="no-print" style="margin-top:12px; display:flex; justify-content:flex-start;">
+          <button id="addRowBtn" type="button" class="btn btn-primary" style="width:100%; max-width:220px;">+ Add Item Row</button>
         </div>
 
         <!-- Bottom Balanced Summary & Payment Grid -->
@@ -770,7 +922,7 @@
             <div>
               <div class="total-row">
                 <span style="font-weight:700; color:#475569;">Items Subtotal (<span id="rowCountLabel">0</span> rows)</span>
-                <strong id="subtotalDisplay" style="font-size:1.05rem; color:#1e293b;">₹0</strong>
+                <strong id="subtotalDisplay" style="font-size:1.08rem; color:#1e293b;">₹0</strong>
               </div>
               <div class="total-row discount-row">
                 <label for="discountInput" style="font-weight:700; color:var(--brand);">Discount Amount</label>
@@ -784,7 +936,7 @@
                 <span id="grandTotalDisplay" class="grand-final-value">₹0</span>
               </div>
             </div>
-            <div class="bill-actions-left no-print" style="grid-template-columns:1fr 1fr;">
+            <div class="bill-actions-left no-print">
               <button id="shareBillWaBtn" type="button" class="btn btn-emerald" style="width:100%;">💬 Send Bill on WhatsApp</button>
               <button id="sendReadyWaBtn" type="button" class="btn btn-outline" style="width:100%;">🎉 Order Ready</button>
             </div>
@@ -792,7 +944,7 @@
 
           <!-- Right Card: Advance, Final Payment, Balance, Status & Save Bill -->
           <div class="payment-highlight-box">
-            <div style="display:flex; flex-direction:column; gap:8px;">
+            <div style="display:flex; flex-direction:column; gap:10px;">
               <div class="total-row" style="padding:2px 0;">
                 <label for="advancePaidInput" style="font-weight:700; color:#475569;">Advance Paid</label>
                 <div class="discount-input-wrap">
@@ -807,19 +959,19 @@
                   <input id="finalPaidInput" type="number" inputmode="numeric" min="0" step="1" placeholder="0" />
                 </div>
               </div>
-              <div class="total-row" style="padding:6px 0 2px; border-top:1px dashed #cbd5e1;">
+              <div class="total-row" style="padding:10px 0 4px; border-top:1px dashed #cbd5e1;">
                 <span style="font-weight:700; color:#475569;">Balance Due</span>
-                <strong id="balanceDueDisplay" style="font-size:1.1rem; color:#dc2626;">₹0</strong>
+                <strong id="balanceDueDisplay" style="font-size:1.15rem; color:#dc2626;">₹0</strong>
               </div>
               <div class="total-row" style="padding:4px 0 0;">
-                <span style="font-weight:700; color:#475569;">Bill Payment Status</span>
-                <div style="display:flex; gap:6px;">
-                  <button id="statusUnpaidBtn" type="button" class="btn btn-sm" style="border:1px solid #fecaca; background:#fef2f2; color:#dc2626;">Unpaid</button>
-                  <button id="statusPaidBtn" type="button" class="btn btn-sm" style="border:1px solid #a7f3d0; background:#ecfdf5; color:#047857;">Paid</button>
+                <span style="font-weight:700; color:#475569;">Payment Status</span>
+                <div style="display:flex; gap:8px;">
+                  <button id="statusUnpaidBtn" type="button" class="btn btn-sm" style="border:1px solid #fecaca; background:#fef2f2; color:#dc2626; min-width:78px;">Unpaid</button>
+                  <button id="statusPaidBtn" type="button" class="btn btn-sm" style="border:1px solid #a7f3d0; background:#ecfdf5; color:#047857; min-width:78px;">Paid</button>
                 </div>
               </div>
             </div>
-            <button id="saveBillBottomBtn" type="button" class="btn btn-primary no-print" style="width:100%; margin-top:12px;">💾 Save Bill</button>
+            <button id="saveBillBottomBtn" type="button" class="btn btn-primary no-print" style="width:100%; margin-top:16px;">💾 Save Bill</button>
           </div>
         </div>
       </div>
@@ -854,23 +1006,25 @@
           </div>
         </div>
 
-        <div style="margin-top:12px; padding-top:12px; border-top:1px solid #f1f5f9; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:12px;">
-          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-            <img id="adminQrPreview" src="" alt="Payment QR" class="hidden" style="width:64px; height:64px; object-fit:contain; border:1px solid #cbd5e1; border-radius:8px; background:#fff; padding:2px;" />
-            <div>
-              <div style="font-size:0.82rem; font-weight:800; color:#1e293b;">Payment QR / Scanner Image</div>
-              <div style="font-size:0.74rem; color:#64748b;">Upload or change your GPay / PhonePe QR shown on printed &amp; PNG bills</div>
+        <div style="margin-top:16px; padding-top:14px; border-top:1px solid #f1f5f9; display:flex; flex-direction:column; gap:14px;">
+          <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+            <img id="adminQrPreview" src="" alt="Payment QR" class="hidden" style="width:68px; height:68px; object-fit:contain; border:1px solid #cbd5e1; border-radius:10px; background:#fff; padding:2px;" />
+            <div style="flex:1 1 200px;">
+              <div style="font-size:0.86rem; font-weight:800; color:#1e293b;">Payment QR / Scanner Image</div>
+              <div style="font-size:0.78rem; color:#64748b; margin-top:2px;">Upload or change your GPay / PhonePe QR shown on printed &amp; PNG bills</div>
             </div>
-            <label id="uploadQrBtn" class="capture-label" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border:1px solid var(--border); border-radius:9px; background:#fff; color:#1e293b; font-size:0.8rem; font-weight:700;">
-              📷 Upload / Change QR
-              <input id="adminShopQrInput" type="file" accept="image/*" class="hidden" />
-            </label>
-            <button id="removeQrBtn" type="button" class="btn btn-danger-soft btn-sm hidden">Remove QR</button>
+            <div style="display:flex; gap:8px; flex-wrap:wrap; width:100%;">
+              <label id="uploadQrBtn" class="capture-label" style="cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 14px; border:1.5px solid #cbd5e1; border-radius:11px; background:#fff; color:#1e293b; font-size:0.84rem; font-weight:700; flex:1 1 auto;">
+                📷 Upload / Change QR
+                <input id="adminShopQrInput" type="file" accept="image/*" class="hidden" />
+              </label>
+              <button id="removeQrBtn" type="button" class="btn btn-danger-soft hidden">Remove QR</button>
+            </div>
           </div>
 
-          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
-            <button id="exportBackupBtn" type="button" class="btn btn-outline btn-sm">💾 Backup Data (.json)</button>
-            <label id="importBackupBtn" class="capture-label" style="cursor:pointer; display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border:1px solid var(--border); border-radius:9px; background:#fff; color:#1e293b; font-size:0.8rem; font-weight:700;">
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; padding-top:10px; border-top:1px dashed #e2e8f0;">
+            <button id="exportBackupBtn" type="button" class="btn btn-outline" style="flex:1 1 150px;">💾 Backup Data (.json)</button>
+            <label id="importBackupBtn" class="capture-label" style="cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px; padding:10px 14px; border:1.5px solid #cbd5e1; border-radius:11px; background:#fff; color:#1e293b; font-size:0.84rem; font-weight:700; flex:1 1 150px; min-height:44px;">
               📥 Restore Backup
               <input id="importBackupInput" type="file" accept=".json,application/json" class="hidden" />
             </label>
@@ -885,13 +1039,13 @@
             <h2 class="card-title">Manage Billing Columns</h2>
             <p class="card-sub">Tap to expand and add, rename, or remove charge columns</p>
           </div>
-          <span id="toggleColumnsArrow" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:4px 10px; border-radius:999px;">▼ Open</span>
+          <span id="toggleColumnsArrow" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:5px 11px; border-radius:999px;">▼ Open</span>
         </div>
 
         <div id="columnsManagerBody" class="hidden">
-          <form id="addColumnForm" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <form id="addColumnForm" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
             <input id="newColumnName" type="text" placeholder="New Column Name (e.g., Maggam Work)" style="flex:1 1 220px;" required />
-            <button type="submit" class="btn btn-primary">+ Add Column</button>
+            <button type="submit" class="btn btn-primary" style="flex:1 1 140px;">+ Add Column</button>
           </form>
 
           <div id="adminColumnsList" class="col-list"></div>
@@ -905,13 +1059,13 @@
             <h2 class="card-title">Manage Size Chart Options</h2>
             <p class="card-sub">Tap to expand and configure measurement dropdown options</p>
           </div>
-          <span id="toggleSizeOptionsArrow" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:4px 10px; border-radius:999px;">▼ Open</span>
+          <span id="toggleSizeOptionsArrow" style="font-size:0.82rem; font-weight:800; color:var(--brand); background:var(--brand-soft); border:1px solid var(--brand-border); padding:5px 11px; border-radius:999px;">▼ Open</span>
         </div>
 
         <div id="sizeOptionsManagerBody" class="hidden">
-          <form id="addSizeOptionForm" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px;">
+          <form id="addSizeOptionForm" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
             <input id="newSizeOptionName" type="text" placeholder="New Measurement Option (e.g., Front Neck Depth)" style="flex:1 1 220px;" required />
-            <button type="submit" class="btn btn-primary">+ Add Option</button>
+            <button type="submit" class="btn btn-primary" style="flex:1 1 140px;">+ Add Option</button>
           </form>
 
           <div id="adminSizeOptionsList" class="col-list"></div>
@@ -926,9 +1080,9 @@
             <p class="card-sub">Choose a preset colour or pick any custom colour to update the entire app</p>
           </div>
         </div>
-        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:12px;">
+        <div style="display:flex; flex-wrap:wrap; align-items:center; gap:10px;">
           <div id="themeSwatches" style="display:flex; flex-wrap:wrap; gap:8px;"></div>
-          <label style="display:inline-flex; align-items:center; gap:8px; padding:6px 12px; border:1px solid #cbd5e1; border-radius:10px; background:#f8fafc; cursor:pointer; font-size:0.84rem; font-weight:700;">
+          <label style="display:inline-flex; align-items:center; gap:8px; padding:8px 14px; border:1.5px solid #cbd5e1; border-radius:11px; background:#f8fafc; cursor:pointer; font-size:0.86rem; font-weight:700; min-height:42px;">
             <span>Custom:</span>
             <input id="customThemePicker" type="color" value="#7c2d12" style="width:32px; height:28px; border:0; background:transparent; padding:0; cursor:pointer;" />
           </label>
@@ -945,18 +1099,18 @@
           <button id="exportBillsExcelBtn" type="button" class="btn btn-emerald btn-sm no-print">📊 Export Excel</button>
         </div>
 
-        <div style="display:grid; grid-template-columns:minmax(130px, 1.8fr) minmax(100px, 0.9fr) minmax(120px, 1fr) auto; gap:8px; margin-bottom:12px; align-items:center;">
-          <input id="savedBillSearchInput" type="text" placeholder="🔍 Search Bill No. or Customer..." style="height:36px;" />
-          <select id="savedBillStatusFilter" style="height:36px; padding:6px 8px; font-size:0.84rem;">
+        <div class="saved-filters-grid">
+          <input id="savedBillSearchInput" type="text" placeholder="🔍 Search Bill No. or Customer..." />
+          <select id="savedBillStatusFilter">
             <option value="all">All Status</option>
             <option value="paid">Paid Only</option>
             <option value="unpaid">Unpaid Only</option>
           </select>
-          <input id="savedBillDateFilter" type="date" style="height:36px;" title="Filter by bill date" />
-          <button id="clearSavedFiltersBtn" type="button" class="btn btn-outline btn-sm" style="height:36px; white-space:nowrap;">Clear</button>
+          <input id="savedBillDateFilter" type="date" title="Filter by bill date" />
+          <button id="clearSavedFiltersBtn" type="button" class="btn btn-outline">Clear Filters</button>
         </div>
 
-        <div id="savedBillsSummary" style="display:flex; flex-wrap:wrap; gap:10px; padding:10px 12px; background:var(--brand-soft); border:1px solid var(--brand-border); border-radius:10px; margin-bottom:12px; font-size:0.82rem; font-weight:700; color:var(--brand);"></div>
+        <div id="savedBillsSummary" style="display:flex; flex-wrap:wrap; gap:10px; padding:12px 14px; background:var(--brand-soft); border:1px solid var(--brand-border); border-radius:12px; margin-bottom:14px; font-size:0.84rem; font-weight:700; color:var(--brand);"></div>
         <div id="savedBillsList" class="table-wrap"></div>
       </div>
     </section>
@@ -965,27 +1119,27 @@
   <!-- Per-Item Size Chart / Measurements Popup Modal -->
   <div id="sizeChartModal" class="modal-backdrop hidden no-print">
     <div class="modal-card" style="max-width:560px; max-height:90vh; overflow-y:auto;">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid #f1f5f9;">
         <div>
           <strong id="sizeChartModalTitle" style="font-size:1.05rem; color:var(--brand);">📏 Item Size Chart</strong>
-          <div style="font-size:0.76rem; color:#64748b;">Select measurement type from dropdown and enter size for this item</div>
+          <div style="font-size:0.78rem; color:#64748b; margin-top:2px;">Select measurement type and enter size</div>
         </div>
         <button id="closeSizeChartModalBtn" type="button" class="btn btn-outline btn-sm">Close</button>
       </div>
 
-      <div id="sizeChartRowsList" style="margin-bottom:10px;"></div>
-
-      <div style="margin-bottom:12px;">
-        <button id="addSizeChartRowBtn" type="button" class="btn btn-outline btn-sm" style="border-color:var(--brand-border); color:var(--brand); background:var(--brand-soft);">+ Add Row</button>
-      </div>
+      <div id="sizeChartRowsList" style="margin-bottom:12px;"></div>
 
       <div style="margin-bottom:14px;">
+        <button id="addSizeChartRowBtn" type="button" class="btn btn-outline" style="width:100%; border-color:var(--brand-border); color:var(--brand); background:var(--brand-soft);">+ Add Measurement Row</button>
+      </div>
+
+      <div style="margin-bottom:16px;">
         <label class="field-label" for="sizeChartNotesInput">Stitching / Fitting Notes for this Item (Optional)</label>
         <textarea id="sizeChartNotesInput" rows="2" placeholder="e.g., Princess cut, back open, 10 inch back neck depth, padded..."></textarea>
       </div>
 
       <div style="display:flex; justify-content:flex-end; gap:8px;">
-        <button id="doneSizeChartBtn" type="button" class="btn btn-primary">✓ Done</button>
+        <button id="doneSizeChartBtn" type="button" class="btn btn-primary" style="width:100%;">✓ Save Measurements</button>
       </div>
     </div>
   </div>
@@ -998,10 +1152,10 @@
         <button id="closePrintModalBtn" type="button" class="btn btn-outline btn-sm">Close</button>
       </div>
       <div id="printPreviewBody" style="border:1px solid #cbd5e1; border-radius:12px; padding:14px; background:#fff; margin-bottom:14px; font-size:0.85rem;"></div>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button id="tryBrowserPrintBtn" type="button" class="btn btn-dark">🖨️ Browser Print / PDF</button>
-        <button id="downloadPngBillBtn" type="button" class="btn btn-primary">🖼️ Download Bill Image (PNG)</button>
-        <button id="downloadHtmlBillBtn" type="button" class="btn btn-outline">📄 Download Printable HTML</button>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="tryBrowserPrintBtn" type="button" class="btn btn-dark" style="flex:1 1 160px;">🖨️ Browser Print / PDF</button>
+        <button id="downloadPngBillBtn" type="button" class="btn btn-primary" style="flex:1 1 160px;">🖼️ Download Bill Image (PNG)</button>
+        <button id="downloadHtmlBillBtn" type="button" class="btn btn-outline" style="flex:1 1 160px;">📄 Download Printable HTML</button>
       </div>
     </div>
   </div>
@@ -1009,7 +1163,7 @@
   <!-- Image Zoom Modal -->
   <div id="imgPreviewModal" class="modal-backdrop hidden">
     <div class="modal-card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
         <strong id="imgPreviewTitle">Item Photo</strong>
         <button id="closeImgModalBtn" type="button" class="btn btn-outline btn-sm">Close</button>
       </div>
@@ -1024,16 +1178,16 @@
         <strong>Send Bill PNG on WhatsApp</strong>
         <button id="closeWaModalBtn" type="button" class="btn btn-outline btn-sm">Close</button>
       </div>
-      <img id="waBillPngPreview" src="" alt="Bill PNG Preview" style="width:100%; border:1px solid #cbd5e1; border-radius:10px; margin-bottom:6px; background:#fff;" />
-      <p style="margin:0 0 10px; font-size:0.74rem; color:#64748b;">Bill image is saved to your <strong>Documents/TailorBilling</strong> folder. Tap <strong>Share PNG to WhatsApp</strong> below to attach it directly.</p>
-      <textarea id="waModalText" readonly rows="5" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:10px; font-size:0.82rem; margin-bottom:10px;"></textarea>
-      <div style="display:flex; gap:8px; flex-wrap:wrap;">
-        <button id="waShareNativeBtn" type="button" class="btn btn-emerald" style="flex:1 1 180px;">📤 Share PNG to WhatsApp</button>
-        <a id="waDownloadPngAgainBtn" href="#" download="bill.png" class="btn btn-primary">🖼️ Download PNG</a>
-        <button id="waPrintPdfBtn" type="button" class="btn btn-outline">🖨️ Save as PDF</button>
-        <button id="waCopyPngBtn" type="button" class="btn btn-outline">📋 Copy PNG</button>
-        <a id="waModalLink" href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">💬 Open WhatsApp Chat</a>
-        <button id="copyWaModalBtn" type="button" class="btn btn-dark">📋 Copy Text</button>
+      <img id="waBillPngPreview" src="" alt="Bill PNG Preview" style="width:100%; border:1px solid #cbd5e1; border-radius:10px; margin-bottom:8px; background:#fff;" />
+      <p style="margin:0 0 10px; font-size:0.78rem; color:#64748b;">Bill image is saved to your <strong>Documents/TailorBilling</strong> folder. Tap <strong>Share PNG to WhatsApp</strong> below to attach it directly.</p>
+      <textarea id="waModalText" readonly rows="5" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:10px; font-size:0.84rem; margin-bottom:12px;"></textarea>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button id="waShareNativeBtn" type="button" class="btn btn-emerald" style="flex:1 1 100%;">📤 Share PNG to WhatsApp</button>
+        <a id="waDownloadPngAgainBtn" href="#" download="bill.png" class="btn btn-primary" style="flex:1 1 140px;">🖼️ Download PNG</a>
+        <button id="waPrintPdfBtn" type="button" class="btn btn-outline" style="flex:1 1 140px;">🖨️ Save as PDF</button>
+        <button id="waCopyPngBtn" type="button" class="btn btn-outline" style="flex:1 1 140px;">📋 Copy PNG</button>
+        <a id="waModalLink" href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="flex:1 1 140px;">💬 Open WhatsApp Chat</a>
+        <button id="copyWaModalBtn" type="button" class="btn btn-dark" style="flex:1 1 140px;">📋 Copy Text</button>
       </div>
     </div>
   </div>
@@ -1423,11 +1577,11 @@
         '<tr>' +
           '<th style="width:28px;">#</th>' +
           '<th style="min-width:165px;">Item &amp; Photo</th>' +
-          '<th class="no-print" style="width:44px; text-align:center;">Size</th>' +
-          '<th style="width:52px; text-align:center;">Qty</th>' +
+          '<th class="no-print" style="width:48px; text-align:center;">Size</th>' +
+          '<th style="width:56px; text-align:center;">Qty</th>' +
           colHeaders +
           '<th class="num-col">Row Total</th>' +
-          '<th class="no-print" style="width:46px; text-align:center;">Del</th>' +
+          '<th class="no-print" style="width:48px; text-align:center;">Del</th>' +
         '</tr>';
 
       tbody.innerHTML = state.currentBill.rows
@@ -1456,7 +1610,7 @@
                 '<button type="button" class="img-remove-btn no-print" data-clear-img="' + row.id + '" title="Remove photo">&times;</button>' +
               '</div>'
             : '<label class="capture-label no-print">' +
-                '📷 Capture' +
+                '📷 Capture Photo' +
                 '<input type="file" accept="image/*" capture="environment" class="hidden row-img-input" data-row-id="' + row.id + '" />' +
               '</label>';
 
@@ -1474,15 +1628,15 @@
             '<tr>' +
               '<td class="col-idx" style="font-weight:700; color:#64748b;">' + (idx + 1) + '</td>' +
               '<td class="col-item" data-label="Item &amp; Photo">' +
-                '<div style="display:flex; align-items:center; gap:6px; flex-wrap:nowrap;">' +
+                '<div class="item-photo-name-row" style="display:flex; align-items:center; gap:8px;">' +
                   '<div style="flex:0 0 auto;">' + imgHtml + '</div>' +
                   '<input type="text" class="item-input row-name-input" data-row-id="' + row.id + '" ' +
-                    'value="' + escapeHtml(row.itemName) + '" placeholder="e.g., Red Saree / Blouse" style="flex:1 1 105px; min-width:95px;" />' +
+                    'value="' + escapeHtml(row.itemName) + '" placeholder="e.g., Red Saree / Blouse" style="flex:1 1 115px;" />' +
                 '</div>' +
               '</td>' +
-              '<td class="no-print" data-label="Size Chart" style="text-align:center;">' +
+              '<td class="col-size no-print" data-label="Size Chart" style="text-align:center;">' +
                 '<button type="button" class="size-icon-btn open-row-size-btn" data-row-id="' + row.id + '" title="Open Size Chart for Item #' + (idx + 1) + '">' +
-                  '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">' +
+                  '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">' +
                     '<path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/>' +
                     '<path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/>' +
                   '</svg>' +
@@ -1490,7 +1644,7 @@
                 '</button>' +
               '</td>' +
               '<td class="col-qty" data-label="Qty">' +
-                '<select class="row-qty-select" data-row-id="' + row.id + '" style="width:52px; min-width:50px; text-align:center; padding:6px 3px; font-size:0.83rem;">' +
+                '<select class="row-qty-select" data-row-id="' + row.id + '" style="width:56px; text-align:center; padding:8px 4px; font-size:0.86rem;">' +
                   qtyOpts +
                 '</select>' +
               '</td>' +
@@ -1616,7 +1770,7 @@
       document.getElementById('themeSwatches').innerHTML = THEME_PRESETS.map(function (t) {
         var active = t.hex.toLowerCase() === currentTheme;
         return (
-          '<button type="button" class="theme-swatch-btn" data-theme-hex="' + t.hex + '" style="display:inline-flex; align-items:center; gap:6px; padding:7px 12px; border-radius:10px; border:' + (active ? '2px solid #0f172a' : '1px solid #cbd5e1') + '; background:#fff; font-size:0.82rem; font-weight:700; cursor:pointer;">' +
+          '<button type="button" class="theme-swatch-btn" data-theme-hex="' + t.hex + '" style="display:inline-flex; align-items:center; gap:7px; padding:8px 13px; border-radius:11px; border:' + (active ? '2px solid #0f172a' : '1.5px solid #cbd5e1') + '; background:#fff; font-size:0.84rem; font-weight:700; cursor:pointer; min-height:42px;">' +
             '<span style="width:16px; height:16px; border-radius:999px; background:' + t.hex + '; display:inline-block;"></span>' +
             '<span>' + t.name + '</span>' +
           '</button>'
@@ -1676,7 +1830,7 @@
 
       var savedList = document.getElementById('savedBillsList');
       if (!filteredBills.length) {
-        savedList.innerHTML = '<div style="padding:18px; text-align:center; color:#64748b; font-size:0.86rem;">No saved bills match the current filters.</div>';
+        savedList.innerHTML = '<div style="padding:20px; text-align:center; color:#64748b; font-size:0.88rem;">No saved bills match the current filters.</div>';
       } else {
         var rowsHtml = filteredBills
           .map(function (b) {
@@ -1689,11 +1843,11 @@
                 '<td data-label="Bill No" style="font-weight:800; color:var(--brand); white-space:nowrap;">' + escapeHtml(b.billNo) + '</td>' +
                 '<td data-label="Date" style="white-space:nowrap; color:#475569;">' +
                   '<div>' + escapeHtml(b.date) + '</div>' +
-                  (b.deliveryDate ? '<div style="font-size:0.7rem; color:#0369a1; font-weight:700;">Due: ' + escapeHtml(b.deliveryDate) + '</div>' : '') +
+                  (b.deliveryDate ? '<div style="font-size:0.74rem; color:#0369a1; font-weight:700;">Due: ' + escapeHtml(b.deliveryDate) + '</div>' : '') +
                 '</td>' +
                 '<td data-label="Customer">' +
                   '<div style="font-weight:700; color:#0f172a;">' + escapeHtml(b.customerName || 'Walk-in') + '</div>' +
-                  (b.customerPhone ? '<div style="font-size:0.74rem; color:#64748b;">' + escapeHtml(b.customerPhone) + '</div>' : '') +
+                  (b.customerPhone ? '<div style="font-size:0.78rem; color:#64748b;">' + escapeHtml(b.customerPhone) + '</div>' : '') +
                 '</td>' +
                 '<td data-label="Total" class="num-col" style="font-weight:700; white-space:nowrap;">' + formatINR(b.grandTotal) + '</td>' +
                 '<td data-label="Advance" class="num-col" style="white-space:nowrap; color:#475569;">' + formatINR(adv) + '</td>' +
@@ -1701,14 +1855,14 @@
                 '<td data-label="Balance" class="num-col" style="font-weight:800; white-space:nowrap; color:' + (bal === 0 ? '#047857' : '#dc2626') + ';">' + formatINR(bal) + '</td>' +
                 '<td data-label="Status" style="text-align:center;">' +
                   '<button type="button" class="btn btn-sm toggle-saved-status-btn" data-bill-id="' + b.id + '" title="Click to toggle Paid / Unpaid" ' +
-                    'style="padding:3px 9px; font-size:0.72rem; border-radius:999px; font-weight:800; ' + (isPaid ? 'background:#dcfce7; color:#166534; border:1px solid #86efac;' : 'background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;') + '">' +
+                    'style="padding:5px 12px; font-size:0.76rem; border-radius:999px; font-weight:800; ' + (isPaid ? 'background:#dcfce7; color:#166534; border:1px solid #86efac;' : 'background:#fee2e2; color:#991b1b; border:1px solid #fca5a5;') + '">' +
                     (isPaid ? 'PAID' : 'UNPAID') +
                   '</button>' +
                 '</td>' +
                 '<td data-label="Actions" style="text-align:center; white-space:nowrap;">' +
-                  '<div style="display:inline-flex; gap:4px;">' +
-                    '<button type="button" class="btn btn-outline btn-sm load-saved-bill-btn" data-bill-id="' + b.id + '" style="padding:4px 8px; font-size:0.74rem;">📂 Load</button>' +
-                    '<button type="button" class="btn btn-danger-soft btn-sm delete-saved-bill-btn" data-bill-id="' + b.id + '" style="padding:4px 7px; font-size:0.74rem;">🗑️</button>' +
+                  '<div style="display:inline-flex; gap:8px;">' +
+                    '<button type="button" class="btn btn-outline btn-sm load-saved-bill-btn" data-bill-id="' + b.id + '">📂 Load</button>' +
+                    '<button type="button" class="btn btn-danger-soft btn-sm delete-saved-bill-btn" data-bill-id="' + b.id + '">🗑️</button>' +
                   '</div>' +
                 '</td>' +
               '</tr>'
@@ -2891,7 +3045,6 @@
       if (cap && cap.isNativePlatform && cap.isNativePlatform() && Filesystem && Share) {
         var base64Data = canvas.toDataURL('image/png').split(',')[1];
 
-        // 1. Save permanent PNG copy into Internal Storage / Documents / TailorBilling
         return Filesystem.writeFile({
           path: 'TailorBilling/' + fileName,
           data: base64Data,
@@ -2900,7 +3053,6 @@
         })
           .catch(function () {})
           .then(function () {
-            // 2. Write temporary copy to CACHE so FileProvider exposes a valid content:// URI
             return Filesystem.writeFile({
               path: fileName,
               data: base64Data,
@@ -2908,7 +3060,6 @@
             });
           })
           .then(function (cached) {
-            // 3. Pass files: [cached.uri] so Android attaches the PNG image to WhatsApp
             return Share.share({
               title: state.shop.name + ' - ' + state.currentBill.billNo,
               text: msg,
