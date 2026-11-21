@@ -23,41 +23,57 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Verify www/index.html exists
+      - name: Verify www/index.html & Prepare Icon Asset
         run: |
-          mkdir -p www
+          mkdir -p www assets
           if [ -f "index.html" ] && [ ! -f "www/index.html" ]; then
             cp index.html www/index.html
           fi
-          if [ ! -s "www/index.html" ]; then
-            echo "ERROR: www/index.html is missing or empty!"
-            exit 1
-          fi
-          ls -lh www/index.html
 
-      - name: Initialize Capacitor & Configure WebView
+          # Find logo.png in either root or www/ and copy it to assets/logo.png
+          if [ -f "logo.png" ]; then
+            cp logo.png assets/logo.png
+            cp logo.png www/logo.png
+          elif [ -f "www/logo.png" ]; then
+            cp www/logo.png assets/logo.png
+          fi
+
+          ls -la www/ assets/
+
+      - name: Initialize Capacitor & Add Android
         run: |
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/filesystem @capacitor/share
+          npm install @capacitor/core @capacitor/cli @capacitor/android @capacitor/filesystem @capacitor/share @capacitor/assets
+          npx cap init "Tailor Billing App" "com.tailorbilling.app" --web-dir www
+          npx cap add android
+
+      - name: Generate App Icon & Configure Android Settings
+        run: |
+          if [ -f "assets/logo.png" ]; then
+            npx capacitor-assets generate --android --iconBackgroundColor '#7c2d12' --iconBackgroundColorDark '#5c1f0a'
+          else
+            echo "WARNING: assets/logo.png not found!"
+          fi
+
           cat << 'EOF' > capacitor.config.json
           {
             "appId": "com.tailorbilling.app",
             "appName": "Tailor Billing App",
             "webDir": "www",
+            "bundledWebRuntime": false,
             "server": {
-              "androidScheme": "http",
+              "androidScheme": "https",
+              "cleartext": true,
               "allowNavigation": ["*"]
             },
             "android": {
-              "allowMixedContent": true
+              "allowMixedContent": true,
+              "webContentsDebuggingEnabled": true
             }
           }
           EOF
-          npx cap add android
 
-      - name: Configure Storage Permissions, FileProvider & TailorBilling Folder
-        run: |
-          sed -i 's/<application/<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" \/>\n    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" \/>\n    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" \/>\n    <application/' android/app/src/main/AndroidManifest.xml
+          sed -i 's/<application/<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" \/>\n    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="29" \/>\n    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" \/>\n    <application android:usesCleartextTraffic="true"/' android/app/src/main/AndroidManifest.xml
 
           mkdir -p android/app/src/main/res/xml
           cat << 'EOF' > android/app/src/main/res/xml/file_paths.xml
@@ -90,9 +106,8 @@ jobs:
               }
           }
           EOF
-          npx cap copy android
+
           npx cap sync android
-          ls -lh android/app/src/main/assets/public/index.html
 
       - name: Build Debug APK
         run: |
