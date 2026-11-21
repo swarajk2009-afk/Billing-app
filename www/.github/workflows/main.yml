@@ -29,10 +29,16 @@ jobs:
           if [ -f "index.html" ] && [ ! -f "www/index.html" ]; then
             cp index.html www/index.html
           fi
-          if [ -f "logo.png" ] && [ ! -f "www/logo.png" ]; then
+
+          # Find logo.png in either root or www/ and copy it to assets/logo.png
+          if [ -f "logo.png" ]; then
+            cp logo.png assets/logo.png
             cp logo.png www/logo.png
+          elif [ -f "www/logo.png" ]; then
+            cp www/logo.png assets/logo.png
           fi
-          ls -la www/ 
+
+          ls -la www/ assets/
 
       - name: Initialize Capacitor & Add Android
         run: |
@@ -43,8 +49,10 @@ jobs:
 
       - name: Generate App Icon & Configure Android Settings
         run: |
-          if [ -f "logo.png" ]; then
+          if [ -f "assets/logo.png" ]; then
             npx capacitor-assets generate --android --iconBackgroundColor '#7c2d12' --iconBackgroundColorDark '#5c1f0a'
+          else
+            echo "WARNING: assets/logo.png not found!"
           fi
 
           cat << 'EOF' > capacitor.config.json
